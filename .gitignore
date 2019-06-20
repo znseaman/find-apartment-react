@@ -1,0 +1,6 @@
+/client
+node_modules
+
+# Ignore vpp file types
+*.vpp
+*.vpp.bak_000f
