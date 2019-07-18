@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
-import "./SimpleMap.css";
-import Listing from "./Listings/Listing/Listing";
+import Listing from "../Listings/Listing/Listing";
 
 /* Boilerplate for Leaflet to work in React */
 import "leaflet/dist/leaflet.css";
@@ -90,7 +89,11 @@ export default class SimpleMap extends Component {
 				  });
 
 		return (
-			<Map center={center} zoom={this.state.zoom}>
+			<Map
+				center={center}
+				zoom={this.state.zoom}
+				style={{ width: "100%" }}
+			>
 				<TileLayer
 					attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"

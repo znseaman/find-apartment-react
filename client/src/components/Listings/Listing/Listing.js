@@ -1,12 +1,9 @@
 import React from "react";
-// TODO: find out why css-modules aren't working
-// import styles from "./Listing.css"
-// styles.Listing
-import "./Listing.css";
+import classes from "./Listing.module.css";
 
 export default function Listing(props) {
 	return (
-		<article className="Listing">
+		<article className={classes.Listing}>
 			<header>
 				<h1>{props.title}</h1>
 				<h3>{props.date.toLocaleDateString("en-US")}</h3>

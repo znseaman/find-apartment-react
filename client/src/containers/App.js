@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./App.css";
+import classes from "./App.module.css";
 
 import Listings from "../components/Listings/Listings";
-import SimpleMap from "../components/SimpleMap";
+import SimpleMap from "../components/SimpleMap/SimpleMap";
 
 class App extends Component {
 	state = {
@@ -60,8 +60,8 @@ class App extends Component {
 		}
 
 		return (
-			<div className="App">
-				<header className="App-header">{toRender}</header>
+			<div className={classes.App}>
+				<header className={classes["App-header"]}>{toRender}</header>
 			</div>
 		);
 	}
