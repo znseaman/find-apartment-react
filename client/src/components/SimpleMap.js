@@ -3,6 +3,7 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import "./SimpleMap.css";
 import Listing from "./Listing";
 
+/* Boilerplate for Leaflet to work in React */
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
