@@ -33,7 +33,7 @@ app.delete("/listings/:id", db.deleteListing);
 // TODO: move this to another file
 // run at 7:00 am everyday
 // const cronExp = "0 0 7 * * *";
-const cronExp = "0 04 8 * * *";
+const cronExp = "50 37 14 * * *";
 new CronJob(
 	cronExp,
 	async function() {
