@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
-import Listing from "../Listings/Listing/Listing";
 
 /* Boilerplate for Leaflet to work in React */
 import "leaflet/dist/leaflet.css";
@@ -22,6 +21,7 @@ export default class SimpleMap extends Component {
 		listings: []
 	};
 
+	/* TODO: use `useListings` hook */
 	async componentDidMount() {
 		const listings = await fetch("http://localhost:9000/listings")
 			.then(response => response.json())
