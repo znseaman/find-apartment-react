@@ -57,8 +57,7 @@ const App = () => {
 	return (
 		<div className={classes.App}>
 			<header className={classes["App-header"]}>
-				<Layout></Layout>
-				{view}
+				<Layout>{view}</Layout>
 			</header>
 		</div>
 	);

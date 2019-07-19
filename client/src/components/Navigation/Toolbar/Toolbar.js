@@ -8,7 +8,7 @@ const Toolbar = () => {
 	return (
 		<header className={classes.Toolbar}>
 			<Menu></Menu>
-			<nav style={{ width: "100%" }}>
+			<nav>
 				<NavigationItems></NavigationItems>
 			</nav>
 		</header>

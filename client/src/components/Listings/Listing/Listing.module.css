@@ -3,6 +3,8 @@
 	max-width: 95%;
 	margin: 1rem;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+	background: white;
+	position: relative;
 }
 
 .card__image {
@@ -15,5 +17,15 @@
 
 img {
 	width: 100%;
-	border-radius: 5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+	font-size: 15px;
+	/* font-weight: 400; */
+	margin: 0;
+	color: #535362;
 }
