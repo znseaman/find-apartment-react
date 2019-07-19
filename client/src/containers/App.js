@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import classes from "./App.module.css";
 
+import Layout from "../hoc/Layout/Layout";
+
 import Listings from "../components/Listings/Listings";
 import SimpleMap from "../components/SimpleMap/SimpleMap";
 
@@ -61,7 +63,10 @@ class App extends Component {
 
 		return (
 			<div className={classes.App}>
-				<header className={classes["App-header"]}>{toRender}</header>
+				<header className={classes["App-header"]}>
+					<Layout></Layout>
+					{/* {toRender} */}
+				</header>
 			</div>
 		);
 	}
