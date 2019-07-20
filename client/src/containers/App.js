@@ -9,12 +9,13 @@ import SimpleMap from "../components/SimpleMap/SimpleMap";
 const App = () => {
 	const [viewType] = useState("list");
 
-	const view = viewType === "map" ? <SimpleMap /> : <Listings></Listings>;
+	const hasMap = viewType === "map";
+	const view = hasMap ? <SimpleMap /> : <Listings></Listings>;
 
 	return (
 		<div className={classes.App}>
 			<header className={classes["App-header"]}>
-				<Layout>{view}</Layout>
+				<Layout hasMap={hasMap}>{view}</Layout>
 			</header>
 		</div>
 	);

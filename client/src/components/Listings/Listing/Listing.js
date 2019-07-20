@@ -11,23 +11,19 @@ export default function Listing(props) {
 					whiteSpace: "nowrap"
 				}}
 			>
-				<b>
-					<p>{props.title}</p>
-				</b>
-				{/* <h3>{props.date.toLocaleDateString("en-US")}</h3> */}
+				<p className={classes["Listing-title"]}>{props.title}</p>
 			</header>
 			<div>
 				<img src={props.img} alt="" />
 			</div>
 			<div style={{ padding: "1rem" }}>
-				{/* <h3>{`${props.lat}, ${props.lng}`}</h3> */}
 				<p>{props.description}</p>
 			</div>
 			<div>
 				<button>Favorite</button>
 			</div>
 			<a
-				href="#"
+				href=""
 				aria-label="Delete Listing"
 				style={{
 					textDecoration: "none",
@@ -37,6 +33,7 @@ export default function Listing(props) {
 					right: "0",
 					padding: "0 .25rem"
 				}}
+				onClick={() => props.clicked(props.id)}
 			>
 				&times;
 			</a>

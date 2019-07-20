@@ -7,6 +7,12 @@
 	position: relative;
 }
 
+.Listing-title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .card__image {
 	width: 100%;
 }
