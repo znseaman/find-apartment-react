@@ -49,6 +49,7 @@
 
 img {
 	width: 100%;
+	max-height: 240px; /* Fixes photos coming in vertical and making cards too long */
 }
 
 h1,
