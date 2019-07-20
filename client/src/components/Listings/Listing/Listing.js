@@ -17,7 +17,12 @@ export default function Listing(props) {
 				<img src={props.img} alt="" />
 			</div>
 			<div style={{ padding: "1rem" }}>
-				<p>{props.description}</p>
+				<p
+					className={classes["Listing-description"]}
+					style={{ "-webkit-box-orient": "vertical" }}
+				>
+					{props.description}
+				</p>
 			</div>
 			<div>
 				<button>Favorite</button>

@@ -1,3 +1,9 @@
+:root {
+	--font-size: 15px;
+	--line-height: 1.2;
+	--lines-to-show: 3;
+}
+
 .Listing {
 	width: 20rem;
 	max-width: 95%;
@@ -9,6 +15,26 @@
 
 .Listing-title {
 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.Listing-description {
+	/* 
+		Pure CSS multiline text with ellipsis
+		https://codepen.io/martinwolf/pen/qlFdp
+	*/
+	display: block; /* Fallback for non-webkit */
+	display: -webkit-box;
+	max-width: 400px;
+	height: calc(
+		var(--font-size) * var(--line-height) * var(--lines-to-show)
+	); /* Fallback for non-webkit */
+	margin: 0 auto;
+	font-size: var(--font-size);
+	line-height: var(--line-height);
+	-webkit-line-clamp: var(--lines-to-show);
+	-webkit-box-orient: vertical; /* This part in Chrome seems to always get ignored... requires adding it to the `style` tag itself at the moment */
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
