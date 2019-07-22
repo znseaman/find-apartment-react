@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default useListings => {
+export default () => {
 	const [listings, setListings] = useState([]);
 
 	useEffect(() => {
