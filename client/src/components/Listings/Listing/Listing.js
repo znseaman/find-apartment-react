@@ -10,7 +10,7 @@ export default function Listing(props) {
 	const humanized = formatDistanceStrict(new Date(postedAt), Date.now());
 
 	const carousel = (
-		<Carousel showThumbs={false}>
+		<Carousel showThumbs={false} dynamicHeight={true}>
 			{imageUrls.split(",").map(img => (
 				<div>
 					<img src={img} alt="" />
