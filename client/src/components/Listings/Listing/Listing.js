@@ -1,14 +1,23 @@
 import React from "react";
 import { formatDistanceStrict } from "date-fns";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 import classes from "./Listing.module.css";
 
 export default function Listing(props) {
-	const { id, title, description, postedAt, clicked } = props;
-
-	// use 1st image from the imageUrls
-	const [img] = props.imageUrls.split(",");
+	const { id, title, description, postedAt, imageUrls, clicked } = props;
 
 	const humanized = formatDistanceStrict(new Date(postedAt), Date.now());
+
+	const carousel = (
+		<Carousel showThumbs={false}>
+			{imageUrls.split(",").map(img => (
+				<div>
+					<img src={img} alt="" />
+				</div>
+			))}
+		</Carousel>
+	);
 
 	return (
 		<article className={classes.Listing}>
@@ -22,9 +31,7 @@ export default function Listing(props) {
 			>
 				<p className={classes["Listing-title"]}>{title}</p>
 			</header>
-			<div>
-				<img src={img} alt="" />
-			</div>
+			<div>{carousel}</div>
 			<div style={{ padding: ".5rem 1rem" }}>
 				<p
 					className={classes["Listing-description"]}
