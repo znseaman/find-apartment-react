@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 9000;
 const db = require("./database/queries");
+const axios = require("axios");
 
 const sequelize = require("./utils/database");
 const Listing = require("./models/listing");
@@ -30,16 +31,33 @@ app.delete("/listings/:id", db.deleteListing);
 // app.put("/users/:id", db.updateUser);
 // app.delete("/users/:id", db.deleteUser);
 
-const fetchDataFromCraigslist = require("./crons/fetchFromCraigslist");
-/*
+const scrapeListings = require("./crons/scrapeCraigslist");
+/**
  * Fetch listings data from craigslist
  *
  * Example cron expression:
  * run at 7:00 am everyday
  * const cronExp = "0 0 7 * * *";
  */
-const cronExp = "50 04 19 * * *";
-new CronJob(cronExp, fetchDataFromCraigslist, null, true, "America/Vancouver");
+const cronExp = "20 22 23 * * *";
+new CronJob(cronExp, scrapeListings, null, true, "America/Vancouver");
+
+/**
+ * Fetch status of listings and delete them if they have been deleted or flagged
+ *
+ */
+const fetchStatusFromCraigslist = require("./crons/fetchStatusFromCraigslist");
+const cron = "20 22 23 * * *";
+new CronJob(
+	cron,
+	async function() {
+		const listings = await Listing.findAll();
+		await fetchStatusFromCraigslist(listings);
+	},
+	null,
+	true,
+	"America/Vancouver"
+);
 
 Listing.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 User.hasMany(Listing);
