@@ -46,13 +46,12 @@ new CronJob(cronExp, scrapeListings, null, true, "America/Vancouver");
  * Fetch status of listings and delete them if they have been deleted or flagged
  *
  */
-const fetchStatusFromCraigslist = require("./crons/fetchStatusFromCraigslist");
-const cron = "20 22 23 * * *";
+const heartbeatListings = require("./crons/heartbeatCraigslist");
 new CronJob(
 	cron,
 	async function() {
 		const listings = await Listing.findAll();
-		await fetchStatusFromCraigslist(listings);
+		await heartbeatListings(listings);
 	},
 	null,
 	true,

@@ -1,6 +1,6 @@
 const Listing = require("../models/listing");
 
-const fetchDataFromCraigslist = async () => {
+const scrapeCraigslist = async () => {
 	console.log("Getting data from craigslist...");
 	// TODO: instead of getting these from data, have them come from the DB
 	const PolygonLookup = require("polygon-lookup");
@@ -37,7 +37,7 @@ const fetchDataFromCraigslist = async () => {
 
 			const { description, pid, title, url, images, postedAt } = details;
 
-			const regex = new RegExp(`no pets`, "i");
+			const regex = new RegExp(`no pet`, "i");
 
 			// has images & there's no mention of no pets
 			if (images && !regex.test(description)) {
@@ -89,6 +89,7 @@ const fetchDataFromCraigslist = async () => {
 			}
 		}
 	}
+	}
 };
 
-module.exports = fetchDataFromCraigslist;
+module.exports = scrapeCraigslist;

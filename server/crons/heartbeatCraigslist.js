@@ -11,7 +11,7 @@ function wasDeleted(html) {
 	return regex.test(html);
 }
 
-const fetchStatusFromCraigslist = async (listings, deleteFunc) => {
+const heartbeatCraigslist = async (listings, deleteFunc) => {
 	console.log("--------------");
 	console.log(
 		`Starting check for deleted / flagged listings for ${listings.length} listings on craigslist...`
@@ -42,4 +42,4 @@ const fetchStatusFromCraigslist = async (listings, deleteFunc) => {
 	console.log("--------------");
 };
 
-module.exports = fetchStatusFromCraigslist;
+module.exports = heartbeatCraigslist;
