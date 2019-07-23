@@ -4,7 +4,19 @@ import classes from "./Listing.module.css";
 import Carousel from "../../Carousel/Carousel";
 
 export default function Listing(props) {
-	const { id, title, description, postedAt, imageUrls, clicked, url } = props;
+	const {
+		id,
+		title,
+		description,
+		postedAt,
+		imageUrls,
+		clicked,
+		url,
+		price,
+		beds,
+		baths,
+		size
+	} = props;
 
 	const humanized = formatDistanceStrict(new Date(postedAt), Date.now());
 
@@ -19,6 +31,25 @@ export default function Listing(props) {
 		window.open(url, "_blank");
 	};
 
+	const formatPrice = price => {
+		return `$${price.toLocaleString("en")}`;
+	};
+
+	const formatBedsBaths = (beds, baths) => {
+		return `${beds} BR / ${baths} Ba`;
+	};
+
+	const formatSize = size => {
+		const regexSq = /\d$/;
+		const formatted = size.replace(regexSq, "");
+		return (
+			<>
+				<span>{formatted}</span>
+				<sup>2</sup>
+			</>
+		);
+	};
+
 	return (
 		<article className={classes.Listing}>
 			<header
@@ -29,7 +60,14 @@ export default function Listing(props) {
 					whiteSpace: "nowrap"
 				}}
 			>
-				<p className={classes["Listing-title"]}>{title}</p>
+				<p className={classes["Listing-title"]}>
+					{formatPrice(price) +
+						` - ` +
+						formatBedsBaths(beds, baths) +
+						` - `}
+					{formatSize(size)}
+					{` - ` + title}
+				</p>
 			</header>
 			{carousel}
 			<div style={{ padding: ".5rem 1rem" }}>

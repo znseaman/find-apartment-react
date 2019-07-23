@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 
 const sequelize = require("../utils/database");
-const { INTEGER, STRING, DOUBLE, TEXT, DATE, GEOMETRY } = Sequelize;
+const { INTEGER, STRING, DOUBLE, TEXT, DATE, GEOMETRY, FLOAT } = Sequelize;
 const Listing = sequelize.define("listing", {
 	id: {
 		type: INTEGER,
@@ -29,7 +29,12 @@ const Listing = sequelize.define("listing", {
 	point: GEOMETRY("POINT", 4326),
 	zoom: INTEGER,
 	postedAt: DATE,
-	polygon_name: STRING
+	polygon_name: STRING,
+	price: INTEGER,
+	beds: INTEGER,
+	baths: FLOAT,
+	size: STRING,
+	amenities: STRING
 });
 
 module.exports = Listing;

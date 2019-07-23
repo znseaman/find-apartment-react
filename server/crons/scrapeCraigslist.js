@@ -65,6 +65,16 @@ const scrapeCraigslist = async () => {
 					});
 
 					if (!exists) {
+						// Reach out to the original posting url to get additional data (# br / # ba, price, amenities, etc.)
+						const fetchData = require("../utils/fetchData");
+						const {
+							price,
+							beds,
+							baths,
+							size,
+							amenities
+						} = await fetchData(url);
+
 						// clean description before entering into the DB
 						const desc = description.replace(
 							"QR Code Link to This Post",
@@ -83,7 +93,12 @@ const scrapeCraigslist = async () => {
 						zoom,
 						postedAt,
 						polygon_name,
-						userId: 1
+							userId: 1,
+							price,
+							beds,
+							baths,
+							size,
+							amenities
 					});
 				}
 			}
