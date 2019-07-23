@@ -56,6 +56,17 @@ const fetchDataFromCraigslist = async () => {
 							properties: { name: "EPSG:4326" }
 						}
 					};
+
+					// check whether the pid is not unique in the listings table
+					const notUnique = await Listing.findOne({
+						where: {
+							pid
+						}
+					});
+
+					if (notUnique) {
+						break;
+					}
 					Listing.create({
 						description,
 						pid,
