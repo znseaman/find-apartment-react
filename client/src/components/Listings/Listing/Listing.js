@@ -63,7 +63,10 @@ export default function Listing(props) {
 					right: "0",
 					padding: "0 .25rem"
 				}}
-				onClick={() => clicked(id)}
+				onClick={event => {
+					event.preventDefault();
+					clicked(id);
+				}}
 			>
 				&times;
 			</a>

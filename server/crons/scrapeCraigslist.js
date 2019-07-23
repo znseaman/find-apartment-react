@@ -58,15 +58,15 @@ const fetchDataFromCraigslist = async () => {
 					};
 
 					// check whether the pid is not unique in the listings table
-					const notUnique = await Listing.findOne({
+					const exists = await Listing.findOne({
 						where: {
 							pid
 						}
 					});
 
-					if (notUnique) {
-						break;
-					}
+					if (!exists) {
+						console.log("**********");
+						console.log("Goes past this...");
 					Listing.create({
 						description,
 						pid,
