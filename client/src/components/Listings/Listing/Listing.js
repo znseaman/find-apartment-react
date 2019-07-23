@@ -4,7 +4,7 @@ import classes from "./Listing.module.css";
 import Carousel from "../../Carousel/Carousel";
 
 export default function Listing(props) {
-	const { id, title, description, postedAt, imageUrls, clicked } = props;
+	const { id, title, description, postedAt, imageUrls, clicked, url } = props;
 
 	const humanized = formatDistanceStrict(new Date(postedAt), Date.now());
 
@@ -14,6 +14,10 @@ export default function Listing(props) {
 			dynamicHeight={true}
 		></Carousel>
 	);
+
+	const openLink = url => {
+		window.open(url, "_blank");
+	};
 
 	return (
 		<article className={classes.Listing}>
@@ -37,7 +41,7 @@ export default function Listing(props) {
 				</p>
 			</div>
 			<div style={{ padding: "1rem 1rem" }}>
-				<button>Details</button>
+				<button onClick={() => openLink(url)}>Details</button>
 				<button>Favorite</button>
 			</div>
 			<p
