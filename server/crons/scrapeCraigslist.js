@@ -65,10 +65,14 @@ const fetchDataFromCraigslist = async () => {
 					});
 
 					if (!exists) {
-						console.log("**********");
-						console.log("Goes past this...");
+						// clean description before entering into the DB
+						const desc = description.replace(
+							"QR Code Link to This Post",
+							""
+						);
+
 					Listing.create({
-						description,
+							description: desc,
 						pid,
 						title,
 						url,
