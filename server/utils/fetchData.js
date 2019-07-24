@@ -45,12 +45,17 @@ const fetchData = async url => {
 		.get()
 		.join(", ");
 
+	const image = $(
+		"body > section > section > section > figure > div > div > div > div > img"
+	).attr("src");
+
 	return {
 		price,
 		beds,
 		baths,
 		size,
-		amenities
+		amenities,
+		image
 	};
 };
 

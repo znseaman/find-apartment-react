@@ -19,12 +19,17 @@ const scrapeCraigslist = async (logging = false) => {
 		})) || [];
 
 	// loop through each listing
-	for (const listing of listings) {
+	for (const [i, listing] of listings.entries()) {
+		/**
+		 * {category, date, hasPic, location, pid, price, title, url} = listing
+		 */
 		const details =
 			(await client.details(listing).catch(error => {
 				console.error(error);
 			})) || {};
-
+		/**
+		 * {description, mapUrl, pid, replyUrl, title, url, postedAt, images, attributes} = details
+		 */
 		const { mapUrl } = details;
 		if (!mapUrl) {
 			continue;
@@ -53,9 +58,6 @@ const scrapeCraigslist = async (logging = false) => {
 		if (regex.test(description)) {
 			continue;
 		}
-
-		// just combine them
-		const imageUrls = images.join(",");
 
 		// is lat,lng is within one of the polygons
 		var poly = lookup.search(longitude, latitude);
@@ -86,11 +88,19 @@ const scrapeCraigslist = async (logging = false) => {
 
 		// Reach out to the original posting url to get additional data (# br / # ba, price, amenities, etc.)
 		const fetchData = require("../utils/fetchData");
-		const { price, beds, baths, size, amenities } = await fetchData(
+		const { price, beds, baths, size, amenities, image } = await fetchData(
 			url
 		).catch(error => {
 			console.error(error);
 		});
+
+		// Fixes listings with only 1 picture
+		// 		if `listing` object registers as `hasPic: true`,
+		//		`details` object will not have `images` property
+		if (images.length === 0) images.push(image);
+
+		// join urls together
+		const imageUrls = images.join(",");
 
 		// clean description before entering into the DB
 		const desc = description.replace("QR Code Link to This Post", "");
