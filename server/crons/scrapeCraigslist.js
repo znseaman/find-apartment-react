@@ -11,13 +11,9 @@ const scrapeCraigslist = async (logging = false) => {
 
 	// get listings
 	const userPreferences = await getUserPreferences(1);
-	const noPhotos = {
-		...userPreferences,
-		hasPic: "*$%&"
-	};
 	const client = setupClient(userPreferences);
 	const listings =
-		(await client.search(noPhotos, "").catch(error => {
+		(await client.search(userPreferences, "").catch(error => {
 			if (logging) console.log("Fetching listings...");
 			console.error(error);
 		})) || [];

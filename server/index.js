@@ -83,7 +83,7 @@ User.hasMany(Listing);
 				base_host: "craigslist.ca",
 				city: "Vancouver",
 				category: "apa",
-				has_pic: 0,
+				has_pic: 1,
 				max_price: 5000,
 				min_price: 1000,
 				posted_today: 0
