@@ -20,10 +20,6 @@ const Listing = sequelize.define("listing", {
 		type: TEXT,
 		allowNull: false
 	},
-	// images: {
-	//     type: STRING,
-	//     allowNull: false
-	// },
 	latitude: STRING,
 	longitude: STRING,
 	point: GEOMETRY("POINT", 4326),
