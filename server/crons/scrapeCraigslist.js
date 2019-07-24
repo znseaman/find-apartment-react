@@ -36,7 +36,7 @@ const scrapeCraigslist = async (logging = false) => {
 		}
 
 		// extract the coordinates from mapUrl
-		const hasCoords = details.mapUrl.match(
+		const hasCoords = mapUrl.match(
 			/@(-?\d+\.\d+),(-?\d+\.\d+),(\d+\.?\d?)+z/g
 		);
 
