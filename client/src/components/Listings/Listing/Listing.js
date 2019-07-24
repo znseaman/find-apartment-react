@@ -65,7 +65,7 @@ export default function Listing(props) {
 						` - ` +
 						formatBedsBaths(beds, baths) +
 						` - `}
-					{formatSize(size)}
+					{size ? formatSize(size) : ""}
 					{` - ` + title}
 				</p>
 			</header>

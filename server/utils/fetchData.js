@@ -11,7 +11,7 @@ const fetchData = async url => {
 			.replace("$", "")
 	);
 
-	const [beds, baths] = $(
+	let [beds, baths] = $(
 		"body > section > section > section > div.mapAndAttrs > p:nth-child(2) > span:nth-child(1)"
 	)
 		.text()
@@ -19,11 +19,20 @@ const fetchData = async url => {
 		.split(" / ")
 		.map(Number);
 
-	// TODO: sometimes catches available move in day instead of the size
-	// look for if it doesn't have "housing_movein_now" class
+	// catch listings without beds or baths specified
+	if (Number.isNaN(beds) || beds == null) {
+		beds = 0;
+	}
+	if (Number.isNaN(baths) || baths == null) {
+		baths = 0;
+	}
+
+	// sometimes catches available move in day instead of the size, look for if it doesn't have "housing_movein_now" class
 	const size = $(
 		"body > section > section > section > div.mapAndAttrs > p:nth-child(2) > span:nth-child(2)"
-	).text();
+	)
+		.not(".housing_movein_now")
+		.text();
 
 	const amenities = $(
 		"body > section > section > section > div.mapAndAttrs > p:nth-child(3) > span"
