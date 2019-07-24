@@ -2,7 +2,9 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 const fetchData = async url => {
-	const { data } = await axios.get(url);
+	const { data } = await axios.get(url).catch(error => {
+		console.error(error);
+	});
 	const $ = cheerio.load(data);
 
 	const price = Number(

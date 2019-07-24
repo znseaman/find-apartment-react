@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 9000;
 const db = require("./database/queries");
-const axios = require("axios");
 
 const sequelize = require("./utils/database");
 const Listing = require("./models/listing");
@@ -39,14 +38,23 @@ const scrapeListings = require("./crons/scrapeCraigslist");
  * run at 7:00 am everyday
  * const cronExp = "0 0 7 * * *";
  */
-const cronExp = "20 22 23 * * *";
-new CronJob(cronExp, scrapeListings, null, true, "America/Vancouver");
+const cronExp = "5 * * * * *";
+new CronJob(
+	cronExp,
+	function() {
+		scrapeListings(true);
+	},
+	null,
+	true,
+	"America/Vancouver"
+);
 
 /**
  * Fetch status of listings and delete them if they have been deleted or flagged
  *
  */
 const heartbeatListings = require("./crons/heartbeatCraigslist");
+const cron = "50 * * * * *";
 new CronJob(
 	cron,
 	async function() {
@@ -68,16 +76,17 @@ User.hasMany(Listing);
 
 		let user = await User.findByPk(1);
 		if (!user) {
+			// TODO: load from userPreferences.js as default
 			user = await User.create({
 				name: "Zach",
 				email: "zach@test.com",
 				base_host: "craigslist.ca",
 				city: "Vancouver",
 				category: "apa",
-				has_pic: 1,
-				max_price: 2000,
+				has_pic: 0,
+				max_price: 5000,
 				min_price: 1000,
-				posted_today: 1
+				posted_today: 0
 			});
 		}
 
