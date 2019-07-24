@@ -45,11 +45,10 @@ const scrapeCraigslist = async (logging = false) => {
 			continue;
 		}
 
-		let coordinates = hasCoords[0]
+		const [latitude, longitude, zoom] = hasCoords[0]
 			.replace("@", "")
 			.replace("z", "")
 			.split(",");
-		var [latitude, longitude, zoom] = coordinates;
 
 		const { description, pid, title, url, images = [], postedAt } = details;
 
@@ -60,7 +59,9 @@ const scrapeCraigslist = async (logging = false) => {
 		}
 
 		// is lat,lng is within one of the polygons
-		var poly = lookup.search(longitude, latitude);
+		const coordinates = [longitude, latitude];
+		// @ts-ignore
+		var poly = lookup.search(...coordinates);
 		if (!poly) {
 			continue;
 		}
@@ -68,7 +69,7 @@ const scrapeCraigslist = async (logging = false) => {
 		const { name: polygon_name } = poly.properties;
 		const point = {
 			type: "Point",
-			coordinates: [longitude, latitude],
+			coordinates,
 			crs: {
 				type: "name",
 				properties: { name: "EPSG:4326" }
