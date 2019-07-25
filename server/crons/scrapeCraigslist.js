@@ -2,6 +2,77 @@ const Listing = require("../models/listing");
 const getUserPreferences = require("./craigslist/getUserPreferences");
 const setupClient = require("./craigslist/setupClient");
 
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min)) + min;
+}
+
+/**
+ * Get a Random FSA for Vancouver, BC
+ *
+ * FSAs for Vancouver from Wikipedia
+ * https://en.wikipedia.org/wiki/List_of_postal_codes_of_Canada:_V
+ * V - [British Columbia]
+ * 6 - A,B,C,E,G,H,J,K,L,M,N,P,R,S,T,Z
+ * 5 - K,L,M,N,P,R,S,T,V,W,X,Y,Z
+ * 7 - X,Y
+ *
+ * return {string}
+ */
+const getRandomFSA_Vancouver = () => {
+	const firstNumber = [5, 6, 7];
+	const five = [
+		"K",
+		"L",
+		"M",
+		"N",
+		"P",
+		"R",
+		"S",
+		"T",
+		"V",
+		"W",
+		"X",
+		"Y",
+		"Z"
+	];
+	const six = [
+		"A",
+		"B",
+		"C",
+		"E",
+		"G",
+		"H",
+		"J",
+		"K",
+		"L",
+		"M",
+		"N",
+		"P",
+		"R",
+		"S",
+		"T",
+		"Z"
+	];
+	const seven = ["X", "Y"];
+
+	const secondChar = firstNumber[getRandomInt(0, firstNumber.length - 1)];
+
+	// find the correct letter array
+	let letterArray;
+	if (secondChar === 5) {
+		letterArray = five;
+	} else if (secondChar === 6) {
+		letterArray = six;
+	} else if (secondChar === 7) {
+		letterArray = seven;
+	}
+	const thirdChar = letterArray[getRandomInt(0, letterArray.length - 1)];
+
+	const fsa = `V${secondChar}${thirdChar}`;
+	console.log("Random FSA generated for Vancouver was:", fsa);
+	return fsa;
+};
+
 const scrapeCraigslist = async (logging = false) => {
 	if (logging) console.log("Getting data from craigslist...");
 	// TODO: instead of getting these from data, have them come from the DB
@@ -11,9 +82,14 @@ const scrapeCraigslist = async (logging = false) => {
 
 	// get listings
 	const userPreferences = await getUserPreferences(1);
+	const superPreferences = {
+		...userPreferences,
+		postal: getRandomFSA_Vancouver(),
+		searchDistance: 40
+	};
 	const client = setupClient(userPreferences);
 	const listings =
-		(await client.search(userPreferences, "").catch(error => {
+		(await client.search(superPreferences, "").catch(error => {
 			if (logging) console.log("Fetching listings...");
 			console.error(error);
 		})) || [];
@@ -95,7 +171,8 @@ const scrapeCraigslist = async (logging = false) => {
 		// is lat,lng is within one of the polygons
 		const coordinates = [longitude, latitude];
 		// @ts-ignore
-		var poly = lookup.search(...coordinates);
+		// const poly = { properties: { name: "" } };
+		const poly = lookup.search(...coordinates);
 		if (!poly) {
 			continue;
 		}
