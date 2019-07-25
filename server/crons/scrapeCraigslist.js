@@ -85,7 +85,7 @@ const scrapeCraigslist = async (logging = false) => {
 	const superPreferences = {
 		...userPreferences,
 		postal: getRandomFSA_Vancouver(),
-		searchDistance: 40
+		searchDistance: getRandomInt(1, 40)
 	};
 	const client = setupClient(userPreferences);
 	const listings =
