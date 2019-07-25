@@ -20,6 +20,23 @@ const scrapeCraigslist = async (logging = false) => {
 
 	// loop through each listing
 	for (const [i, listing] of listings.entries()) {
+		const { location } = listing;
+		// skip ignored locations
+		const ignoredLocs = [
+			"burnaby",
+			"new westminster",
+			"surrey",
+			"north vancouver",
+			"west vancouver",
+			"mission",
+			"coquitlam",
+			"delta",
+			"east vancouver"
+		];
+		const ignoredLocations = new RegExp(`${ignoredLocs.join("|")}`, "i");
+		if (ignoredLocations.test(location)) {
+			continue;
+		}
 
 		const { pid } = listing;
 		// check whether the pid already exists in the listings table
