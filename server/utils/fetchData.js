@@ -7,12 +7,6 @@ const fetchData = async url => {
 	});
 	const $ = cheerio.load(data);
 
-	const price = Number(
-		$("body > section > section > h2 > span.postingtitletext > span.price")
-			.text()
-			.replace("$", "")
-	);
-
 	let [beds, baths] = $(
 		"body > section > section > section > div.mapAndAttrs > p:nth-child(2) > span:nth-child(1)"
 	)
@@ -50,7 +44,6 @@ const fetchData = async url => {
 	).attr("src");
 
 	return {
-		price,
 		beds,
 		baths,
 		size,

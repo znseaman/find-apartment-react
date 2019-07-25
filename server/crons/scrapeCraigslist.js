@@ -20,9 +20,26 @@ const scrapeCraigslist = async (logging = false) => {
 
 	// loop through each listing
 	for (const [i, listing] of listings.entries()) {
+
+		const { pid } = listing;
+		// check whether the pid already exists in the listings table
+		const exists = await Listing.findOne({
+			where: {
+				pid
+			},
+			attributes: ["pid"]
+		});
+
+		if (exists) {
+			break;
+		}
+
 		/**
 		 * {category, date, hasPic, location, pid, price, title, url} = listing
 		 */
+		const { price: dirtyPrice } = listing;
+		const price = dirtyPrice.replace("$", "");
+
 		const details =
 			(await client.details(listing).catch(error => {
 				console.error(error);
@@ -50,7 +67,7 @@ const scrapeCraigslist = async (logging = false) => {
 			.replace("z", "")
 			.split(",");
 
-		const { description, pid, title, url, images = [], postedAt } = details;
+		const { description, title, url, images = [], postedAt } = details;
 
 		const regex = new RegExp(`no pet`, "i");
 		// skip if there's a mention of no pets
@@ -76,20 +93,9 @@ const scrapeCraigslist = async (logging = false) => {
 			}
 		};
 
-		// check whether the pid is not unique in the listings table
-		const exists = await Listing.findOne({
-			where: {
-				pid
-			}
-		});
-
-		if (exists) {
-			break;
-		}
-
-		// Reach out to the original posting url to get additional data (# br / # ba, price, amenities, etc.)
+		// Reach out to the original posting url to get additional data (# br / # ba, amenities, etc.)
 		const fetchData = require("../utils/fetchData");
-		const { price, beds, baths, size, amenities, image } = await fetchData(
+		const { beds, baths, size, amenities, image } = await fetchData(
 			url
 		).catch(error => {
 			console.error(error);
