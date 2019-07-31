@@ -84,7 +84,7 @@ User.hasMany(Listing);
 				city: "Vancouver",
 				category: "apa",
 				has_pic: 1,
-				max_price: 5000,
+				max_price: 2500,
 				min_price: 1000,
 				posted_today: 1
 			});
