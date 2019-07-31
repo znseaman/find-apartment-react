@@ -123,7 +123,7 @@ const scrapeCraigslist = async (logging = false) => {
 		});
 
 		if (exists) {
-			break;
+			continue;
 		}
 
 		/**
