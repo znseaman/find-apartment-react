@@ -22,7 +22,8 @@ const sequelize = new Sequelize("find_apartment_react", "me", "password", {
 		$lt,
 		$lte,
 		$like
-	}
+	},
+	logging: false
 });
 
 module.exports = sequelize;
