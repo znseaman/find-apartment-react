@@ -69,7 +69,6 @@ const getRandomFSA_Vancouver = () => {
 	const thirdChar = letterArray[getRandomInt(0, letterArray.length - 1)];
 
 	const fsa = `V${secondChar}${thirdChar}`;
-	console.log("Random FSA generated for Vancouver was:", fsa);
 	return fsa;
 };
 
