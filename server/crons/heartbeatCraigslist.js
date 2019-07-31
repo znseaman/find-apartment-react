@@ -20,7 +20,26 @@ const heartbeatCraigslist = async (listings, deleteFunc) => {
 	let totalDeleted = 0;
 	// Loop through listings for urls
 	for await (const listing of listings) {
-		const { id, url } = listing;
+		const { id, postedAt } = listing;
+
+		const { differenceInDays } = require("date-fns");
+		const days = differenceInDays(Date.now(), new Date(postedAt));
+		if (days > 15) {
+			// delete listing from the DB
+			const res = await Listing.destroy({
+				where: {
+					id
+				}
+			});
+
+			if (res) {
+				totalDeleted += 1;
+			}
+
+			continue;
+		}
+
+		const { url } = listing;
 		// TODO: fix what occurs when this throws an error due to destructuring
 		const { data } = (await axios.get(url).catch(async error => {
 			if (error.response) {
