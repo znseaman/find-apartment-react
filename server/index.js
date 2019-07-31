@@ -86,7 +86,7 @@ User.hasMany(Listing);
 				has_pic: 1,
 				max_price: 5000,
 				min_price: 1000,
-				posted_today: 0
+				posted_today: 1
 			});
 		}
 
