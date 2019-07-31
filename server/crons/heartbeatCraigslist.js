@@ -59,6 +59,11 @@ const heartbeatCraigslist = async (listings, deleteFunc) => {
 				}
 			}
 		})) || { data: "" };
+
+		if (!data) {
+			continue;
+		}
+
 		// Check if the page contains "deleted" or "flagged"
 		if (wasFlagged(data) || wasDeleted(data)) {
 			// delete listing from the DB
