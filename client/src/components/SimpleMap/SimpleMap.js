@@ -57,7 +57,7 @@ const SimpleMap = () => {
 		<Map center={center} zoom={zoom} style={{ width: "100%" }}>
 			<TileLayer
 				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-				url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+				url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
 			/>
 			{markers}
 		</Map>
