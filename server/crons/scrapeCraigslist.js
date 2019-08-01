@@ -168,6 +168,12 @@ const scrapeCraigslist = async (logging = false) => {
 			continue;
 		}
 
+		const regexDog = new RegExp(`no dog`, "i");
+		// skip if there's a mention of no dogs
+		if (regexDog.test(description)) {
+			continue;
+		}
+
 		// is lat,lng is within one of the polygons
 		const coordinates = [longitude, latitude];
 		// @ts-ignore
