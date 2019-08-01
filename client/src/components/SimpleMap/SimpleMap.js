@@ -37,6 +37,12 @@ const SimpleMap = () => {
 					return (
 						<Marker key={id} position={position}>
 							<Popup>
+								<div
+									style={{
+										maxHeight: "300px",
+										overflow: "scroll"
+									}}
+								>
 								<h3>{title}</h3>
 								<h4>{description}</h4>
 								<h5>Date Posted: {postedAt}</h5>
@@ -48,6 +54,7 @@ const SimpleMap = () => {
 								>
 									Delete Post
 								</button>
+								</div>
 							</Popup>
 						</Marker>
 					);
