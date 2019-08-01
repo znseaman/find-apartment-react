@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
 /* Boilerplate for Leaflet to work in React */
