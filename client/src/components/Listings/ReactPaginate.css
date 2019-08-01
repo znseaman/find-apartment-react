@@ -1,0 +1,41 @@
+.pagination {
+	display: inline-block;
+	padding: 1rem 1rem;
+	width: 100vw;
+}
+
+.pagination {
+	background-color: #207ea2;
+}
+
+.pagination li {
+	display: inline-block;
+}
+
+.pagination a {
+	cursor: pointer;
+	padding: 1rem;
+}
+
+.pagination li.active {
+	border: 0.05rem white solid;
+	border-radius: 50%;
+}
+
+/* TODO: Try to get arrow buttons working */
+/* .previous {
+	border-color: transparent white;
+	border-style: solid;
+	border-width: 0.6rem 0.6rem 0.6rem 0;
+}
+
+.next {
+	border-color: transparent white;
+	border-style: solid;
+	border-width: 0.6rem 0 0.6rem 0.6rem;
+}
+
+.pagination li:first-child,
+.pagination li:last-child {
+	margin: 0 0.5rem;
+} */

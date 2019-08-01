@@ -1,3 +1,7 @@
+const util = require("util");
+const Listing = require("../models/listing");
+const PER_PAGE = 10;
+
 // TODO: move this to a config.json or some other external file so as not to be hacked
 const Pool = require("pg").Pool;
 const pool = new Pool({
@@ -70,14 +74,30 @@ const deleteUser = (request, response) => {
 	});
 };
 
-const getListings = (req, res, next) => {
-	// get them by user_id
-	pool.query(`SELECT * FROM listings ORDER BY id ASC`, (error, results) => {
-		if (error) {
-			throw error;
-		}
-		res.status(200).json(results.rows);
-	});
+function getPaginatedItems(items, offset) {
+	return items.slice(offset, offset + PER_PAGE);
+}
+
+const getListings = async (req, res, next) => {
+	const listings = await Listing.findAll();
+	const offset = req.query.offset ? parseInt(req.query.offset, 10) : 0;
+	const nextOffset = offset + PER_PAGE;
+	const previousOffset = offset - PER_PAGE < 0 ? 0 : offset - PER_PAGE;
+
+	const meta = {
+		limit: PER_PAGE,
+		next: util.format("?limit=%s&offset=%s", PER_PAGE, nextOffset),
+		offset: req.query.offset,
+		previous: util.format("?limit=%s&offset=%s", PER_PAGE, previousOffset),
+		total_count: listings.length
+	};
+
+	const json = {
+		meta,
+		listings: getPaginatedItems(listings, offset)
+	};
+
+	res.status(200).json(json);
 };
 
 const deleteListing = (req, res) => {

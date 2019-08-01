@@ -10,7 +10,13 @@ const App = () => {
 	const [viewType] = useState("list");
 
 	const hasMap = viewType === "map";
-	const view = hasMap ? <SimpleMap /> : <Listings></Listings>;
+	const view = hasMap ? (
+		<SimpleMap />
+	) : (
+		<>
+			<Listings perPage={10}></Listings>
+		</>
+	);
 
 	return (
 		<div className={classes.App}>

@@ -2,10 +2,18 @@ import { useState, useEffect } from "react";
 
 export default () => {
 	const [listings, setListings] = useState([]);
+	const [limit, setLimit] = useState(5);
+	const [offset, setOffset] = useState(0);
+	const [pageCount, setPageCount] = useState(1);
 
 	useEffect(() => {
 		async function fetchData() {
-			const data = await fetch("http://localhost:9000/listings")
+			const url = new URL(`http://localhost:9000/listings`);
+			const params = { limit, offset };
+			Object.keys(params).forEach(key =>
+				url.searchParams.append(key, params[key])
+			);
+			const data = await fetch(url)
 				.then(response => response.json())
 				.catch(e => {
 					console.error(e);
@@ -13,12 +21,15 @@ export default () => {
 				});
 
 			if (data) {
-				setListings(data);
+				setListings(data.listings);
+				setPageCount(
+					Math.ceil(data.meta.total_count / data.meta.limit)
+				);
 			}
 		}
 
 		fetchData();
-	}, []);
+	}, [offset, limit]);
 
 	const deleteListingHandler = async id => {
 		const body = new FormData();
@@ -36,5 +47,13 @@ export default () => {
 		setListings(updatedListings);
 	};
 
-	return [listings, deleteListingHandler];
+	return [
+		listings,
+		deleteListingHandler,
+		pageCount,
+		limit,
+		setLimit,
+		offset,
+		setOffset
+	];
 };
