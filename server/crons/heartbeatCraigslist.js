@@ -12,7 +12,7 @@ function wasDeleted(html) {
 }
 
 const heartbeatCraigslist = async (listings, deleteFunc) => {
-	console.log("--------------");
+	console.log(`\n-------------------------------------\n`);
 	console.log(
 		`Starting check for deleted / flagged listings for ${listings.length} listings on craigslist...`
 	);
@@ -45,6 +45,10 @@ const heartbeatCraigslist = async (listings, deleteFunc) => {
 		// TODO: fix what occurs when this throws an error due to destructuring
 		const { data } = (await axios.get(url).catch(async error => {
 			if (error.response) {
+				console.log(`ERROR THROWN IN: heartbeatCraigslist.js`);
+				console.log(error.response.status);
+				console.log(error.response.headers);
+
 				if (error.response.status === 404) {
 					// delete listing from the DB
 					const res = await Listing.destroy({
@@ -81,7 +85,7 @@ const heartbeatCraigslist = async (listings, deleteFunc) => {
 
 	console.log("Finished check for deleted / flagged listings on craigslist");
 	console.log(`Deleted ${totalDeleted} irrelevant listings from craigslist`);
-	console.log("--------------");
+	console.log(`\n-------------------------------------\n`);
 };
 
 module.exports = heartbeatCraigslist;
