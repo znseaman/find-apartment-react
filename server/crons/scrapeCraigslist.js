@@ -73,6 +73,7 @@ const getRandomFSA_Vancouver = () => {
 };
 
 const scrapeCraigslist = async (logging = false) => {
+	if (logging) console.log(`\n-------------------------------------\n`);
 	if (logging) console.log("Getting data from craigslist...");
 	// TODO: instead of getting these from data, have them come from the DB
 	const PolygonLookup = require("polygon-lookup");
@@ -214,10 +215,6 @@ const scrapeCraigslist = async (logging = false) => {
 		});
 
 		if (duplicate_post) {
-			console.log("DUPLICATE POST DETECTED!");
-			console.log("POST TITLE:", title);
-			console.log("POST LATITUDE:", latitude);
-			console.log("POST LONGITUDE:", longitude);
 			// FEATURE IDEA: add a desperation level to the post depending on the posts that match title & coordinates criteria
 			continue;
 		}
@@ -253,6 +250,14 @@ const scrapeCraigslist = async (logging = false) => {
 			amenities
 		});
 	}
+
+	if (logging)
+		console.log(
+			"Finished getting",
+			listings.length,
+			"listings from craigslist"
+		);
+	if (logging) console.log(`\n-------------------------------------\n`);
 };
 
 module.exports = scrapeCraigslist;
