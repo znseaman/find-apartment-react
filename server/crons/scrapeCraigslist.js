@@ -201,6 +201,27 @@ const scrapeCraigslist = async (logging = false) => {
 			console.error(error);
 		});
 
+		// check for duplicate post (the listing price, size, and coordinates are the same as a previously saved entry)
+		// this protects against the multiple posts issue, when users post to get their listing to appear fresh when it's been on the market for a while
+		const duplicate_post = await Listing.findOne({
+			where: {
+				price,
+				size,
+				latitude,
+				longitude
+			},
+			attributes: ["price", "size", "postedAt", "latitude", "longitude"]
+		});
+
+		if (duplicate_post) {
+			console.log("DUPLICATE POST DETECTED!");
+			console.log("POST TITLE:", title);
+			console.log("POST LATITUDE:", latitude);
+			console.log("POST LONGITUDE:", longitude);
+			// FEATURE IDEA: add a desperation level to the post depending on the posts that match title & coordinates criteria
+			continue;
+		}
+
 		// Fixes listings with only 1 picture
 		// 		if `listing` object registers as `hasPic: true`,
 		//		`details` object will not have `images` property
