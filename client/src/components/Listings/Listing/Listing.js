@@ -73,7 +73,7 @@ export default function Listing(props) {
 			<div style={{ padding: ".5rem 1rem" }}>
 				<p
 					className={classes["Listing-description"]}
-					style={{ "-webkit-box-orient": "vertical" }}
+					style={{ WebkitBoxOrient: "vertical" }}
 				>
 					{description}
 				</p>
