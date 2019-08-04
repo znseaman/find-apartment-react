@@ -30,7 +30,6 @@ app.delete("/listings/:id", db.deleteListing);
 // app.put("/users/:id", db.updateUser);
 // app.delete("/users/:id", db.deleteUser);
 
-const scrapeListings = require("./crons/scrapeCraigslist");
 /**
  * Fetch listings data from craigslist
  *
@@ -38,6 +37,7 @@ const scrapeListings = require("./crons/scrapeCraigslist");
  * run at 7:00 am everyday
  * 		0 0 7 * * *
  */
+const scrapeListings = require("./crons/scrapeCraigslist");
 new CronJob(
 	"0 * * * * *",
 	function() {
