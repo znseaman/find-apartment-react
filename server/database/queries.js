@@ -1,10 +1,7 @@
 const util = require("util");
 const Listing = require("../models/listing");
+const pool = require("./db");
 const PER_PAGE = 10;
-
-const Pool = require("pg").Pool;
-const db_config = require("../secrets/db_config");
-const pool = new Pool(db_config);
 
 const getUsers = (request, response) => {
 	pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
