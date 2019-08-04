@@ -1,4 +1,5 @@
 import React from "react";
+import ReactPaginate from "react-paginate";
 
 import Listing from "./Listing/Listing";
 import useListings from "../../hooks/useListings";
