@@ -36,11 +36,10 @@ const scrapeListings = require("./crons/scrapeCraigslist");
  *
  * Example cron expression:
  * run at 7:00 am everyday
- * const cronExp = "0 0 7 * * *";
+ * 		0 0 7 * * *
  */
-const cronExp = "5 * * * * *";
 new CronJob(
-	cronExp,
+	"0 * * * * *",
 	function() {
 		scrapeListings(true);
 	},
@@ -54,9 +53,8 @@ new CronJob(
  *
  */
 const heartbeatListings = require("./crons/heartbeatCraigslist");
-const cron = "50 * * * * *";
 new CronJob(
-	cron,
+	"0 * * * * *",
 	async function() {
 		const listings = await Listing.findAll();
 		await heartbeatListings(listings);
