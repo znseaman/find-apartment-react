@@ -80,6 +80,8 @@ User.hasMany(Listing);
 			user = await User.create({
 				name: "Zach",
 				email: "zach@test.com",
+				username: "zach",
+				password: "pass123",
 				base_host: "craigslist.ca",
 				city: "Vancouver",
 				category: "apa",
