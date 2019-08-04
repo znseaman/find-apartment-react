@@ -1,5 +1,6 @@
 const { CronJob } = require("cron");
 const express = require("express");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const port = 9000;
@@ -9,6 +10,12 @@ const sequelize = require("./utils/database");
 const Listing = require("./models/listing");
 const User = require("./models/user");
 
+app.use(bodyParser.json());
+app.use(
+	bodyParser.urlencoded({
+		extended: true
+	})
+);
 app.use(cors());
 
 app.get("/listings", db.getListings);
