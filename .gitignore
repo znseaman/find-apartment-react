@@ -1,6 +1,8 @@
 # /client
 node_modules
 
+/server/secrets
+
 # Ignore vpp file types
 *.vpp
 *.vpp.bak_000f

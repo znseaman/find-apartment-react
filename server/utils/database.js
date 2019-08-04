@@ -10,10 +10,11 @@ const {
 	like: $like
 } = Op;
 
+const { database, user, password, host } = require("../secrets/db_config");
 // Sets up a connection pool
-const sequelize = new Sequelize("find_apartment_react", "me", "password", {
+const sequelize = new Sequelize(database, user, password, {
 	dialect: "postgres",
-	host: "localhost",
+	host,
 	operatorsAliases: {
 		$and,
 		$or,

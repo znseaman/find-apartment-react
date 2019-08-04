@@ -4,13 +4,8 @@ const PER_PAGE = 10;
 
 // TODO: move this to a config.json or some other external file so as not to be hacked
 const Pool = require("pg").Pool;
-const pool = new Pool({
-	user: "me",
-	host: "localhost",
-	database: "find_apartment_react",
-	password: "password",
-	port: 5432
-});
+const db_config = require("../secrets/db_config");
+const pool = new Pool(db_config);
 
 const getUsers = (request, response) => {
 	pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
