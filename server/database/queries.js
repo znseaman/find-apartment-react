@@ -92,7 +92,7 @@ const getListings = async (req, res, next) => {
 };
 
 const deleteListing = (req, res) => {
-	const id = parseInt(req.params.id);
+	const id = Number(req.params.id);
 
 	pool.query("DELETE FROM listings WHERE id = $1", [id], (error, results) => {
 		if (error) {
