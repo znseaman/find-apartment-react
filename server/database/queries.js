@@ -2,7 +2,6 @@ const util = require("util");
 const Listing = require("../models/listing");
 const PER_PAGE = 10;
 
-// TODO: move this to a config.json or some other external file so as not to be hacked
 const Pool = require("pg").Pool;
 const db_config = require("../secrets/db_config");
 const pool = new Pool(db_config);
