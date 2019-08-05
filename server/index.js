@@ -9,6 +9,7 @@ const db = require("./database/queries");
 const sequelize = require("./utils/database");
 const Listing = require("./models/listing");
 const User = require("./models/user");
+const user = require("./routes/api/user");
 
 app.use(bodyParser.json());
 app.use(
@@ -20,11 +21,14 @@ app.use(cors());
 
 app.get("/listings", db.getListings);
 app.delete("/listings/:id", db.deleteListing);
-// app.get("/users", db.getUsers);
-// app.get("/users/:id", db.getUserById);
-// app.post("/users", db.createUser);
-// app.put("/users/:id", db.updateUser);
-// app.delete("/users/:id", db.deleteUser);
+app.use("/user", user);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+	if (!err.statusCode) err.statusCode = 500;
+
+	res.status(err.statusCode).json({ type: "error", msg: err.message });
+});
 
 /**
  * Fetch listings data from craigslist
@@ -63,6 +67,7 @@ new CronJob(
 Listing.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 User.hasMany(Listing);
 
+const hash = require("./database/hash");
 (async () => {
 	try {
 		// sync sequelize db .sync({force: true}) - reset the entire db
@@ -74,13 +79,13 @@ User.hasMany(Listing);
 			user = await User.create({
 				name: "Zach",
 				email: "zach@test.com",
-				username: "zach",
-				password: "pass123",
+				username_hash: hash("zach"),
+				password_hash: hash("pass123"),
 				base_host: "craigslist.ca",
 				city: "Vancouver",
 				category: "apa",
 				has_pic: 1,
-				max_price: 2500,
+				max_price: 3000,
 				min_price: 1000,
 				posted_today: 1
 			});
