@@ -1,5 +1,5 @@
 const axios = require("axios");
-const Listing = require("../models/listing");
+const Listing = require("../../models/listing");
 
 function wasFlagged(html) {
 	const regex = /flagged/g;
@@ -45,7 +45,7 @@ const heartbeatCraigslist = async (listings, deleteFunc) => {
 		// TODO: fix what occurs when this throws an error due to destructuring
 		const { data } = (await axios.get(url).catch(async error => {
 			if (error.response) {
-				console.log(`ERROR THROWN IN: heartbeatCraigslist.js`);
+				console.log(`ERROR THROWN IN: heartbeat.js`);
 				console.log(error.response.status);
 				console.log(error.response.headers);
 

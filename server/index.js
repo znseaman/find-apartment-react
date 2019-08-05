@@ -1,4 +1,3 @@
-const { CronJob } = require("cron");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -6,7 +5,6 @@ const app = express();
 const port = 9000;
 
 const sequelize = require("./utils/database");
-const Listing = require("./models/listing");
 const listing = require("./routes/api/listing");
 const User = require("./models/user");
 const user = require("./routes/api/user");
@@ -29,39 +27,11 @@ app.use((err, req, res, next) => {
 	res.status(err.statusCode).json({ type: "error", msg: err.message });
 });
 
-/**
- * Fetch listings data from craigslist
- *
- * Example cron expression:
- * run at 7:00 am everyday
- * 		0 0 7 * * *
- */
-const scrapeListings = require("./crons/scrapeCraigslist");
-new CronJob(
-	"0 * * * * *",
-	function() {
-		scrapeListings(true);
-	},
-	null,
-	true,
-	"America/Vancouver"
-);
-
-/**
- * Fetch status of listings and delete them if they have been deleted or flagged
- *
- */
-const heartbeatListings = require("./crons/heartbeatCraigslist");
-new CronJob(
-	"0 * * * * *",
-	async function() {
-		const listings = await Listing.findAll();
-		await heartbeatListings(listings);
-	},
-	null,
-	true,
-	"America/Vancouver"
-);
+/* Cron Jobs */
+const { CronJob } = require("cron");
+const { scrape, heartbeat } = require("./crons/craigslist/options");
+new CronJob(...scrape);
+new CronJob(...heartbeat);
 
 const hash = require("./database/hash");
 (async () => {

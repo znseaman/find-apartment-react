@@ -1,6 +1,6 @@
-const Listing = require("../models/listing");
-const getUserPreferences = require("./craigslist/getUserPreferences");
-const setupClient = require("./craigslist/setupClient");
+const Listing = require("../../models/listing");
+const getUserPreferences = require("./getUserPreferences");
+const setupClient = require("./setupClient");
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
@@ -77,7 +77,7 @@ const scrapeCraigslist = async (logging = false) => {
 	if (logging) console.log("Getting data from craigslist...");
 	// TODO: instead of getting these from data, have them come from the DB
 	const PolygonLookup = require("polygon-lookup");
-	const featureCollection = require("../data/polygons.json");
+	const featureCollection = require("../../data/polygons.json");
 	const lookup = new PolygonLookup(featureCollection);
 
 	// get listings
@@ -195,7 +195,7 @@ const scrapeCraigslist = async (logging = false) => {
 		};
 
 		// Reach out to the original posting url to get additional data (# br / # ba, amenities, etc.)
-		const fetchData = require("../utils/fetchData");
+		const fetchData = require("../../utils/fetchData");
 		const { beds, baths, size, amenities, image } = await fetchData(
 			url
 		).catch(error => {
