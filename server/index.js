@@ -4,10 +4,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const port = 9000;
-const db = require("./database/queries");
 
 const sequelize = require("./utils/database");
 const Listing = require("./models/listing");
+const listing = require("./routes/api/listing");
 const User = require("./models/user");
 const user = require("./routes/api/user");
 
@@ -19,8 +19,7 @@ app.use(
 );
 app.use(cors());
 
-app.get("/listings", db.getListings);
-app.delete("/listings/:id", db.deleteListing);
+app.use("/listing", listing);
 app.use("/user", user);
 
 // Error handling middleware

@@ -8,7 +8,7 @@ export default () => {
 
 	useEffect(() => {
 		async function fetchData() {
-			const url = new URL(`http://localhost:9000/listings`);
+			const url = new URL(`http://localhost:9000/listing/all`);
 			const params = { limit, offset };
 			Object.keys(params).forEach(key =>
 				url.searchParams.append(key, params[key])
@@ -34,7 +34,7 @@ export default () => {
 	const deleteListingHandler = async id => {
 		const body = new FormData();
 		body.append("id", id);
-		const response = await fetch(`http://localhost:9000/listings/${id}`, {
+		const response = await fetch(`http://localhost:9000/listing/${id}`, {
 			method: "DELETE",
 			body
 		}).catch(e => {
