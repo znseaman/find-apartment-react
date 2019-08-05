@@ -63,9 +63,6 @@ new CronJob(
 	"America/Vancouver"
 );
 
-Listing.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
-User.hasMany(Listing);
-
 const hash = require("./database/hash");
 (async () => {
 	try {

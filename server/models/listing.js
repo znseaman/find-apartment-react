@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const User = require("./user");
 
 const sequelize = require("../utils/database");
 const { INTEGER, STRING, DOUBLE, TEXT, DATE, GEOMETRY, FLOAT } = Sequelize;
@@ -32,5 +33,9 @@ const Listing = sequelize.define("listing", {
 	size: STRING,
 	amenities: STRING
 });
+
+// Relations
+Listing.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
+User.hasMany(Listing);
 
 module.exports = Listing;
