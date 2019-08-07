@@ -138,6 +138,11 @@ const scrapeCraigslist = async (logging = false) => {
 			(await client.details(listing).catch(error => {
 				console.error(error);
 			})) || {};
+
+		if (Object.keys(details) === 0) {
+			continue;
+		}
+
 		/**
 		 * {description, mapUrl, pid, replyUrl, title, url, postedAt, images, attributes} = details
 		 */
