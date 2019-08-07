@@ -1,15 +1,15 @@
-// TODO: put this in a User model
+// TODO: put this in a Search Settings model
 //          have this be specified when the user updates their search preferences
 const baseHost = "craigslist.ca";
 const city = "Vancouver";
 
 const category = "apa";
 const hasPic = 1;
-const maxPrice = 5000;
+const maxPrice = 2000;
 const minPrice = 1000;
 const postedToday = 0;
 
-// TODO: put this in a User model
+// TODO: put this in a Search Settings model
 //      have this be specified when the user updates their search preferences
 const userPreferences = {
 	city,
