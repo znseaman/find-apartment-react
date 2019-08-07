@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import classes from "./App.module.css";
 
-import Layout from "../hoc/Layout/Layout";
+import Layout from "../../hoc/Layout/Layout";
 
-import Listings from "../components/Listings/Listings";
-import SimpleMap from "../components/SimpleMap/SimpleMap";
+import Listings from "../../components/Listings/Listings";
+import SimpleMap from "../../components/SimpleMap/SimpleMap";
 
 const App = () => {
 	const [viewType] = useState("list");
