@@ -20,7 +20,9 @@ const App = props => {
 	);
 
 	const showBelow = props.auth.loggedIn ? (
-		<Layout hasMap={hasMap}>{view}</Layout>
+		<Layout {...props} hasMap={hasMap}>
+			{view}
+		</Layout>
 	) : (
 		<AuthForm {...props}></AuthForm>
 	);
