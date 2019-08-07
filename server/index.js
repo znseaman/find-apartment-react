@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
 const port = 9000;
@@ -9,6 +10,7 @@ const listing = require("./routes/api/listing");
 const User = require("./models/user");
 const user = require("./routes/api/user");
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(
 	bodyParser.urlencoded({
@@ -33,7 +35,6 @@ const { scrape, heartbeat } = require("./crons/craigslist/options");
 new CronJob(...scrape);
 new CronJob(...heartbeat);
 
-const hash = require("./database/hash");
 (async () => {
 	try {
 		// sync sequelize db .sync({force: true}) - reset the entire db
@@ -41,19 +42,39 @@ const hash = require("./database/hash");
 
 		let user = await User.findByPk(1);
 		if (!user) {
+			const {
+				city,
+				baseHost: base_host,
+				hasPic: has_pic,
+				category,
+				maxPrice: max_price,
+				minPrice: min_price,
+				postedToday: posted_today
+			} = require("./utils/userPreferences");
+			const userPreferences = {
+				base_host,
+				city,
+				category,
+				has_pic,
+				max_price,
+				min_price,
+				posted_today
+			};
+
+			const hash = require("./utils/hash");
+			const Session = require("./utils/session");
+			const userDetails = require("./secrets/first_user");
+			const { id: session_id } = new Session(userDetails.username);
+			userDetails.session_id = session_id;
+			userDetails.username_hash = hash(userDetails.username);
+			delete userDetails.username;
+			userDetails.password_hash = hash(userDetails.password);
+			delete userDetails.password;
+
 			// TODO: load from userPreferences.js as default
 			user = await User.create({
-				name: "Zach",
-				email: "zach@test.com",
-				username_hash: hash("zach"),
-				password_hash: hash("pass123"),
-				base_host: "craigslist.ca",
-				city: "Vancouver",
-				category: "apa",
-				has_pic: 1,
-				max_price: 3000,
-				min_price: 1000,
-				posted_today: 1
+				...userDetails,
+				...userPreferences
 			});
 		}
 

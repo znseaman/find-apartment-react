@@ -11,8 +11,9 @@ const User = sequelize.define("user", {
 	},
 	name: STRING,
 	email: STRING,
-	username_hash: STRING, 
-	password_hash: STRING,
+	username_hash: STRING(64),
+	password_hash: STRING(64),
+	session_id: STRING(36),
 	// TODO: move the below fields into a separate table
 	base_host: STRING,
 	city: STRING,
