@@ -17,7 +17,13 @@ app.use(
 		extended: true
 	})
 );
-app.use(cors());
+app.use(
+	cors({
+		// Frontend host
+		origin: "http://localhost:3000",
+		credentials: true
+	})
+);
 
 app.use("/listing", listing);
 app.use("/user", user);
