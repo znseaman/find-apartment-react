@@ -81,11 +81,7 @@ new CronJob(...heartbeat);
 			userDetails.password_hash = hash(userDetails.password);
 			delete userDetails.password;
 
-			// TODO: load from userPreferences.js as default
-			user = await User.create({
-				...userDetails
-				// ...userPreferences
-			});
+			user = await User.create(userDetails);
 
 			const search_setting = await SearchSetting.create(userPreferences);
 		}
