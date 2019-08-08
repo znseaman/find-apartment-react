@@ -6,7 +6,6 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./containers/App/App";
 import Auth from "./components/Auth/Auth";
-import Logout from "./components/Logout/Logout";
 
 const auth = new Auth();
 
@@ -48,7 +47,6 @@ auth.checkAuthentication().then(() => {
 					path="/callback"
 					render={() => callbackComponent()}
 				></Route>
-				<Route path="/logout" component={Logout({ auth })}></Route>
 			</Switch>
 		</Router>,
 		document.getElementById("root")
