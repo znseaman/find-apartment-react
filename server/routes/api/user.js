@@ -62,6 +62,37 @@ router.post("/new", (req, res, next) => {
 					password_hash
 				});
 
+				// setup initial search settings for new user
+				const {
+					city,
+					baseHost: base_host,
+					hasPic: has_pic,
+					category,
+					maxPrice: max_price,
+					minPrice: min_price,
+					postedToday: posted_today
+				} = require("../../utils/userPreferences");
+				const userPreferences = {
+					type: "craigslist",
+					base_host,
+					city,
+					category,
+					has_pic,
+					max_price,
+					min_price,
+					posted_today,
+					userId: user.id
+				};
+
+				// make them just a little different from the default
+				userPreferences.min_price = 4000;
+				userPreferences.max_price = 5000;
+
+				const SearchSetting = require("../../models/search_setting");
+				const search_setting = await SearchSetting.create(
+					userPreferences
+				);
+
 				set_session(username, res)
 					.then(() => {
 						res.json({ msg: "Successfully created user!" });

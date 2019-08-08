@@ -72,16 +72,17 @@ const getRandomFSA_Vancouver = () => {
 	return fsa;
 };
 
-const scrapeCraigslist = async (logging = false) => {
+const scrapeCraigslist = async (logging = false, userId) => {
 	if (logging) console.log(`\n-------------------------------------\n`);
-	if (logging) console.log("Getting data from craigslist...");
+	if (logging)
+		console.log(`Getting data from craigslist for userId #${userId} ...`);
 	// TODO: instead of getting these from data, have them come from the DB
 	const PolygonLookup = require("polygon-lookup");
 	const featureCollection = require("../../data/polygons.json");
 	const lookup = new PolygonLookup(featureCollection);
 
 	// get listings
-	const userPreferences = await getUserPreferences(1);
+	const userPreferences = await getUserPreferences(userId);
 	const superPreferences = {
 		...userPreferences,
 		postal: getRandomFSA_Vancouver(),
@@ -247,7 +248,7 @@ const scrapeCraigslist = async (logging = false) => {
 			zoom,
 			postedAt,
 			polygon_name,
-			userId: 1,
+			userId,
 			price,
 			beds,
 			baths,
@@ -260,7 +261,7 @@ const scrapeCraigslist = async (logging = false) => {
 		console.log(
 			"Finished getting",
 			listings.length,
-			"listings from craigslist"
+			`listings from craigslist for userId #${userId} ...`
 		);
 	if (logging) console.log(`\n-------------------------------------\n`);
 };
