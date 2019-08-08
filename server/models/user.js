@@ -13,15 +13,7 @@ const User = sequelize.define("user", {
 	email: STRING,
 	username_hash: STRING(64),
 	password_hash: STRING(64),
-	session_id: STRING(36),
-	// TODO: move the below fields into a separate table
-	base_host: STRING,
-	city: STRING,
-	category: STRING,
-	has_pic: INTEGER,
-	max_price: INTEGER,
-	min_price: INTEGER,
-	posted_today: INTEGER
+	session_id: STRING(36)
 });
 
 module.exports = User;

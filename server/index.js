@@ -9,6 +9,7 @@ const sequelize = require("./utils/database");
 const listing = require("./routes/api/listing");
 const User = require("./models/user");
 const user = require("./routes/api/user");
+const SearchSetting = require("./models/search_setting");
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -46,7 +47,8 @@ new CronJob(...heartbeat);
 		// sync sequelize db .sync({force: true}) - reset the entire db
 		await sequelize.sync();
 
-		let user = await User.findByPk(1);
+		const userId = 1;
+		let user = await User.findByPk(userId);
 		if (!user) {
 			const {
 				city,
@@ -58,13 +60,15 @@ new CronJob(...heartbeat);
 				postedToday: posted_today
 			} = require("./utils/userPreferences");
 			const userPreferences = {
+				type: "craigslist",
 				base_host,
 				city,
 				category,
 				has_pic,
 				max_price,
 				min_price,
-				posted_today
+				posted_today,
+				userId
 			};
 
 			const hash = require("./utils/hash");
@@ -79,9 +83,11 @@ new CronJob(...heartbeat);
 
 			// TODO: load from userPreferences.js as default
 			user = await User.create({
-				...userDetails,
-				...userPreferences
+				...userDetails
+				// ...userPreferences
 			});
+
+			const search_setting = await SearchSetting.create(userPreferences);
 		}
 
 		app.listen(port, () => {
