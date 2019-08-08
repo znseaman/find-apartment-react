@@ -13,7 +13,7 @@ export default () => {
 			Object.keys(params).forEach(key =>
 				url.searchParams.append(key, params[key])
 			);
-			const data = await fetch(url)
+			const data = await fetch(url, { credentials: "include" })
 				.then(response => response.json())
 				.catch(e => {
 					console.error(e);
