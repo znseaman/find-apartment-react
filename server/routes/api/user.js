@@ -11,7 +11,7 @@ const set_session_cookie = (session_str, res) => {
 		// TODO: express this through date-fns to be more precise for maintenance
 		expire: Date.now() + 3600000,
 		httpOnly: true,
-		secure: false // use with https for a secure cookie
+		secure: false // use with https for a secure cookie (set to true when using https)
 	});
 };
 
