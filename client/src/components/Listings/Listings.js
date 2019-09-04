@@ -34,7 +34,9 @@ const Listings = ({ perPage }) => {
 			/>
 		);
 	});
-	return (
+
+	const isLoading = all.length === 0;
+	let showListings = (
 		<>
 			{all}
 			<ReactPaginate
@@ -52,6 +54,11 @@ const Listings = ({ perPage }) => {
 			/>
 		</>
 	);
+	if (isLoading) {
+		showListings = <h4>Loading...</h4>;
+	}
+
+	return showListings;
 };
 
 export default Listings;
