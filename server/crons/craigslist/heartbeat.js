@@ -1,6 +1,7 @@
 const axios = require("axios");
 const Listing = require("../../models/listing");
 
+// TODO: every page contains the text "flagged" (9/4/2019)
 function wasFlagged(html) {
 	const regex = /flagged/g;
 	return regex.test(html);
@@ -69,7 +70,7 @@ const heartbeatCraigslist = async (listings, deleteFunc) => {
 		}
 
 		// Check if the page contains "deleted" or "flagged"
-		if (wasFlagged(data) || wasDeleted(data)) {
+		if (wasDeleted(data)) {
 			// delete listing from the DB
 			const res = await Listing.destroy({
 				where: {
