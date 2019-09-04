@@ -202,11 +202,16 @@ const scrapeCraigslist = async (logging = false, userId) => {
 
 		// Reach out to the original posting url to get additional data (# br / # ba, amenities, etc.)
 		const fetchData = require("../../utils/fetchData");
-		const { beds, baths, size, amenities, image } = await fetchData(
-			url
-		).catch(error => {
-			console.error(error);
-		});
+
+		let response;
+		try {
+			response = await fetchData(url);
+		} catch (e) {
+			console.error(e);
+			continue;
+		}
+
+		const { beds, baths, size, amenities, image } = response;
 
 		// check for duplicate post (the listing price, size, and coordinates are the same as a previously saved entry)
 		// this protects against the multiple posts issue, when users post to get their listing to appear fresh when it's been on the market for a while
