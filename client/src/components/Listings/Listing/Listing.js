@@ -79,8 +79,7 @@ export default function Listing(props) {
 				</p>
 			</div>
 			<div style={{ padding: "1rem 1rem" }}>
-				<button onClick={() => openLink(url)}>Details</button>
-				<button>Favorite</button>
+				{/* <button onClick={() => toFavorite(id)}>Favorite</button> */}
 			</div>
 			<p
 				style={{
