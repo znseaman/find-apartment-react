@@ -43,7 +43,7 @@ class Auth {
 			.then(response => response.data)
 			.then(() => {
 				this.loggedIn = false;
-				history.replace("/");
+				history.replace("/login");
 			});
 	};
 

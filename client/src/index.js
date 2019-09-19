@@ -5,6 +5,7 @@ import { Router, Switch, Route, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Auth from "./components/Auth/Auth";
+import App from "./containers/App/App";
 import Layout from "./hoc/Layout/Layout";
 import Listings from "./components/Listings/Listings";
 import Settings from "./components/Settings/Settings";
@@ -14,10 +15,10 @@ const auth = new Auth();
 
 const callbackComponent = () => {
 	if (auth.loggedIn) {
-		setTimeout(() => history.replace("/"), 1500);
+		setTimeout(() => history.replace("/listings"), 1500);
 		return <h4>Loading...</h4>;
 	} else {
-		return <Redirect to={{ pathname: "/" }}></Redirect>;
+		return <Redirect to={{ pathname: "/login" }}></Redirect>;
 	}
 };
 
@@ -30,7 +31,7 @@ const AuthRoute = props => {
 				return auth.loggedIn ? (
 					<Component></Component>
 				) : (
-					<Redirect to={{ pathname: "/" }}></Redirect>
+					<Redirect to={{ pathname: "/login" }}></Redirect>
 				);
 			}}
 		></Route>
@@ -51,6 +52,24 @@ auth.checkAuthentication().then(() => {
 				<Switch>
 					<Route
 						exact
+						path="/login"
+						render={props => {
+							const hasMap = containsMap(
+								window.location.pathname
+							);
+
+							return (
+								<App auth={auth} hasMap={hasMap}>
+									<Listings
+										{...props}
+										perPage={perPage}
+									></Listings>
+								</App>
+							);
+						}}
+					></Route>
+					<Route
+						exact
 						path="/"
 						render={props => {
 							const hasMap = containsMap(
@@ -58,7 +77,7 @@ auth.checkAuthentication().then(() => {
 							);
 
 							return (
-								<Layout hasMap={hasMap}>
+								<Layout auth={auth} hasMap={hasMap}>
 									<Listings
 										{...props}
 										perPage={perPage}
@@ -78,7 +97,7 @@ auth.checkAuthentication().then(() => {
 								window.location.pathname
 							);
 							return (
-								<Layout hasMap={hasMap}>
+								<Layout auth={auth} hasMap={hasMap}>
 									<Listings
 										{...props}
 										perPage={perPage}
@@ -94,7 +113,7 @@ auth.checkAuthentication().then(() => {
 								window.location.pathname
 							);
 							return (
-								<Layout hasMap={hasMap}>
+								<Layout auth={auth} hasMap={hasMap}>
 									<SimpleMap {...props}></SimpleMap>
 								</Layout>
 							);
@@ -107,7 +126,7 @@ auth.checkAuthentication().then(() => {
 								window.location.pathname
 							);
 							return (
-								<Layout hasMap={hasMap}>
+								<Layout auth={auth} hasMap={hasMap}>
 									<Settings {...props}></Settings>
 								</Layout>
 							);

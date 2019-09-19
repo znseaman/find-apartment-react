@@ -10,6 +10,7 @@ const listing = require("./routes/api/listing");
 const User = require("./models/user");
 const user = require("./routes/api/user");
 const SearchSetting = require("./models/search_setting");
+const search_setting = require("./routes/api/search_setting");
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ app.use(
 
 app.use("/listing", listing);
 app.use("/user", user);
+app.use("/search_setting", search_setting);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
