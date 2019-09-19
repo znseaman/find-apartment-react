@@ -4,3 +4,9 @@
 	flex-flow: row wrap;
 	justify-content: space-evenly;
 }
+
+.fixed {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}

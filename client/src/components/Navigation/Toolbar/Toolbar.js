@@ -10,9 +10,9 @@ const Toolbar = props => {
 		<header className={classes.Toolbar}>
 			<Menu></Menu>
 			<nav>
-				<Button onClick={props.logout}>Log Out</Button>
-				{/* <NavigationItems></NavigationItems> */}
+				<NavigationItems></NavigationItems>
 			</nav>
+			<Button onClick={props.logout}>Log Out</Button>
 		</header>
 	);
 };
