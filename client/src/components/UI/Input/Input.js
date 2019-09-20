@@ -1,16 +1,18 @@
 import React from "react";
 
 const Input = props => {
-	const { elementType, elementConfig, label, value } = props;
+	const { elementType, elementConfig, label, value, changed } = props;
 	let inputElement = null;
 
 	switch (elementType) {
 		case "textarea":
-			inputElement = <textarea {...elementConfig} value={value} />;
+			inputElement = (
+				<textarea {...elementConfig} value={value} onChange={changed} />
+			);
 			break;
 		case "select":
 			inputElement = (
-				<select value={value}>
+				<select value={value} onChange={changed}>
 					{elementConfig.options.map(({ value, text }) => {
 						return (
 							<option key={value} value={value}>
@@ -23,7 +25,9 @@ const Input = props => {
 			break;
 		default:
 			// "input"
-			inputElement = <input {...elementConfig} value={value} />;
+			inputElement = (
+				<input {...elementConfig} value={value} onChange={changed} />
+			);
 	}
 	return (
 		<div>

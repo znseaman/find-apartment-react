@@ -1,54 +1,75 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Settings.module.css";
 
 import classes from "../Listings/Listing/Listing.module.css";
 import Input from "../UI/Input/Input";
+import { Button } from "react-bootstrap";
+import useSettings from "../../hooks/useSettings";
+import { updateObject } from "../../shared/updateObject";
 
 const Settings = () => {
 	// TODO: add city, base_host, category as options to modify
+	const [searchSettings, setSearchSettings] = useSettings();
 
-	const [searchSettings, setSearchSettings] = useState({
-		has_pic: {
-			elementType: "select",
-			elementConfig: {
-				options: [{ value: 1, text: "Yes" }, { value: 0, text: "No" }]
+	const inputChangedHandler = (event, inputIdentifier) => {
+		const { value } = event.target;
+
+		const el = searchSettings[inputIdentifier];
+		const updatedSearchSettings = updateObject(searchSettings, {
+			[inputIdentifier]: updateObject(el, {
+				value: Number(value)
+			})
+		});
+
+		setSearchSettings(updatedSearchSettings);
+	};
+
+	const onSaveHandler = event => {
+		event.preventDefault();
+
+		const settings = Object.keys(searchSettings).reduce(
+			(obj, key) => ((obj[key] = searchSettings[key].value), obj),
+			{}
+		);
+
+		fetch(`http://localhost:9000/search_setting/edit`, {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json"
 			},
-			value: 1,
-			label: "Has Pic"
-		},
-		min_price: {
-			elementType: "input",
-			elementConfig: {
-				type: "text"
-			},
-			value: "",
-			label: "Min Price"
-		},
-		max_price: {
-			element: "input",
-			elementConfig: {
-				type: "text"
-			},
-			value: "",
-			label: "Max Price"
-		},
-		posted_today: {
-			elementType: "select",
-			elementConfig: {
-				options: [{ value: 1, text: "Yes" }, { value: 0, text: "No" }]
-			},
-			value: 1,
-			label: "Posted Today"
-		}
-	});
+			body: JSON.stringify(settings)
+		})
+			.then(response => response.json())
+			.then(json => {
+				if (json.type === "error") {
+					alert(json.msg);
+				} else {
+					alert("Save Successful!");
+					// this.loggedIn = true;
+					// history.replace("/callback");
+				}
+			});
+	};
 
 	const renderForm = () => {
 		const inputs = Object.keys(searchSettings).map(key => {
 			const { elementType, elementConfig, value } = searchSettings[key];
-			return <Input {...searchSettings[key]} key={key}></Input>;
+			return (
+				<Input
+					{...searchSettings[key]}
+					key={key}
+					changed={event => inputChangedHandler(event, key)}
+				></Input>
+			);
 		});
 
-		return <form>{inputs}</form>;
+		return (
+			<form onSubmit={onSaveHandler}>
+				{inputs}
+				<Button onClick={onSaveHandler}>Save</Button>
+			</form>
+		);
 	};
 
 	return (
@@ -65,7 +86,7 @@ const Settings = () => {
 			>
 				<p className={classes["Listing-title"]}>My Search Settings</p>
 			</header>
-			<div>{renderForm()}</div>
+			<div className={styles.Settings}>{renderForm()}</div>
 		</article>
 	);
 };
