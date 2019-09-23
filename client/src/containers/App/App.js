@@ -40,7 +40,7 @@ const App = props => {
 		setHasMap(containsMap(location.pathname));
 	});
 
-	const { auth, history } = props;
+	const { auth } = props;
 
 	let routes = (
 		<Switch>

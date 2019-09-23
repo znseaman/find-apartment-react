@@ -6,7 +6,9 @@ import useListings from "../../hooks/useListings";
 
 import "../Listings/ReactPaginate.css";
 
-const Listings = ({ perPage }) => {
+import Spinner from "../UI/Spinner/Spinner";
+
+const Listings = () => {
 	const [
 		listings,
 		deleteListingHandler,
@@ -57,7 +59,7 @@ const Listings = ({ perPage }) => {
 		</>
 	);
 	if (isLoading) {
-		showListings = <h4>Loading...</h4>;
+		showListings = <Spinner></Spinner>;
 	}
 
 	return showListings;
