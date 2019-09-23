@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import classes from "./App.module.css";
 
@@ -56,11 +56,6 @@ const App = props => {
 			></AuthRoute>
 			<AuthRoute
 				auth={auth}
-				path="/listings"
-				component={Listings}
-			></AuthRoute>
-			<AuthRoute
-				auth={auth}
 				path="/map"
 				component={SimpleMap}
 			></AuthRoute>
@@ -69,7 +64,7 @@ const App = props => {
 				path="/settings"
 				component={Settings}
 			></AuthRoute>
-			<Redirect to="/listings"></Redirect>
+			<Redirect to="/"></Redirect>
 		</Switch>
 	);
 
