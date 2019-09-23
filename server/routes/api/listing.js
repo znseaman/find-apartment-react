@@ -2,7 +2,7 @@ const { Router } = require("express");
 const util = require("util");
 const Listing = require("../../models/listing");
 const pool = require("../../database/db");
-const PER_PAGE = 10;
+const PER_PAGE = 50;
 const Session = require("../../utils/session");
 const hash = require("../../utils/hash");
 

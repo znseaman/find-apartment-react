@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export default () => {
 	const [listings, setListings] = useState([]);
-	const [limit, setLimit] = useState(5);
+	const [limit, setLimit] = useState(50);
 	const [offset, setOffset] = useState(0);
 	const [pageCount, setPageCount] = useState(1);
 

@@ -24,24 +24,26 @@ class AuthForm extends Component {
 		return (
 			<div className={classes.AuthForm}>
 				<h2>Find Apartment</h2>
-				<FormGroup>
-					<FormControl
-						type="text"
-						value={username}
-						placeholder="username"
-						onChange={this.updateInput("username")}
-					></FormControl>
-					<br />
-					<FormControl
-						type="password"
-						value={password}
-						placeholder="password"
-						onChange={this.updateInput("password")}
-					></FormControl>
-					<Button onClick={this.login}>Log In</Button>
-					<span> or </span>
-					<Button onClick={this.signup}>Sign Up</Button>
-				</FormGroup>
+				<form>
+					<FormGroup>
+						<FormControl
+							type="text"
+							value={username}
+							placeholder="username"
+							onChange={this.updateInput("username")}
+						></FormControl>
+						<br />
+						<FormControl
+							type="password"
+							value={password}
+							placeholder="password"
+							onChange={this.updateInput("password")}
+						></FormControl>
+						<Button onClick={this.login}>Log In</Button>
+						<span> or </span>
+						<Button onClick={this.signup}>Sign Up</Button>
+					</FormGroup>
+				</form>
 			</div>
 		);
 	}

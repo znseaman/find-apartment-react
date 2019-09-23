@@ -20,7 +20,7 @@ class Auth {
 					alert(json.msg);
 				} else {
 					this.loggedIn = true;
-					history.replace("/callback");
+					history.replace("/");
 				}
 			});
 	};

@@ -46,8 +46,6 @@ const Settings = () => {
 					alert(json.msg);
 				} else {
 					alert("Save Successful!");
-					// this.loggedIn = true;
-					// history.replace("/callback");
 				}
 			});
 	};

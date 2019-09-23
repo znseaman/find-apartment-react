@@ -17,12 +17,14 @@ const Listings = ({ perPage }) => {
 		setOffset
 	] = useListings();
 
+	const perPage = 10;
 
 	const handlePageClick = data => {
 		const { selected } = data;
 		const offset = Math.ceil(selected * perPage);
 
 		setOffset(offset);
+		window.scrollTo(0, 0);
 	};
 
 	const all = listings.map(listing => {
