@@ -9,6 +9,7 @@ import AuthForm from "../../components/AuthForm/AuthForm";
 import Listings from "../../components/Listings/Listings";
 import SimpleMap from "../../components/SimpleMap/SimpleMap";
 import Settings from "../../components/Settings/Settings";
+import Logout from "../../components/Auth/Logout/Logout";
 
 function containsMap(pathname) {
 	const regex = new RegExp("map");
@@ -64,6 +65,10 @@ const App = props => {
 				path="/settings"
 				component={Settings}
 			></AuthRoute>
+			<Route
+				path="/logout"
+				render={props => <Logout auth={auth} {...props}></Logout>}
+			></Route>
 			<Redirect to="/"></Redirect>
 		</Switch>
 	);

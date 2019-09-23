@@ -11,6 +11,7 @@ const NavigationItems = () => {
 			</NavigationItem>
 			<NavigationItem link="/map">Map</NavigationItem>
 			<NavigationItem link="/settings">Settings</NavigationItem>
+			<NavigationItem link="/logout">Logout</NavigationItem>
 		</ul>
 	);
 };

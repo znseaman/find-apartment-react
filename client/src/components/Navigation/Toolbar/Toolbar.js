@@ -3,7 +3,6 @@ import React from "react";
 import classes from "./Toolbar.module.css";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import Menu from "../Menu/Menu";
-import { Button } from "react-bootstrap";
 
 const Toolbar = props => {
 	return (
@@ -12,7 +11,6 @@ const Toolbar = props => {
 			<nav>
 				<NavigationItems></NavigationItems>
 			</nav>
-			<Button onClick={props.logout}>Log Out</Button>
 		</header>
 	);
 };
