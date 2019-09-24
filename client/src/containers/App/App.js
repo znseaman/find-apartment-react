@@ -47,7 +47,14 @@ const App = props => {
 		<Switch>
 			<Route
 				path="/login"
-				render={props => <AuthForm auth={auth} {...props}></AuthForm>}
+				render={props => {
+					props.auth = auth;
+					return auth.loggedIn ? (
+						<Redirect to="/"></Redirect>
+					) : (
+						<AuthForm {...props}></AuthForm>
+					);
+				}}
 			></Route>
 			<AuthRoute
 				exact
@@ -74,7 +81,7 @@ const App = props => {
 	);
 
 	return (
-		<Layout auth={auth} hasMap={hasMap}>
+		<Layout hasMap={hasMap} auth={auth}>
 			{routes}
 		</Layout>
 	);
