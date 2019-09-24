@@ -20,7 +20,7 @@ export default () => {
 					throw e;
 				});
 
-			if (data) {
+			if (data && data.meta) {
 				setListings(data.listings);
 				setPageCount(
 					Math.ceil(data.meta.total_count / data.meta.limit)
