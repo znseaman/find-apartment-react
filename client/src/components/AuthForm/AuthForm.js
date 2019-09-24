@@ -14,7 +14,8 @@ class AuthForm extends Component {
 		this.props.auth.signup(username, password);
 	};
 
-	login = () => {
+	login = event => {
+		event.preventDefault();
 		const { username, password } = this.state;
 		this.props.auth.login(username, password);
 	};
@@ -39,11 +40,12 @@ class AuthForm extends Component {
 							placeholder="password"
 							onChange={this.updateInput("password")}
 						></FormControl>
-						<Button onClick={this.login}>Log In</Button>
-						<span> or </span>
-						<Button onClick={this.signup}>Sign Up</Button>
+						<Button type="submit" onClick={this.login}>
+							Log In
+						</Button>
 					</FormGroup>
 				</form>
+				<Button onClick={this.signup}>Sign Up</Button>
 			</div>
 		);
 	}
