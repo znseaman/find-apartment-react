@@ -7,7 +7,7 @@ const Logout = props => {
 		props.auth.logout();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	return <Spinner></Spinner>;
+	return <Redirect to="/login"></Redirect>;
 };
 
 export default Logout;
