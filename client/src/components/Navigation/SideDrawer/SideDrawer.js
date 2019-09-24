@@ -4,6 +4,7 @@ import classes from "./SideDrawer.module.css";
 
 import NavigationItems from "../../Navigation/NavigationItems/NavigationItems";
 import Backdrop from "../../UI/Backdrop/Backdrop";
+import Logo from "../../Logo/Logo";
 
 const SideDrawer = ({ open, closed }) => {
 	let attachedClasses = [classes.SideDrawer, classes.Close];
@@ -15,6 +16,7 @@ const SideDrawer = ({ open, closed }) => {
 		<>
 			<Backdrop show={open} clicked={closed}></Backdrop>
 			<div className={attachedClasses.join(" ")}>
+				<Logo height="11%"></Logo>
 				<nav onClick={closed}>
 					<NavigationItems></NavigationItems>
 				</nav>
