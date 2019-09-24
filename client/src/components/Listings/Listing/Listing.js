@@ -78,7 +78,7 @@ export default function Listing(props) {
 					{description}
 				</p>
 			</div>
-			<div style={{ padding: "1rem 1rem" }}>
+			<div style={{ padding: "1rem 1rem", textAlign: "center" }}>
 				<button
 					className="btn btn-secondary"
 					onClick={() => openLink(url)}
