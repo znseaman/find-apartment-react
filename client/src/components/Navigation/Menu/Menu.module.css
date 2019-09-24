@@ -15,3 +15,9 @@
 	height: 3px;
 	background-color: white;
 }
+
+@media (min-width: 500px) {
+	.Menu {
+		display: none;
+	}
+}
