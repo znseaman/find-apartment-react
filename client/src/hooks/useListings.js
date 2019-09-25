@@ -7,6 +7,8 @@ export default () => {
 	const [pageCount, setPageCount] = useState(1);
 
 	useEffect(() => {
+		var interval = null;
+
 		async function fetchData() {
 			const url = new URL(`http://localhost:9000/listing/all`);
 			const params = { limit, offset };
@@ -20,11 +22,26 @@ export default () => {
 					throw e;
 				});
 
-			if (data && data.meta) {
+			if (
+				data &&
+				data.meta &&
+				data.listings &&
+				data.listings.length > 0
+			) {
 				setListings(data.listings);
 				setPageCount(
 					Math.ceil(data.meta.total_count / data.meta.limit)
 				);
+
+				clearInterval(interval);
+				interval = null;
+			}
+
+			// if no listings found, wait a bit until trying to search again
+			if (data && data.listings.length === 0 && interval === null) {
+				interval = setInterval(() => {
+					fetchData();
+				}, 10000);
 			}
 		}
 
