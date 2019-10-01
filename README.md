@@ -4,7 +4,7 @@ A React & Express application where you can browse currently available apartment
 
 # Motivation
 
-When looking for apartments, especially in a tight housing market like Vanocuver, you need to be prepared to move quickly. Getting the most up-to-date listings and being able to make a decision on if it meets your criteria is work fit for a computer, not you. This application helped me in my search for a place to rent.
+When looking for apartments, especially in a tight housing market like Vancouver, you need to be prepared to move quickly. Getting the most up-to-date listings that meet your requirements is vital but extremely tedious, making this work perfect for a computer to do. This enables you to have a first filter before making the decision on whether you should respond to the listing. This application helped me in my search for a place to rent and I hope that it can eventually help others.
 
 # What I Learned
 
