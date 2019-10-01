@@ -11,8 +11,10 @@ When looking for apartments, especially in a tight housing market like Vanocuver
 -   How to add pagination and a photo carousel for listings in `react`
 -   How to use and create custom hooks in `react`
 -   How to add authentication using session strings
+-   How to setup public and protected routes via React Router
 -   How to hash usernames and passwords to be stored in a `postgresql` database
 -   How to create cron jobs in `node` that look for new search results for each user and delete existing listings that have been deleted, flagged, or that were posted too long ago
+-   How to search for listings data
 -   How to add listings that fall within set of polygons using `polygon-lookup`
 -   How to randomly select a postal code within the city of Vancouver to search for
 -   How to create a CRUD API using `express`
