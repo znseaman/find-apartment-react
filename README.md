@@ -1,6 +1,6 @@
 # find-apartment-react
 
-A React & Express application where you can browse currently available apartment listings in Vancouver based on your user search preferences. The application runs cron jobs
+A React & Express application where you can browse currently available apartment listings in Vancouver based on your user search preferences. The application runs cron jobs to look for the most recent listings.
 
 # Motivation
 
