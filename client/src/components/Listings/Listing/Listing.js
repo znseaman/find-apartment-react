@@ -21,10 +21,7 @@ export default function Listing(props) {
 	const humanized = formatDistanceStrict(new Date(postedAt), Date.now());
 
 	const carousel = (
-		<Carousel
-			imageUrls={imageUrls.split(",")}
-			dynamicHeight={true}
-		></Carousel>
+		<Carousel imageUrls={imageUrls.split(",")} dynamicHeight={true}></Carousel>
 	);
 
 	const openLink = url => {
@@ -61,10 +58,7 @@ export default function Listing(props) {
 				}}
 			>
 				<p className={classes["Listing-title"]}>
-					{formatPrice(price) +
-						` - ` +
-						formatBedsBaths(beds, baths) +
-						` - `}
+					{formatPrice(price) + ` - ` + formatBedsBaths(beds, baths) + ` - `}
 					{size ? formatSize(size) : ""}
 					{` - ` + title}
 				</p>
@@ -79,10 +73,7 @@ export default function Listing(props) {
 				</p>
 			</div>
 			<div style={{ padding: "1rem 1rem", textAlign: "center" }}>
-				<button
-					className="btn btn-secondary"
-					onClick={() => openLink(url)}
-				>
+				<button className='btn btn-secondary' onClick={() => openLink(url)}>
 					Details
 				</button>
 				{/* <button onClick={() => toFavorite(id)}>Favorite</button> */}
@@ -96,8 +87,8 @@ export default function Listing(props) {
 				}}
 			>{`${humanized}`}</p>
 			<a
-				href=""
-				aria-label="Delete Listing"
+				href=''
+				aria-label='Delete Listing'
 				style={{
 					textDecoration: "none",
 					color: "#535362",

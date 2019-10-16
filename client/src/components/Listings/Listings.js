@@ -1,42 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import ReactPaginate from "react-paginate";
 
 import Listing from "./Listing/Listing";
-import useListings from "../../hooks/useListings";
 
 import "../Listings/ReactPaginate.css";
 
 import Spinner from "../UI/Spinner/Spinner";
+import { getListings, deleteListing } from "../../redux/actions";
 
-const Listings = () => {
-	const [
-		listings,
-		deleteListingHandler,
-		pageCount,
-		limit,
-		setLimit,
-		offset,
-		setOffset
-	] = useListings();
+const mapStateToProps = state => ({
+	listings: state.listings,
+	pageCount: state.pageCount
+});
 
-	const perPage = 10;
+const Listings = ({ listings, pageCount, getListings, deleteListing }) => {
+	const [limit, setLimit] = useState(50);
+	const [offset, setOffset] = useState(0);
+
+	useEffect(() => {
+		getListings({ limit, offset });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [limit, offset]);
 
 	const handlePageClick = data => {
 		const { selected } = data;
-		const offset = Math.ceil(selected * perPage);
+		const offset = Math.ceil(selected * limit);
 
 		setOffset(offset);
 		window.scrollTo(0, 0);
 	};
 
 	const all = listings.map(listing => {
-		return (
-			<Listing
-				key={listing.id}
-				{...listing}
-				clicked={deleteListingHandler}
-			/>
-		);
+		return <Listing key={listing.id} {...listing} clicked={deleteListing} />;
 	});
 
 	const isLoading = all.length === 0;
@@ -65,4 +62,14 @@ const Listings = () => {
 	return showListings;
 };
 
-export default Listings;
+Listings.propTypes = {
+	listings: PropTypes.array.isRequired,
+	pageCount: PropTypes.number.isRequired,
+	getListings: PropTypes.func.isRequired,
+	deleteListing: PropTypes.func.isRequired
+};
+
+export default connect(
+	mapStateToProps,
+	{ getListings, deleteListing }
+)(Listings);

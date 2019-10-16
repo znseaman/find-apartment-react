@@ -1,0 +1,3 @@
+export const GET_LISTINGS = "GET_LISTINGS";
+export const LISTINGS_ERROR = "LISTINGS_ERROR";
+export const DELETE_LISTING = "DELETE_LISTING";

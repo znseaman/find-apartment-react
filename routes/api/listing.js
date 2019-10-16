@@ -23,29 +23,19 @@ router.get("/all", async (req, res, next) => {
 			if (q_error) return next(q_error);
 
 			// if authenticated, go ahead and find all listings
-			if (
-				Session.verify(session_str) &&
-				q_results.rows[0].session_id === id
-			) {
+			if (Session.verify(session_str) && q_results.rows[0].session_id === id) {
 				const listings = await Listing.findAll({
 					where: {
 						userId: q_results.rows[0].id
 					}
 				});
-				const offset = req.query.offset
-					? parseInt(req.query.offset, 10)
-					: 0;
+				const offset = req.query.offset ? parseInt(req.query.offset, 10) : 0;
 				const nextOffset = offset + PER_PAGE;
-				const previousOffset =
-					offset - PER_PAGE < 0 ? 0 : offset - PER_PAGE;
+				const previousOffset = offset - PER_PAGE < 0 ? 0 : offset - PER_PAGE;
 
 				const meta = {
 					limit: PER_PAGE,
-					next: util.format(
-						"?limit=%s&offset=%s",
-						PER_PAGE,
-						nextOffset
-					),
+					next: util.format("?limit=%s&offset=%s", PER_PAGE, nextOffset),
 					offset: req.query.offset,
 					previous: util.format(
 						"?limit=%s&offset=%s",
