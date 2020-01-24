@@ -11,8 +11,8 @@ const Sequelize = require("sequelize");
 const { Op } = Sequelize;
 const { ne: $ne } = Op;
 const scrape = [
-	"50 * * * * *",
-	async function() {
+	"0 0 7 * * *",
+	async function () {
 		// get all the active users (i.e. ones with sessions set)
 		const users = await User.findAll({
 			where: {
@@ -40,8 +40,8 @@ const scrape = [
 const heartbeatListings = require("./heartbeat");
 const Listing = require("../../models/listing");
 const heartbeat = [
-	"10 * * * * *",
-	async function() {
+	"0 0 7 * * *",
+	async function () {
 		const listings = await Listing.findAll();
 		await heartbeatListings(listings);
 	},
