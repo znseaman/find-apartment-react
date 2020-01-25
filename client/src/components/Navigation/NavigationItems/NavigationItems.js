@@ -15,7 +15,7 @@ const NavigationItems = ({ loggedIn }) => {
 			<NavigationItem exact link="/logout">Logout</NavigationItem>
 		</>) : (
 			<><NavigationItem exact link="/login">
-				Login
+				Log In
 			</NavigationItem>
 				<NavigationItem exact link="/signup">
 					Sign Up
