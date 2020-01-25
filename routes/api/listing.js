@@ -14,11 +14,11 @@ function getPaginatedItems(items, offset) {
 
 router.get("/all", async (req, res, next) => {
 	const { session_str } = req.cookies;
-	// Check that the username and id are valid
-	const { username, id } = Session.parse(session_str);
+	// Check that the email and id are valid
+	const { email, id } = Session.parse(session_str);
 	pool.query(
-		"SELECT * FROM users WHERE username_hash = $1",
-		[hash(username)],
+		"SELECT * FROM users WHERE email = $1",
+		[email],
 		async (q_error, q_results) => {
 			if (q_error) return next(q_error);
 
@@ -54,7 +54,7 @@ router.get("/all", async (req, res, next) => {
 			} else {
 				// TODO: this should redirect to the logout page since the cookie isn't valid anymore
 				// also, this could be used an attack vector and is some information for malicious actors by sending back such an error
-				return next(new Error("Invalid username"));
+				return next(new Error("Invalid email"));
 			}
 		}
 	);

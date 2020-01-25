@@ -9,10 +9,8 @@ const User = sequelize.define("user", {
 		allowNull: false,
 		primaryKey: true
 	},
-	name: STRING,
 	email: STRING,
-	username_hash: STRING(64),
-	password_hash: STRING(64),
+	password: STRING(64),
 	session_id: STRING(36)
 });
 

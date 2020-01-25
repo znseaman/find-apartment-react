@@ -3,7 +3,7 @@ import { Button, FormGroup, FormLabel, FormControl } from "react-bootstrap";
 import classes from "./AuthForm.module.css";
 
 class AuthForm extends Component {
-	state = { username: "", password: "" };
+	state = { email: "", password: "" };
 
 	updateInput = type => event => {
 		this.setState({ [type]: event.target.value });
@@ -11,29 +11,29 @@ class AuthForm extends Component {
 
 	signup = event => {
 		event.preventDefault();
-		const { username, password } = this.state;
-		this.props.auth.signup(username, password);
+		const { email, password } = this.state;
+		this.props.auth.signup(email, password);
 	};
 
 	login = event => {
 		event.preventDefault();
-		const { username, password } = this.state;
-		this.props.auth.login(username, password);
+		const { email, password } = this.state;
+		this.props.auth.login(email, password);
 	};
 
 	render() {
 		const onLogin = this.props.location.pathname == "/login";
 		const submit = onLogin ? this.login.bind(this) : this.signup.bind(this);
-		const { username, password } = this.state;
+		const { email, password } = this.state;
 		return (
 			<div className={classes.AuthForm}>
 				<form>
 					<FormGroup>
 						<FormControl
 							type="text"
-							value={username}
-							placeholder="username"
-							onChange={this.updateInput("username")}
+							value={email}
+							placeholder="email"
+							onChange={this.updateInput("email")}
 						></FormControl>
 						<br />
 						<FormControl

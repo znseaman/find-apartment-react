@@ -5,14 +5,14 @@ import axios from "axios";
 class Auth {
 	loggedIn = false;
 
-	authenticate = async (username, password, type) => {
+	authenticate = async (email, password, type) => {
 		fetch(`${CONNECTION}/user/${type}`, {
 			method: "POST",
 			credentials: "include",
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify({ username, password })
+			body: JSON.stringify({ email, password })
 		})
 			.then(response => response.json())
 			.then(json => {
@@ -26,13 +26,13 @@ class Auth {
 	};
 
 	// TODO: modify to use currying
-	signup = (username, password) => {
-		this.authenticate(username, password, "new");
+	signup = (email, password) => {
+		this.authenticate(email, password, "new");
 	};
 
 	// TODO: modify to use currying
-	login = (username, password) => {
-		this.authenticate(username, password, "login");
+	login = (email, password) => {
+		this.authenticate(email, password, "login");
 	};
 
 	logout = () => {

@@ -15,14 +15,14 @@ const set_session_cookie = (session_str, res) => {
 	});
 };
 
-const set_session = (username, res, session_id) => {
+const set_session = (email, res, session_id) => {
 	let session;
 	let session_str;
 
 	if (session_id) {
-		session_str = Session.dataToString(username, session_id);
+		session_str = Session.dataToString(email, session_id);
 	} else {
-		session = new Session(username);
+		session = new Session(email);
 		session_str = session.toString();
 	}
 
@@ -32,8 +32,8 @@ const set_session = (username, res, session_id) => {
 			resolve();
 		} else {
 			pool.query(
-				"UPDATE users SET session_id = $1 WHERE username_hash = $2",
-				[session.id, hash(username)],
+				"UPDATE users SET session_id = $1 WHERE email = $2",
+				[session.id, email],
 				(q_error, q_result) => {
 					if (q_error) return reject(q_error);
 					set_session_cookie(session_str, res);
@@ -45,21 +45,18 @@ const set_session = (username, res, session_id) => {
 };
 
 router.post("/new", (req, res, next) => {
-	const { username, password } = req.body;
-
-	const username_hash = hash(username);
-	const password_hash = hash(password);
+	const { email, password } = req.body;
 
 	pool.query(
-		"SELECT * FROM users WHERE username_hash = $1",
-		[username_hash],
+		"SELECT * FROM users WHERE email = $1",
+		[email],
 		async (error0, results0) => {
 			if (error0) return next(error0);
 
 			if (results0.rows.length === 0) {
 				const user = await User.create({
-					username_hash,
-					password_hash
+					email,
+					password: hash(password)
 				});
 
 				// setup initial search settings for new user
@@ -93,7 +90,7 @@ router.post("/new", (req, res, next) => {
 					userPreferences
 				);
 
-				set_session(username, res)
+				set_session(email, res)
 					.then(() => {
 						res.json({ msg: "Successfully created user!" });
 					})
@@ -103,7 +100,7 @@ router.post("/new", (req, res, next) => {
 			} else {
 				res.status(409).json({
 					type: "error",
-					msg: "This username has been taken"
+					msg: "This email has been taken"
 				});
 			}
 		}
@@ -111,18 +108,18 @@ router.post("/new", (req, res, next) => {
 });
 
 router.post("/login", (req, res, next) => {
-	const { username, password } = req.body;
+	const { email, password } = req.body;
 
 	pool.query(
-		"SELECT * FROM users WHERE username_hash = $1",
-		[hash(username)],
+		"SELECT * FROM users WHERE email = $1",
+		[email],
 		(q_error, results) => {
 			if (q_error) return next(q_error);
 
 			const user = results.rows[0];
 
-			if (user && user.password_hash === hash(password)) {
-				set_session(username, res, user.session_id)
+			if (user && user.password === hash(password)) {
+				set_session(email, res, user.session_id)
 					.then(() => {
 						res.json({ msg: "Successful login!" });
 					})
@@ -132,7 +129,7 @@ router.post("/login", (req, res, next) => {
 			} else {
 				res.status(400).json({
 					type: "error",
-					msg: "Incorrect username/password"
+					msg: "Incorrect email/password"
 				});
 			}
 		}
@@ -140,11 +137,11 @@ router.post("/login", (req, res, next) => {
 });
 
 router.get("/logout", (req, res, next) => {
-	const { username } = Session.parse(req.cookies.session_str);
+	const { email } = Session.parse(req.cookies.session_str);
 
 	pool.query(
-		"UPDATE users SET session_id = NULL WHERE username_hash = $1",
-		[hash(username)],
+		"UPDATE users SET session_id = NULL WHERE email = $1",
+		[email],
 		(q_error, q_results) => {
 			if (q_error) return next(q_error);
 
@@ -155,11 +152,11 @@ router.get("/logout", (req, res, next) => {
 });
 
 router.get("/authenticated", (req, res, next) => {
-	const { username, id } = Session.parse(req.cookies.session_str);
+	const { email, id } = Session.parse(req.cookies.session_str);
 
 	pool.query(
-		"SELECT * FROM users WHERE username_hash = $1",
-		[hash(username)],
+		"SELECT * FROM users WHERE email = $1",
+		[email],
 		(q_error, q_results) => {
 			if (q_error) return next(q_error);
 

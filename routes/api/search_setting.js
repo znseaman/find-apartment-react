@@ -8,11 +8,11 @@ const router = new Router();
 
 router.get("/", (req, res, next) => {
 	const { session_str } = req.cookies;
-	// Check that the username and id are valid
-	const { username, id } = Session.parse(session_str);
+	// Check that the email and id are valid
+	const { email, id } = Session.parse(session_str);
 	pool.query(
-		"SELECT * FROM users WHERE username_hash = $1",
-		[hash(username)],
+		"SELECT * FROM users WHERE email = $1",
+		[email],
 		async (q_error, q_results) => {
 			if (q_error) return next(q_error);
 
@@ -41,11 +41,11 @@ router.post("/edit", (req, res, next) => {
 	const { has_pic, min_price, max_price, posted_today } = req.body;
 
 	const { session_str } = req.cookies;
-	// Check that the username and id are valid
-	const { username, id } = Session.parse(session_str);
+	// Check that the email and id are valid
+	const { email, id } = Session.parse(session_str);
 	pool.query(
-		"SELECT * FROM users WHERE username_hash = $1",
-		[hash(username)],
+		"SELECT * FROM users WHERE email = $1",
+		[email],
 		async (q_error, q_results) => {
 			if (q_error) return next(q_error);
 
