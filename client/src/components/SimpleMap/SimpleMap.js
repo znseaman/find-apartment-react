@@ -32,41 +32,48 @@ const SimpleMap = ({ listings, getListings, deleteListing }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [limit, offset]);
 
+	const renderPopup = ({
+		id,
+		latitude: lat,
+		longitude: lng,
+		title,
+		description,
+		url,
+		postedAt
+	}) => {
+		return <div
+			style={{
+				maxHeight: "300px",
+				overflow: "scroll"
+			}}
+		>
+			<h3>{title}</h3>
+			<h4>{description}</h4>
+			<h5>Date Posted: {postedAt}</h5>
+			<a href={url} target='_blank'>
+				Original Post
+									</a>
+			<button onClick={() => deleteListing(id)}>Delete Post</button>
+		</div>
+	}
+
 	const markers =
 		listings.length === 0
 			? null
 			: listings.map(listing => {
-					const {
-						id,
-						latitude: lat,
-						longitude: lng,
-						title,
-						description,
-						url,
-						postedAt
-					} = listing;
-					const position = [lat, lng];
-					return (
-						<Marker key={id} position={position}>
-							<Popup>
-								<div
-									style={{
-										maxHeight: "300px",
-										overflow: "scroll"
-									}}
-								>
-									<h3>{title}</h3>
-									<h4>{description}</h4>
-									<h5>Date Posted: {postedAt}</h5>
-									<a href={url} target='_blank'>
-										Original Post
-									</a>
-									<button onClick={() => deleteListing(id)}>Delete Post</button>
-								</div>
-							</Popup>
-						</Marker>
-					);
-			  });
+				const {
+					id,
+					latitude: lat,
+					longitude: lng,
+				} = listing;
+				return (
+					<Marker key={id} position={[lat, lng]}>
+						<Popup>
+							{renderPopup(listing)}
+						</Popup>
+					</Marker>
+				);
+			});
 
 	return (
 		<Map center={center} zoom={zoom} style={{ width: "100%" }}>
