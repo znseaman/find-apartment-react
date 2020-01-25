@@ -3,7 +3,7 @@
  *
  * Example cron expression:
  * run at 7:00 am everyday
- * 		0 0 7 * * *
+ * 		0 7 * * *
  */
 const scrapeListings = require("./scrape");
 const User = require("../../models/user");
@@ -11,7 +11,7 @@ const Sequelize = require("sequelize");
 const { Op } = Sequelize;
 const { ne: $ne } = Op;
 const scrape = [
-	"0 0 7 * * *",
+	"0 7 * * *",
 	async function () {
 		// get all the active users (i.e. ones with sessions set)
 		const users = await User.findAll({
@@ -22,7 +22,6 @@ const scrape = [
 			},
 			attributes: ["id"]
 		});
-		console.log();
 		for await (const user of users) {
 			const { id } = user;
 			scrapeListings(true, id);
@@ -40,7 +39,7 @@ const scrape = [
 const heartbeatListings = require("./heartbeat");
 const Listing = require("../../models/listing");
 const heartbeat = [
-	"0 0 7 * * *",
+	"0 7 * * *",
 	async function () {
 		const listings = await Listing.findAll();
 		await heartbeatListings(listings);
