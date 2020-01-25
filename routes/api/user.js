@@ -4,7 +4,7 @@ const pool = require("../../database/db");
 const User = require("../../models/user");
 const Session = require("../../utils/session");
 
-const router = new Router();
+const router = Router();
 
 const set_session_cookie = (session_str, res) => {
 	res.cookie("session_str", session_str, {

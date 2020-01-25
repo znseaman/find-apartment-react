@@ -4,7 +4,7 @@ const pool = require("../../database/db");
 const Session = require("../../utils/session");
 const SearchSetting = require("../../models/search_setting");
 
-const router = new Router();
+const router = Router();
 
 router.get("/", (req, res, next) => {
 	const { session_str } = req.cookies;

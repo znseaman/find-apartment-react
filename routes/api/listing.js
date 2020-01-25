@@ -4,9 +4,8 @@ const Listing = require("../../models/listing");
 const pool = require("../../database/db");
 const PER_PAGE = 50;
 const Session = require("../../utils/session");
-const hash = require("../../utils/hash");
 
-const router = new Router();
+const router = Router();
 
 function getPaginatedItems(items, offset) {
 	return items.slice(offset, offset + PER_PAGE);
