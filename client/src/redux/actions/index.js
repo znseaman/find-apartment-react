@@ -8,7 +8,7 @@ export const getListings = ({ limit, offset }) => async dispatch => {
 	var interval = null;
 	async function fetchData() {
 		const url = new URL(`http://localhost:9000/listing/all`);
-		const params = { limit, offset };
+		const params = { limit, offset, orderBy: 'postedAt', order: 'DESC' };
 		Object.keys(params).forEach(key =>
 			url.searchParams.append(key, params[key])
 		);

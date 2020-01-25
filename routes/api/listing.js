@@ -23,10 +23,15 @@ router.get("/all", async (req, res, next) => {
 
 			// if authenticated, go ahead and find all listings
 			if (Session.verify(session_str) && q_results.rows[0].session_id === id) {
+				let order;
+				if (req.query.orderBy && req.query.order) {
+					order = [[req.query.orderBy, req.query.order]]
+				}
 				const listings = await Listing.findAll({
 					where: {
 						userId: q_results.rows[0].id
-					}
+					},
+					order
 				});
 				const offset = req.query.offset ? parseInt(req.query.offset, 10) : 0;
 				const nextOffset = offset + PER_PAGE;
