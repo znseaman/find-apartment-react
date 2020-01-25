@@ -56,6 +56,17 @@ const App = props => {
 					);
 				}}
 			></Route>
+			<Route
+				path="/signup"
+				render={props => {
+					props.auth = auth;
+					return auth.loggedIn ? (
+						<Redirect to="/"></Redirect>
+					) : (
+							<AuthForm {...props}></AuthForm>
+						);
+				}}
+			></Route>
 			<AuthRoute
 				exact
 				auth={auth}
