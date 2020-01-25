@@ -7,9 +7,7 @@ const port = 9000;
 
 const sequelize = require("./utils/database");
 const listing = require("./routes/api/listing");
-const User = require("./models/user");
 const user = require("./routes/api/user");
-const SearchSetting = require("./models/search_setting");
 const search_setting = require("./routes/api/search_setting");
 
 app.use(cookieParser());
@@ -48,45 +46,6 @@ new CronJob(...heartbeat);
 	try {
 		// sync sequelize db .sync({force: true}) - reset the entire db
 		await sequelize.sync();
-
-		const userId = 1;
-		let user = await User.findByPk(userId);
-		if (!user) {
-			const {
-				city,
-				baseHost: base_host,
-				hasPic: has_pic,
-				category,
-				maxPrice: max_price,
-				minPrice: min_price,
-				postedToday: posted_today
-			} = require("./utils/userPreferences");
-			const userPreferences = {
-				type: "craigslist",
-				base_host,
-				city,
-				category,
-				has_pic,
-				max_price,
-				min_price,
-				posted_today,
-				userId
-			};
-
-			const hash = require("./utils/hash");
-			const Session = require("./utils/session");
-			const userDetails = require("./secrets/first_user");
-			const { id: session_id } = new Session(userDetails.username);
-			userDetails.session_id = session_id;
-			userDetails.username_hash = hash(userDetails.username);
-			delete userDetails.username;
-			userDetails.password_hash = hash(userDetails.password);
-			delete userDetails.password;
-
-			user = await User.create(userDetails);
-
-			const search_setting = await SearchSetting.create(userPreferences);
-		}
 
 		app.listen(port, () => {
 			console.log(`App running on port ${port}.`);
