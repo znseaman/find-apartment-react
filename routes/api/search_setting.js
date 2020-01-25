@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const hash = require("../../utils/hash");
 const pool = require("../../database/db");
 const Session = require("../../utils/session");
 const SearchSetting = require("../../models/search_setting");
