@@ -29,21 +29,26 @@ class AuthForm extends Component {
 			<div className={classes.AuthForm}>
 				<form>
 					<FormGroup>
+						<FormLabel>Email address</FormLabel>
 						<FormControl
 							type="text"
 							value={email}
-							placeholder="email"
+							placeholder="Enter email"
 							onChange={this.updateInput("email")}
 						></FormControl>
 						<br />
+						<FormLabel>Password</FormLabel>
 						<FormControl
 							type="password"
 							value={password}
-							placeholder="password"
+							placeholder="Enter password"
 							onChange={this.updateInput("password")}
 						></FormControl>
 					</FormGroup>
-					<Button type="submit" onClick={submit}>
+					<Button type="submit" onClick={submit} style={{
+						backgroundColor: '#207ea2',
+						borderColor: '#187fa7'
+					}}>
 						{onLogin ? 'Log In' : 'Sign Up'}
 					</Button>
 				</form>
