@@ -9,7 +9,8 @@ class AuthForm extends Component {
 		this.setState({ [type]: event.target.value });
 	};
 
-	signup = () => {
+	signup = event => {
+		event.preventDefault();
 		const { username, password } = this.state;
 		this.props.auth.signup(username, password);
 	};
@@ -21,6 +22,8 @@ class AuthForm extends Component {
 	};
 
 	render() {
+		const onLogin = this.props.location.pathname == "/login";
+		const submit = onLogin ? this.login.bind(this) : this.signup.bind(this);
 		const { username, password } = this.state;
 		return (
 			<div className={classes.AuthForm}>
@@ -39,12 +42,11 @@ class AuthForm extends Component {
 							placeholder="password"
 							onChange={this.updateInput("password")}
 						></FormControl>
-						<Button type="submit" onClick={this.login}>
-							Log In
-						</Button>
 					</FormGroup>
+					<Button type="submit" onClick={submit}>
+						{onLogin ? 'Log In' : 'Sign Up'}
+					</Button>
 				</form>
-				<Button onClick={this.signup}>Sign Up</Button>
 			</div>
 		);
 	}
