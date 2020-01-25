@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./Settings.module.css";
 
-import classes from "../Listings/Listing/Listing.module.css";
-import Input from "../UI/Input/Input";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import useSettings from "../../hooks/useSettings";
 import { updateObject } from "../../shared/updateObject";
 
@@ -52,40 +50,42 @@ const Settings = () => {
 
 	const renderForm = () => {
 		const inputs = Object.keys(searchSettings).map(key => {
-			const { elementType, elementConfig, value } = searchSettings[key];
+			const { elementType, elementConfig, value, label } = searchSettings[key];
+
+			if (elementType == 'select') {
+				return (
+					<Form.Group key={key} controlId={`setting-control-${key}`}>
+						<Form.Label>{label}</Form.Label>
+						<Form.Control as="select" onChange={event => inputChangedHandler(event, key)}>
+							{elementConfig.options.map(({ value, text }) => {
+								return <option key={value} value={value}>{text}</option>
+							})}
+						</Form.Control>
+					</Form.Group>
+				);
+			}
+
 			return (
-				<Input
-					{...searchSettings[key]}
-					key={key}
-					changed={event => inputChangedHandler(event, key)}
-				></Input>
-			);
+				<Form.Group key={key} controlId={`setting-control-${key}`}>
+					<Form.Label>{label}</Form.Label>
+					<Form.Control type="number" value={value} onChange={event => inputChangedHandler(event, key)}></Form.Control>
+				</ Form.Group >
+			)
 		});
 
 		return (
-			<form onSubmit={onSaveHandler}>
+			<Form onSubmit={onSaveHandler}>
 				{inputs}
-				<Button onClick={onSaveHandler}>Save</Button>
-			</form>
+				<Button style={{
+					backgroundColor: '#207ea2',
+					borderColor: '#187fa7'
+				}} onClick={onSaveHandler}>Save</Button>
+			</Form>
 		);
 	};
 
 	return (
-		<article className={classes.Listing}>
-			<header
-				style={{
-					padding: "1rem 1rem",
-					// paddingTop: "3rem",
-					textOverflow: "ellipsis",
-					whiteSpace: "nowrap",
-					textAlign: "center",
-					fontWeight: "bold"
-				}}
-			>
-				<p className={classes["Listing-title"]}>My Search Settings</p>
-			</header>
-			<div className={styles.Settings}>{renderForm()}</div>
-		</article>
+		<div className={styles.Settings}>{renderForm()}</div>
 	);
 };
 
