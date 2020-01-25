@@ -24,8 +24,8 @@ const AuthRoute = ({ component: Component, auth, ...rest }) => (
 			return auth.loggedIn ? (
 				<Component {...props}></Component>
 			) : (
-				<Redirect to="/login"></Redirect>
-			);
+					<Redirect to="/login"></Redirect>
+				);
 		}}
 	></Route>
 );
@@ -52,8 +52,8 @@ const App = props => {
 					return auth.loggedIn ? (
 						<Redirect to="/"></Redirect>
 					) : (
-						<AuthForm {...props}></AuthForm>
-					);
+							<AuthForm {...props}></AuthForm>
+						);
 				}}
 			></Route>
 			<Route
