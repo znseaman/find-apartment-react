@@ -24,7 +24,6 @@ class AuthForm extends Component {
 		const { username, password } = this.state;
 		return (
 			<div className={classes.AuthForm}>
-				<h2>Find Apartment</h2>
 				<form>
 					<FormGroup>
 						<FormControl
