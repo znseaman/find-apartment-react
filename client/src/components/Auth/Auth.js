@@ -6,7 +6,7 @@ class Auth {
 	loggedIn = false;
 
 	authenticate = async (email, password, type) => {
-		fetch(`${CONNECTION}/user/${type}`, {
+		fetch(`${CONNECTION}/${type}`, {
 			method: "POST",
 			credentials: "include",
 			headers: {
@@ -27,7 +27,7 @@ class Auth {
 
 	// TODO: modify to use currying
 	signup = (email, password) => {
-		this.authenticate(email, password, "new");
+		this.authenticate(email, password, "signup");
 	};
 
 	// TODO: modify to use currying
