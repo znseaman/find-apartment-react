@@ -3,6 +3,7 @@ import {
 	LISTINGS_ERROR,
 	DELETE_LISTING
 } from "../constants/action-types";
+import { auth } from "../../components/Auth/Auth";
 
 export const getListings = ({ limit, offset }) => async dispatch => {
 	var interval = null;
@@ -15,6 +16,10 @@ export const getListings = ({ limit, offset }) => async dispatch => {
 
 		try {
 			const res = await fetch(url, { credentials: "include" });
+			if (res.status == 401) {
+				auth.logout();
+				return false;
+			}
 			const data = await res.json();
 
 			if (data && data.meta && data.listings && data.listings.length > 0) {

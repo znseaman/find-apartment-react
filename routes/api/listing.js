@@ -56,9 +56,7 @@ router.get("/all", async (req, res, next) => {
 
 				res.status(200).json(json);
 			} else {
-				// TODO: this should redirect to the logout page since the cookie isn't valid anymore
-				// also, this could be used an attack vector and is some information for malicious actors by sending back such an error
-				return next(new Error("Invalid email"));
+				res.status(401).end();
 			}
 		}
 	);
