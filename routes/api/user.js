@@ -7,9 +7,12 @@ const Session = require("../../utils/session");
 const router = Router();
 
 const set_session_cookie = (session_str, res) => {
+	// 3600000 milliseconds = 1 hour
+	const later = 3600000;
+	const expires = new Date(Date.now() + later);
 	res.cookie("session_str", session_str, {
 		// TODO: express this through date-fns to be more precise for maintenance
-		expire: Date.now() + 3600000,
+		expires,
 		httpOnly: true,
 		secure: false // use with https for a secure cookie (set to true when using https)
 	});
@@ -163,7 +166,7 @@ router.get("/authenticated", (req, res, next) => {
 			res.json({
 				authenticated:
 					Session.verify(req.cookies.session_str) &&
-					q_results.rows[0].session_id === id
+					q_results.rows[0] && q_results.rows[0].session_id === id
 			});
 		}
 	);
