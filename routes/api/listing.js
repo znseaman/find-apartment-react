@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const util = require("util");
 const Listing = require("../../models/listing");
-const pool = require("../../database/db");
 const PER_PAGE = 50;
 
 const router = Router();
@@ -46,14 +45,21 @@ router.get("/all", async (req, res, next) => {
 	res.status(200).json(json);
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
 	const { id: userId } = req.user;
 	const id = Number(req.params.id);
 
-	pool.query("DELETE FROM listings WHERE id = $1 AND $2", [id, userId], (error, results) => {
-		if (error) return next(error);
+	try {
+		await Listing.destroy({
+			where: {
+				id,
+				userId
+			}
+		});
 		res.status(200).json({ id });
-	});
+	} catch (error) {
+		next(error);
+	}
 });
 
 module.exports = router;

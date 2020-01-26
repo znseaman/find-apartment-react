@@ -1,6 +1,6 @@
 const uuid = require("uuid/v4");
 const hash = require("./hash");
-const pool = require("../database/db");
+const User = require("../models/user");
 
 class Session {
 	constructor(email) {
@@ -51,20 +51,25 @@ class Session {
 			session_str = session.toString();
 		}
 
-		return new Promise((resolve, reject) => {
+		return new Promise(async (resolve, reject) => {
 			if (session_id) {
 				set_session_cookie(session_str, res);
 				resolve();
 			} else {
-				pool.query(
-					"UPDATE users SET session_id = $1 WHERE email = $2",
-					[session.id, email],
-					(q_error, q_result) => {
-						if (q_error) return reject(q_error);
-						set_session_cookie(session_str, res);
-						resolve();
-					}
-				);
+				try {
+					// @TODO: should pass in the userId into the where clause for security
+					await User.update({
+						session_id: session.id
+					}, {
+						where: {
+							email
+						}
+					})
+					set_session_cookie(session_str, res);
+					resolve();
+				} catch (error) {
+					reject(error);
+				}
 			}
 		});
 

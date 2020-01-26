@@ -1,22 +1,27 @@
 const { Router } = require("express");
-const pool = require("../../database/db");
 const Session = require("../../utils/session");
+const User = require("../../models/user");
 
 const router = Router();
 
-router.get("/logout", (req, res, next) => {
+router.get("/logout", async (req, res, next) => {
 	const { email, id: session_id } = Session.parse(req.cookies.session_str);
 
-	pool.query(
-		"UPDATE users SET session_id = NULL WHERE email = $1 AND session_id = $2",
-		[email, session_id],
-		(q_error, q_results) => {
-			if (q_error) return next(q_error);
+	try {
+		await User.update({
+			session_id: null
+		},
+			{
+				where: {
+					email, session_id
+				}
+			});
 
-			res.clearCookie("session_str");
-			res.json({ msg: "Successful logout" });
-		}
-	);
+		res.clearCookie("session_str");
+		res.json({ msg: "Successful logout" })
+	} catch (error) {
+		next(error);
+	}
 });
 
 module.exports = router;
