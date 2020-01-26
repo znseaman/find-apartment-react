@@ -28,7 +28,7 @@ export const getListings = ({ limit, offset }) => async dispatch => {
 			}
 
 			// if no listings found, wait a bit until trying to search again
-			if (data && data.listings.length === 0 && interval === null) {
+			if (data && data.listings && data.listings.length === 0 && interval === null) {
 				interval = setInterval(() => {
 					fetchData();
 				}, 10000);
