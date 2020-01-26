@@ -4,6 +4,7 @@ import styles from "./Settings.module.css";
 import { Button, Form } from "react-bootstrap";
 import useSettings from "../../hooks/useSettings";
 import { updateObject } from "../../shared/updateObject";
+import { CONNECTION } from "../../config"
 
 const Settings = () => {
 	// TODO: add city, base_host, category as options to modify
@@ -30,7 +31,7 @@ const Settings = () => {
 			{}
 		);
 
-		fetch(`http://localhost:9000/search_setting/edit`, {
+		fetch(`${CONNECTION}/search_setting/edit`, {
 			method: "POST",
 			credentials: "include",
 			headers: {

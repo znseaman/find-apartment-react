@@ -4,11 +4,12 @@ import {
 	DELETE_LISTING
 } from "../constants/action-types";
 import { auth } from "../../components/Auth/Auth";
+import { CONNECTION } from "../../config";
 
 export const getListings = ({ limit, offset }) => async dispatch => {
 	var interval = null;
 	async function fetchData() {
-		const url = new URL(`http://localhost:9000/listing/all`);
+		const url = new URL(`${CONNECTION}/listing/all`);
 		const params = { limit, offset, orderBy: 'postedAt', order: 'DESC' };
 		Object.keys(params).forEach(key =>
 			url.searchParams.append(key, params[key])
@@ -56,7 +57,7 @@ export const deleteListing = id => async dispatch => {
 	try {
 		const body = new FormData();
 		body.append("id", id);
-		await fetch(`http://localhost:9000/listing/${id}`, {
+		await fetch(`${CONNECTION}/listing/${id}`, {
 			method: "DELETE",
 			body
 		});
