@@ -3,8 +3,8 @@ import {
 	LISTINGS_ERROR,
 	DELETE_LISTING
 } from "../constants/action-types";
-import { auth } from "../../components/Auth/Auth";
 import { CONNECTION } from "../../config";
+import axiosConfig from '../../shared/axios';
 
 export const getListings = ({ limit, offset }) => async dispatch => {
 	var interval = null;
@@ -16,19 +16,19 @@ export const getListings = ({ limit, offset }) => async dispatch => {
 		);
 
 		try {
-			const res = await fetch(url, { credentials: "include" });
-			if (res.status == 401) {
-				auth.logout();
-				return false;
-			}
-			const data = await res.json();
+			var data = await axiosConfig.get(url.toString(), { withCredentials: true }) || {
+				listings: [],
+				meta: { total_count: 1, limit: 1 }
+			};
 
+			// @ts-ignore
 			if (data && data.meta && data.listings && data.listings.length > 0) {
 				clearInterval(interval);
 				interval = null;
 			}
 
 			// if no listings found, wait a bit until trying to search again
+			// @ts-ignore
 			if (data && data.listings && data.listings.length === 0 && interval === null) {
 				interval = setInterval(() => {
 					fetchData();
@@ -36,7 +36,9 @@ export const getListings = ({ limit, offset }) => async dispatch => {
 			}
 
 			const {
+				// @ts-ignore
 				listings,
+				// @ts-ignore
 				meta: { total_count, limit }
 			} = data;
 			const pageCount = Math.ceil(total_count / limit);
