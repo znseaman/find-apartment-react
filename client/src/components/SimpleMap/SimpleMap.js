@@ -26,6 +26,7 @@ const SimpleMap = ({ listings, getListings, deleteListing }) => {
 
 	const [limit, setLimit] = useState(50);
 	const [offset, setOffset] = useState(0);
+	const map = React.useRef();
 
 	useEffect(() => {
 		// @TODO: use a BBOX filter here instead of getListings
@@ -54,8 +55,14 @@ const SimpleMap = ({ listings, getListings, deleteListing }) => {
 				);
 			});
 
+	const assignRef = event => {
+		map.current = event.target;
+		// fixes bug with showing grey tiles after zoom level 19
+		map.current.setMaxZoom(19);
+	}
+
 	return (
-		<Map center={center} zoom={zoom} style={{ width: "100%" }}>
+		<Map whenReady={assignRef} center={center} zoom={zoom} style={{ width: "100%" }}>
 			<TileLayer
 				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 				url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
