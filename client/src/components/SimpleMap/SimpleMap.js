@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import Listing from "../Listings/Listing/Listing"
 
 /* Boilerplate for Leaflet to work in React */
 import "leaflet/dist/leaflet.css";
@@ -32,30 +33,8 @@ const SimpleMap = ({ listings, getListings, deleteListing }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [limit, offset]);
 
-	const renderPopup = ({
-		id,
-		latitude: lat,
-		longitude: lng,
-		title,
-		description,
-		url,
-		postedAt
-	}) => {
-		return <div
-			style={{
-				maxHeight: "300px",
-				overflow: "scroll"
-			}}
-		>
-			<h3>{title}</h3>
-			<h4>{description}</h4>
-			<h5>Date Posted: {postedAt}</h5>
-			<a href={url} target='_blank'>
-				Original Post
-									</a>
-			<button onClick={() => deleteListing(id)}>Delete Post</button>
-		</div>
-	}
+	const renderPopup = listing =>
+		<Listing {...listing} clicked={deleteListing} isPopup={true}></Listing>
 
 	const markers =
 		listings.length === 0

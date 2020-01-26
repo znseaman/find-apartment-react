@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import { formatDistanceStrict } from "date-fns";
 import classes from "./Listing.module.css";
 import Carousel from "../../Carousel/Carousel";
@@ -15,7 +16,8 @@ export default function Listing(props) {
 		price,
 		beds,
 		baths,
-		size
+		size,
+		isPopup
 	} = props;
 
 	const humanized = formatDistanceStrict(new Date(postedAt), Date.now());
@@ -48,7 +50,7 @@ export default function Listing(props) {
 	};
 
 	return (
-		<article className={classes.Listing}>
+		<article className={classes.Listing} style={{ boxShadow: isPopup ? 'none' : '0 2px 8px rgba(0, 0, 0, 0.26)' }}>
 			<header
 				style={{
 					padding: "1rem 1rem",
@@ -60,11 +62,13 @@ export default function Listing(props) {
 				<p className={classes["Listing-title"]}>
 					{formatPrice(price) + ` - ` + formatBedsBaths(beds, baths) + ` - `}
 					{size ? formatSize(size) : ""}
-					{` - ` + title}
 				</p>
 			</header>
 			{carousel}
 			<div style={{ padding: ".5rem 1rem" }}>
+				<p className={classes["Listing-description"]}>
+					{title}
+				</p>
 				<p
 					className={classes["Listing-description"]}
 					style={{ WebkitBoxOrient: "vertical" }}
@@ -73,10 +77,13 @@ export default function Listing(props) {
 				</p>
 			</div>
 			<div style={{ padding: "1rem 1rem", textAlign: "center" }}>
-				<button className='btn btn-secondary' onClick={() => openLink(url)}>
+				<Button className="btn btn-secondary" style={{ marginRight: '1rem' }} onClick={() => openLink(url)}>
 					Details
-				</button>
-				{/* <button onClick={() => toFavorite(id)}>Favorite</button> */}
+				</Button>
+				<Button className="btn btn-danger" onClick={event => {
+					event.preventDefault();
+					clicked(id);
+				}}>Delete</Button>
 			</div>
 			<p
 				style={{
@@ -85,25 +92,27 @@ export default function Listing(props) {
 					top: 0,
 					padding: "1rem"
 				}}
-			>{`${humanized}`}</p>
-			<a
-				href=''
-				aria-label='Delete Listing'
-				style={{
-					textDecoration: "none",
-					color: "#535362",
-					position: "absolute",
-					top: "0",
-					right: "0",
-					padding: "0 .25rem"
-				}}
-				onClick={event => {
-					event.preventDefault();
-					clicked(id);
-				}}
-			>
-				&times;
+			>{`${humanized} ago`}</p>
+			{!isPopup &&
+				<a
+					href=''
+					aria-label='Delete Listing'
+					style={{
+						textDecoration: "none",
+						color: "#535362",
+						position: "absolute",
+						top: "0",
+						right: "0",
+						padding: "0 .25rem"
+					}}
+					onClick={event => {
+						event.preventDefault();
+						clicked(id);
+					}}
+				>
+					&times;
 			</a>
-		</article>
+			}
+		</article >
 	);
 }
