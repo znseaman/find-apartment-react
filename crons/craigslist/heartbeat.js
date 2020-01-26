@@ -11,7 +11,7 @@ function wasDeleted(html) {
 	return regex.test(html);
 }
 
-const heartbeatCraigslist = async (listings, deleteFunc) => {
+const heartbeatCraigslist = async listings => {
 	console.log(`\n-------------------------------------\n`);
 	console.log(
 		`Starting check for deleted / flagged listings for ${listings.length} listings on craigslist...`
