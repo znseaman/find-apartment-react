@@ -8,6 +8,8 @@ import axiosConfig from '../../shared/axios';
 
 export const getListings = ({ limit, offset }) => async dispatch => {
 	var interval = null;
+	var times = 0;
+	var maxTimes = 5;
 	async function fetchData() {
 		const url = new URL(`${CONNECTION}/listing/all`);
 		const params = { limit, offset, orderBy: 'postedAt', order: 'DESC' };
@@ -27,12 +29,21 @@ export const getListings = ({ limit, offset }) => async dispatch => {
 				interval = null;
 			}
 
+			times++;
+			// stop interval after maxTimes
+			if (interval && times == maxTimes) {
+				clearInterval(interval);
+				interval = null;
+				times = 0;
+				return false;
+			}
+
 			// if no listings found, wait a bit until trying to search again
 			// @ts-ignore
 			if (data && data.listings && data.listings.length === 0 && interval === null) {
 				interval = setInterval(() => {
 					fetchData();
-				}, 10000);
+				}, 30000);
 			}
 
 			const {
