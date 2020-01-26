@@ -40,7 +40,7 @@ class Auth {
 				withCredentials: true
 			})
 			.then(data => {
-				if (data.authenticated) {
+				if (data && data.authenticated) {
 					this.loggedIn = true;
 				}
 			});
