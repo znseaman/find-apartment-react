@@ -12,12 +12,24 @@ class AuthForm extends Component {
 	signup = event => {
 		event.preventDefault();
 		const { email, password } = this.state;
+
+		// no empty passwords or email
+		if (email.length == 0 || password.length == 0) {
+			return false;
+		}
+
 		this.props.auth.signup(email, password);
 	};
 
 	login = event => {
 		event.preventDefault();
 		const { email, password } = this.state;
+
+		// no empty email or password
+		if (email.length == 0 || password.length == 0) {
+			return false;
+		}
+
 		this.props.auth.login(email, password);
 	};
 
