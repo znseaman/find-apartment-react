@@ -48,11 +48,12 @@ router.get("/all", async (req, res, next) => {
 });
 
 router.delete("/:id", (req, res, next) => {
+	const { id: userId } = req.user;
 	const id = Number(req.params.id);
 
-	pool.query("DELETE FROM listings WHERE id = $1", [id], (error, results) => {
+	pool.query("DELETE FROM listings WHERE id = $1 AND $2", [id, userId], (error, results) => {
 		if (error) return next(error);
-		res.status(200).send(`User deleted with ID: ${id}`);
+		res.status(200).json({ id });
 	});
 });
 
