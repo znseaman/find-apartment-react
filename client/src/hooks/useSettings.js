@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { updateObject } from "../shared/updateObject";
+import { CONNECTION } from "../config";
 import { auth } from "../components/Auth/Auth";
 
 export default () => {
@@ -40,7 +41,7 @@ export default () => {
 
 	useEffect(() => {
 		async function fetchData() {
-			const url = new URL(`http://localhost:9000/search_setting`);
+			const url = new URL(`${CONNECTION}/search_setting`);
 			try {
 				const data = await fetch(url, { credentials: "include" })
 					.then(response => response.json())
