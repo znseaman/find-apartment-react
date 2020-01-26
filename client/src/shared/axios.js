@@ -8,7 +8,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.response.use(res => res.data, error => {
-  if (error.response.status == 401) {
+  if (error.response && error.response.status == 401) {
     auth.logout();
     return false;
   }
