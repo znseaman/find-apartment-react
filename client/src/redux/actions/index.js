@@ -57,12 +57,7 @@ export const getListings = ({ limit, offset }) => async dispatch => {
 
 export const deleteListing = id => async dispatch => {
 	try {
-		const body = new FormData();
-		body.append("id", id);
-		await fetch(`${CONNECTION}/listing/${id}`, {
-			method: "DELETE",
-			body
-		});
+		await axiosConfig.delete(`${CONNECTION}/listing/${id}`, { withCredentials: true });
 		dispatch({ type: DELETE_LISTING, payload: id });
 	} catch (e) {
 		console.error(e);

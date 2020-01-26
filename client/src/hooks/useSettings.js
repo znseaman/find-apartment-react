@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { updateObject } from "../shared/updateObject";
 import { CONNECTION } from "../config";
-import { auth } from "../components/Auth/Auth";
+import axiosConfig from "../shared/axios";
 
 export default () => {
 	const [searchSettings, setSearchSettings] = useState({
@@ -43,8 +43,9 @@ export default () => {
 		async function fetchData() {
 			const url = new URL(`${CONNECTION}/search_setting`);
 			try {
-				const data = await fetch(url, { credentials: "include" })
-					.then(response => response.json())
+				const data = await axiosConfig.get(url.toString(), {
+					withCredentials: true
+				});
 
 				if (data) {
 					const { has_pic, min_price, max_price, posted_today } = data;
@@ -66,7 +67,7 @@ export default () => {
 					setSearchSettings(updatedSearchSettings);
 				}
 			} catch (error) {
-				auth.logout();
+
 			}
 		}
 

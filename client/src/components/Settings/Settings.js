@@ -4,7 +4,8 @@ import styles from "./Settings.module.css";
 import { Button, Form } from "react-bootstrap";
 import useSettings from "../../hooks/useSettings";
 import { updateObject } from "../../shared/updateObject";
-import { CONNECTION } from "../../config"
+import { CONNECTION } from "../../config";
+import axiosConfig from "../../shared/axios";
 
 const Settings = () => {
 	// TODO: add city, base_host, category as options to modify
@@ -31,21 +32,9 @@ const Settings = () => {
 			{}
 		);
 
-		fetch(`${CONNECTION}/search_setting/edit`, {
-			method: "POST",
-			credentials: "include",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(settings)
-		})
-			.then(response => response.json())
-			.then(json => {
-				if (json.type === "error") {
-					alert(json.msg);
-				} else {
-					alert("Save Successful!");
-				}
+		axiosConfig.post(`${CONNECTION}/search_setting/edit`, settings, { withCredentials: true })
+			.then(data => {
+				alert("Save Successful!");
 			});
 	};
 
