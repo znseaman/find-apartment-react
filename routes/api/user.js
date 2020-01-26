@@ -6,47 +6,6 @@ const Session = require("../../utils/session");
 
 const router = Router();
 
-const set_session_cookie = (session_str, res) => {
-	// 3600000 milliseconds = 1 hour
-	const later = 3600000;
-	const expires = new Date(Date.now() + later);
-	res.cookie("session_str", session_str, {
-		// TODO: express this through date-fns to be more precise for maintenance
-		expires,
-		httpOnly: true,
-		secure: false // use with https for a secure cookie (set to true when using https)
-	});
-};
-
-const set_session = (email, res, session_id) => {
-	let session;
-	let session_str;
-
-	if (session_id) {
-		session_str = Session.dataToString(email, session_id);
-	} else {
-		session = new Session(email);
-		session_str = session.toString();
-	}
-
-	return new Promise((resolve, reject) => {
-		if (session_id) {
-			set_session_cookie(session_str, res);
-			resolve();
-		} else {
-			pool.query(
-				"UPDATE users SET session_id = $1 WHERE email = $2",
-				[session.id, email],
-				(q_error, q_result) => {
-					if (q_error) return reject(q_error);
-					set_session_cookie(session_str, res);
-					resolve();
-				}
-			);
-		}
-	});
-};
-
 router.post("/new", (req, res, next) => {
 	const { email, password } = req.body;
 
@@ -93,7 +52,7 @@ router.post("/new", (req, res, next) => {
 					userPreferences
 				);
 
-				set_session(email, res)
+				Session.set_session(email, res)
 					.then(() => {
 						res.json({ msg: "Successfully created user!" });
 					})
@@ -122,7 +81,7 @@ router.post("/login", (req, res, next) => {
 			const user = results.rows[0];
 
 			if (user && user.password === hash(password)) {
-				set_session(email, res, user.session_id)
+				Session.set_session(email, res, user.session_id)
 					.then(() => {
 						res.json({ msg: "Successful login!" });
 					})
