@@ -6,22 +6,10 @@ class Auth {
 	loggedIn = false;
 
 	authenticate = async (email, password, type) => {
-		fetch(`${CONNECTION}/${type}`, {
-			method: "POST",
-			credentials: "include",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({ email, password })
-		})
-			.then(response => response.json())
-			.then(json => {
-				if (json.type === "error") {
-					alert(json.msg);
-				} else {
-					this.loggedIn = true;
-					history.replace("/");
-				}
+		axiosConfig.post(`${CONNECTION}/${type}`, { email, password }, { withCredentials: true })
+			.then(data => {
+				this.loggedIn = true;
+				history.replace("/");
 			});
 	};
 
@@ -48,7 +36,7 @@ class Auth {
 
 	checkAuthentication = async () => {
 		return axiosConfig
-			.get(`${CONNECTION}/user/authenticated`, {
+			.get(`${CONNECTION}/authenticated`, {
 				withCredentials: true
 			})
 			.then(data => {

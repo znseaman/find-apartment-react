@@ -26,6 +26,7 @@ app.use(
 	})
 );
 
+app.get("/authenticated", protect, (req, res, next) => res.json({ authenticated: true }))
 app.post("/login", login);
 app.post("/signup", signup);
 app.use("/listing", protect, listing);
