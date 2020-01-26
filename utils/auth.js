@@ -101,7 +101,32 @@ const login = async (req, res, next) => {
   }
 };
 
+const protect = async (req, res, next) => {
+  try {
+    const { session_str } = req.cookies;
+    if (!Session.verify(session_str)) {
+      throw Error('not auth');
+    }
+
+    const { email, id: session_id } = Session.parse(session_str);
+
+    const user = await User.findOne({
+      where: {
+        email,
+        session_id
+      }
+    });
+
+    req.user = user;
+    next();
+  } catch (error) {
+    res.clearCookie("session_str");
+    res.status(401).end();
+  }
+};
+
 module.exports = {
   signup,
   login,
+  protect,
 };

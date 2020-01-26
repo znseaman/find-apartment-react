@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { updateObject } from "../shared/updateObject";
+import { auth } from "../components/Auth/Auth";
 
 export default () => {
 	const [searchSettings, setSearchSettings] = useState({
@@ -40,31 +41,31 @@ export default () => {
 	useEffect(() => {
 		async function fetchData() {
 			const url = new URL(`http://localhost:9000/search_setting`);
-			const data = await fetch(url, { credentials: "include" })
-				.then(response => response.json())
-				.catch(e => {
-					console.error(e);
-					throw e;
-				});
+			try {
+				const data = await fetch(url, { credentials: "include" })
+					.then(response => response.json())
 
-			if (data) {
-				const { has_pic, min_price, max_price, posted_today } = data;
-				const updatedSearchSettings = updateObject(searchSettings, {
-					has_pic: updateObject(searchSettings["has_pic"], {
-						value: has_pic
-					}),
-					min_price: updateObject(searchSettings["min_price"], {
-						value: min_price
-					}),
-					max_price: updateObject(searchSettings["max_price"], {
-						value: max_price
-					}),
-					posted_today: updateObject(searchSettings["posted_today"], {
-						value: posted_today
-					})
-				});
+				if (data) {
+					const { has_pic, min_price, max_price, posted_today } = data;
+					const updatedSearchSettings = updateObject(searchSettings, {
+						has_pic: updateObject(searchSettings["has_pic"], {
+							value: has_pic
+						}),
+						min_price: updateObject(searchSettings["min_price"], {
+							value: min_price
+						}),
+						max_price: updateObject(searchSettings["max_price"], {
+							value: max_price
+						}),
+						posted_today: updateObject(searchSettings["posted_today"], {
+							value: posted_today
+						})
+					});
 
-				setSearchSettings(updatedSearchSettings);
+					setSearchSettings(updatedSearchSettings);
+				}
+			} catch (error) {
+				auth.logout();
 			}
 		}
 

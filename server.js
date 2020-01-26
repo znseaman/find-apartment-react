@@ -9,7 +9,7 @@ const sequelize = require("./utils/database");
 const listing = require("./routes/api/listing");
 const user = require("./routes/api/user");
 const search_setting = require("./routes/api/search_setting");
-const { login, signup } = require("./utils/auth");
+const { login, signup, protect } = require("./utils/auth");
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -28,9 +28,9 @@ app.use(
 
 app.post("/login", login);
 app.post("/signup", signup);
-app.use("/listing", listing);
+app.use("/listing", protect, listing);
 app.use("/user", user);
-app.use("/search_setting", search_setting);
+app.use("/search_setting", protect, search_setting);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
