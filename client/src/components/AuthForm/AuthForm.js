@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormLabel, FormControl } from "react-bootstrap";
+import { Button, Form, FormGroup, FormLabel, FormControl } from "react-bootstrap";
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import classes from "./AuthForm.module.css";
 
 class AuthForm extends Component {
@@ -35,37 +37,88 @@ class AuthForm extends Component {
 
 	render() {
 		const onLogin = this.props.location.pathname == "/login";
-		const submit = onLogin ? this.login.bind(this) : this.signup.bind(this);
-		const { email, password } = this.state;
 		return (
-			<div className={classes.AuthForm}>
-				<form>
-					<FormGroup>
-						<FormLabel>Email address</FormLabel>
-						<FormControl
-							type="text"
-							value={email}
-							placeholder="Enter email"
-							onChange={this.updateInput("email")}
-						></FormControl>
-						<br />
-						<FormLabel>Password</FormLabel>
-						<FormControl
-							type="password"
-							value={password}
-							placeholder="Enter password"
-							onChange={this.updateInput("password")}
-						></FormControl>
-					</FormGroup>
-					<Button type="submit" onClick={submit} style={{
-						backgroundColor: '#207ea2',
-						borderColor: '#187fa7'
-					}}>
-						{onLogin ? 'Log In' : 'Sign Up'}
-					</Button>
-				</form>
-			</div>
-		);
+			<Formik
+				initialValues={{ email: '', password: '' }}
+				validationSchema={Yup.object({
+					email: Yup.string()
+						.trim()
+						.email('Invalid email address')
+						.required('Required')
+						.max(254, 'Email must not be over 254 characters long'),
+					password: Yup.string()
+						.trim()
+						.required('Required')
+						.max(99, 'Password must not be over 99 chararacters long')
+				})}
+				onSubmit={(values, { setSubmitting }) => {
+					setSubmitting(true);
+					const authentication = onLogin ? this.props.auth.login.bind(this) : this.props.auth.signup.bind(this);
+					const { email, password } = values;
+					authentication(email, password);
+				}}
+			>
+				{({ values,
+					errors,
+					touched,
+					handleChange,
+					handleBlur,
+					handleSubmit,
+					isSubmitting }) => (
+						<div className={classes.AuthForm}>
+							<Form>
+								<FormGroup>
+									<FormLabel htmlFor="form-email">Email address</FormLabel>
+									<FormControl
+										id="form-email"
+										name="email"
+										type="email"
+										placeholder="Enter email"
+										className={touched.email && errors.email ? "error" : null}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										value={values.email}
+										required
+									></FormControl>
+									{
+										touched.email && errors.email ? (
+											<div className={classes["error-message"]}>{errors.email}</div>
+										) : null
+									}
+								</FormGroup>
+								<br />
+								<FormGroup>
+									<FormLabel htmlFor="form-password">Password</FormLabel>
+									<FormControl
+										id="form-password"
+										name="password"
+										type="password"
+										placeholder="Enter password"
+										className={touched.password && errors.password ? "error" : null}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										value={values.password}
+										required
+									></FormControl>
+									{
+										touched.password && errors.password ? (
+											<div className={classes["error-message"]}>{errors.password}</div>
+										) : null
+									}
+								</FormGroup>
+								<br />
+								<Button type="submit" disabled={isSubmitting} onClick={handleSubmit} style={{
+									backgroundColor: '#207ea2',
+									borderColor: '#187fa7'
+								}}>
+									{onLogin ? 'Log In' : 'Sign Up'}
+								</Button>
+							</Form>
+						</div>
+					)
+				}
+			</Formik>
+		)
 	}
 }
 
