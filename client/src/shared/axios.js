@@ -4,7 +4,8 @@ import { auth } from "../components/Auth/Auth";
 const baseURL = CONNECTION;
 
 const instance = axios.create({
-  baseURL
+  baseURL,
+  withCredentials: true
 });
 
 instance.interceptors.response.use(res => res.data, error => {

@@ -5,7 +5,7 @@ class Auth {
 	loggedIn = false;
 
 	authenticate = async (email, password, type) => (
-		axiosConfig.post(`/${type}`, { email, password }, { withCredentials: true })
+		axiosConfig.post(`/${type}`, { email, password })
 			.then(data => {
 				this.loggedIn = true;
 				history.replace("/");
@@ -24,9 +24,7 @@ class Auth {
 
 	logout = () => (
 		axiosConfig
-			.get(`/user/logout`, {
-				withCredentials: true
-			})
+			.get(`/user/logout`)
 			.then(() => {
 				this.loggedIn = false;
 				history.replace("/login");
@@ -35,9 +33,7 @@ class Auth {
 
 	checkAuthentication = async () => (
 		axiosConfig
-			.get(`/authenticated`, {
-				withCredentials: true
-			})
+			.get(`/authenticated`)
 			.then(data => {
 				if (data && data.authenticated) {
 					this.loggedIn = true;
