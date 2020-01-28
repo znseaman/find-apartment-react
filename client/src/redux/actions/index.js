@@ -1,7 +1,8 @@
 import {
 	GET_LISTINGS,
 	LISTINGS_ERROR,
-	DELETE_LISTING
+	DELETE_LISTING,
+	FAVORITE_LISTING
 } from "../constants/action-types";
 import { CONNECTION } from "../../config";
 import axiosConfig from '../../shared/axios';
@@ -75,3 +76,16 @@ export const deleteListing = id => async dispatch => {
 		dispatch({ type: LISTINGS_ERROR, payload: e });
 	}
 };
+
+export const favoriteListing = (id, favorite) => async dispatch => {
+	try {
+		await axiosConfig.post(`/listing/favorite`, {
+			id,
+			favorite
+		});
+		dispatch({ type: FAVORITE_LISTING, payload: { id, favorite } });
+	} catch (e) {
+		console.error(e);
+		dispatch({ type: LISTINGS_ERROR, payload: e });
+	}
+}

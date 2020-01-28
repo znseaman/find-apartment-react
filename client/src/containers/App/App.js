@@ -10,6 +10,7 @@ import Listings from "../../components/Listings/Listings";
 import SimpleMap from "../../components/SimpleMap/SimpleMap";
 import Settings from "../../components/Settings/Settings";
 import Logout from "../../components/Auth/Logout/Logout";
+import Favorites from "../../components/Listings/Favorites";
 
 function containsMap(pathname) {
 	const regex = new RegExp("map");
@@ -72,6 +73,11 @@ const App = props => {
 				auth={auth}
 				path="/"
 				component={Listings}
+			></AuthRoute>
+			<AuthRoute
+				auth={auth}
+				path="/favorites"
+				component={Favorites}
 			></AuthRoute>
 			<AuthRoute
 				auth={auth}

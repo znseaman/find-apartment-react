@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const User = require("./user");
 
 const sequelize = require("../utils/database");
-const { INTEGER, STRING, DOUBLE, TEXT, DATE, GEOMETRY, FLOAT } = Sequelize;
+const { INTEGER, STRING, DOUBLE, TEXT, DATE, GEOMETRY, FLOAT, BOOLEAN } = Sequelize;
 const Listing = sequelize.define("listing", {
 	id: {
 		type: INTEGER,
@@ -31,7 +31,8 @@ const Listing = sequelize.define("listing", {
 	beds: INTEGER,
 	baths: FLOAT,
 	size: STRING,
-	amenities: STRING
+	amenities: STRING,
+	favorite: BOOLEAN
 });
 
 // Relations

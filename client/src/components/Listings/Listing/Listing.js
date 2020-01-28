@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { formatDistanceStrict } from "date-fns";
 import classes from "./Listing.module.css";
 import Carousel from "../../Carousel/Carousel";
+import Emoji from "../../UI/Emoji/Emoji";
 
 export default function Listing(props) {
 	const {
@@ -12,11 +13,13 @@ export default function Listing(props) {
 		postedAt,
 		imageUrls,
 		clicked,
+		onFavorite,
 		url,
 		price,
 		beds,
 		baths,
 		size,
+		favorite,
 		isPopup
 	} = props;
 
@@ -50,7 +53,7 @@ export default function Listing(props) {
 	};
 
 	return (
-		<article className={classes.Listing} style={{ boxShadow: isPopup ? 'none' : '0 2px 8px rgba(0, 0, 0, 0.26)' }}>
+		<article className={classes.Listing} style={{ boxShadow: isPopup ? 'none' : '0 2px 8px rgba(0, 0, 0, 0.26)', backgroundColor: favorite && !isPopup ? '#ffc107' : 'white' }}>
 			<header
 				style={{
 					padding: "1rem 1rem",
@@ -61,7 +64,8 @@ export default function Listing(props) {
 			>
 				<p className={classes["Listing-title"]}>
 					{formatPrice(price) + ` - ` + formatBedsBaths(beds, baths) + ` - `}
-					{size ? formatSize(size) : ""}
+					{size ? formatSize(size) : ""}{` `}
+					{favorite ? <Emoji label="star" symbol="⭐️" /> : null}
 				</p>
 			</header>
 			{carousel}
@@ -77,10 +81,14 @@ export default function Listing(props) {
 				</p>
 			</div>
 			<div style={{ padding: "1rem 1rem", textAlign: "center" }}>
-				<Button className="btn btn-secondary" style={{ marginRight: '1rem' }} onClick={() => openLink(url)}>
+				<Button className="btn btn-secondary" size={isPopup ? `sm` : null} style={{ marginRight: '1rem' }} onClick={() => openLink(url)}>
 					Details
 				</Button>
-				<Button className="btn btn-danger" onClick={event => {
+				<Button variant="warning" size={isPopup ? `sm` : null} style={{ marginRight: '1rem' }} onClick={event => {
+					event.preventDefault();
+					onFavorite(id, !favorite);
+				}}>{favorite ? 'Favorited!' : 'Favorite'}</Button>
+				<Button className="btn btn-danger" size={isPopup ? `sm` : null} onClick={event => {
 					event.preventDefault();
 					clicked(id);
 				}}>Delete</Button>

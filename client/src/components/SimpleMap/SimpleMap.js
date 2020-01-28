@@ -8,7 +8,7 @@ import Listing from "../Listings/Listing/Listing"
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-import { getListings, deleteListing } from "../../redux/actions";
+import { getListings, deleteListing, favoriteListing } from "../../redux/actions";
 
 const mapStateToProps = state => ({ listings: state.listings });
 
@@ -20,7 +20,7 @@ L.Icon.Default.mergeOptions({
 	shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 
-const SimpleMap = ({ listings, getListings, deleteListing }) => {
+const SimpleMap = ({ listings, getListings, deleteListing, favoriteListing }) => {
 	const [center] = useState([49.2671543446071, -123.14777031540872]);
 	const [zoom] = useState(13);
 
@@ -35,7 +35,7 @@ const SimpleMap = ({ listings, getListings, deleteListing }) => {
 	}, [limit, offset]);
 
 	const renderPopup = listing =>
-		<Listing {...listing} clicked={deleteListing} isPopup={true}></Listing>
+		<Listing {...listing} clicked={deleteListing} onFavorite={favoriteListing} isPopup={true}></Listing>
 
 	const markers =
 		listings.length === 0
@@ -48,7 +48,7 @@ const SimpleMap = ({ listings, getListings, deleteListing }) => {
 				} = listing;
 				return (
 					<Marker key={id} position={[lat, lng]}>
-						<Popup>
+						<Popup className={'warning'}>
 							{renderPopup(listing)}
 						</Popup>
 					</Marker>
@@ -75,10 +75,11 @@ const SimpleMap = ({ listings, getListings, deleteListing }) => {
 SimpleMap.propTypes = {
 	listings: PropTypes.array.isRequired,
 	getListings: PropTypes.func.isRequired,
-	deleteListing: PropTypes.func.isRequired
+	deleteListing: PropTypes.func.isRequired,
+	favoriteListing: PropTypes.func.isRequired
 };
 
 export default connect(
 	mapStateToProps,
-	{ getListings, deleteListing }
+	{ getListings, deleteListing, favoriteListing }
 )(SimpleMap);

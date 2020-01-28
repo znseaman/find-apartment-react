@@ -1,7 +1,8 @@
 import {
 	GET_LISTINGS,
 	DELETE_LISTING,
-	LISTINGS_ERROR
+	LISTINGS_ERROR,
+	FAVORITE_LISTING
 } from "../constants/action-types";
 
 const initialState = {
@@ -30,6 +31,16 @@ export default (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				error: payload
+			};
+		case FAVORITE_LISTING:
+			return {
+				...state,
+				listings: state.listings.map(listing => {
+					if (listing.id == payload.id) {
+						listing.favorite = payload.favorite;
+					}
+					return listing;
+				})
 			};
 		default:
 			return state;

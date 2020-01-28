@@ -258,7 +258,8 @@ const scrapeCraigslist = async (logging = false, userId) => {
 			beds,
 			baths,
 			size,
-			amenities
+			amenities,
+			favorite: false
 		});
 	}
 

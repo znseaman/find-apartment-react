@@ -10,6 +10,7 @@ const NavigationItems = ({ loggedIn }) => {
 			<NavigationItem exact link="/">
 				Listings
 			</NavigationItem>
+			<NavigationItem exact link="/favorites">Favorites</NavigationItem>
 			<NavigationItem exact link="/map">Map</NavigationItem>
 			<NavigationItem exact link="/settings">Settings</NavigationItem>
 			<NavigationItem exact link="/logout">Logout</NavigationItem>

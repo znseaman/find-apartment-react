@@ -11,11 +11,11 @@ import Spinner from "../UI/Spinner/Spinner";
 import { getListings, deleteListing, favoriteListing } from "../../redux/actions";
 
 const mapStateToProps = state => ({
-	listings: state.listings,
+	listings: state.listings.filter(listing => listing.favorite),
 	pageCount: state.pageCount
 });
 
-const Listings = ({ listings, pageCount, getListings, deleteListing, favoriteListing }) => {
+const Favorites = ({ listings, pageCount, getListings, deleteListing, favoriteListing }) => {
 	const [limit, setLimit] = useState(50);
 	const [offset, setOffset] = useState(0);
 
@@ -62,7 +62,7 @@ const Listings = ({ listings, pageCount, getListings, deleteListing, favoriteLis
 	return showListings;
 };
 
-Listings.propTypes = {
+Favorites.propTypes = {
 	listings: PropTypes.array.isRequired,
 	pageCount: PropTypes.number.isRequired,
 	getListings: PropTypes.func.isRequired,
@@ -73,4 +73,4 @@ Listings.propTypes = {
 export default connect(
 	mapStateToProps,
 	{ getListings, deleteListing, favoriteListing }
-)(Listings);
+)(Favorites);
