@@ -109,7 +109,11 @@ const protect = async (req, res, next) => {
   try {
     const { session_str } = req.cookies;
     if (!Session.verify(session_str)) {
-      throw Error('not auth');
+      res.clearCookie("session_str");
+      return next({
+        statusCode: 401,
+        message: "Not Authorized"
+      });
     }
 
     const { email, id: session_id } = Session.parse(session_str);
@@ -124,8 +128,7 @@ const protect = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    res.clearCookie("session_str");
-    res.status(401).end();
+    next(error);
   }
 };
 
