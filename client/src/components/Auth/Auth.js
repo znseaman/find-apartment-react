@@ -1,12 +1,11 @@
 import history from "../../utils/history";
-import { CONNECTION } from "../../config";
 import axiosConfig from "../../shared/axios";
 
 class Auth {
 	loggedIn = false;
 
 	authenticate = async (email, password, type) => (
-		axiosConfig.post(`${CONNECTION}/${type}`, { email, password }, { withCredentials: true })
+		axiosConfig.post(`/${type}`, { email, password }, { withCredentials: true })
 			.then(data => {
 				this.loggedIn = true;
 				history.replace("/");
@@ -25,7 +24,7 @@ class Auth {
 
 	logout = () => (
 		axiosConfig
-			.get(`${CONNECTION}/user/logout`, {
+			.get(`/user/logout`, {
 				withCredentials: true
 			})
 			.then(() => {
@@ -36,7 +35,7 @@ class Auth {
 
 	checkAuthentication = async () => (
 		axiosConfig
-			.get(`${CONNECTION}/authenticated`, {
+			.get(`/authenticated`, {
 				withCredentials: true
 			})
 			.then(data => {
