@@ -23,4 +23,9 @@ const User = sequelize.define("user", {
 	}
 });
 
+/* Instance Methods */
+User.prototype.verifyPassword = function (password) {
+	return this.password == hash(password);
+}
+
 module.exports = User;

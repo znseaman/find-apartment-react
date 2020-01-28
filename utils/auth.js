@@ -1,4 +1,3 @@
-const hash = require("./hash");
 const Session = require("../utils/session");
 const User = require("../models/user");
 
@@ -80,8 +79,7 @@ const login = async (req, res, next) => {
       throw Error('no auth');
     }
 
-    // user password doesn't match
-    if (user && user.password !== hash(password)) {
+    if (!user.verifyPassword(password)) {
       throw Error('no auth');
     }
 
