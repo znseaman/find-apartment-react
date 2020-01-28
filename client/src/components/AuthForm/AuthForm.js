@@ -5,36 +5,6 @@ import * as Yup from 'yup';
 import classes from "./AuthForm.module.css";
 
 class AuthForm extends Component {
-	state = { email: "", password: "" };
-
-	updateInput = type => event => {
-		this.setState({ [type]: event.target.value });
-	};
-
-	signup = event => {
-		event.preventDefault();
-		const { email, password } = this.state;
-
-		// no empty passwords or email
-		if (email.length == 0 || password.length == 0) {
-			return false;
-		}
-
-		this.props.auth.signup(email, password);
-	};
-
-	login = event => {
-		event.preventDefault();
-		const { email, password } = this.state;
-
-		// no empty email or password
-		if (email.length == 0 || password.length == 0) {
-			return false;
-		}
-
-		this.props.auth.login(email, password);
-	};
-
 	render() {
 		const onLogin = this.props.location.pathname == "/login";
 		return (
