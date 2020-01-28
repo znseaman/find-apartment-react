@@ -7,6 +7,8 @@ import classes from "./AuthForm.module.css";
 class AuthForm extends Component {
 	render() {
 		const onLogin = this.props.location.pathname == "/login";
+		const route = onLogin ? "login" : "signup";
+		const authentication = this.props.auth.authenticate(route);
 		return (
 			<Formik
 				initialValues={{ email: '', password: '' }}
@@ -23,14 +25,13 @@ class AuthForm extends Component {
 				})}
 				onSubmit={(values, actions) => {
 					actions.setSubmitting(true);
-					const authentication = onLogin ? this.props.auth.login.bind(this) : this.props.auth.signup.bind(this);
 					const { email, password } = values;
 					authentication(email, password).then(res => {
 						actions.setSubmitting(false);
 						actions.resetForm();
 					}).catch(err => {
 						if (err.status == 400 || err.status == 409) {
-							actions.setFieldError(err.data.field, err.data.message)
+							actions.setFieldError(err.data.field, err.data.message);
 						}
 						actions.setSubmitting(false);
 					})
