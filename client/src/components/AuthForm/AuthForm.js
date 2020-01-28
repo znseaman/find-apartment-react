@@ -74,7 +74,7 @@ class AuthForm extends Component {
 										name="email"
 										type="email"
 										placeholder="Enter email"
-										className={touched.email && errors.email ? "error" : null}
+										className={touched.email && errors.email ? classes["error"] : null}
 										onChange={handleChange}
 										onBlur={handleBlur}
 										value={values.email}
@@ -94,7 +94,7 @@ class AuthForm extends Component {
 										name="password"
 										type="password"
 										placeholder="Enter password"
-										className={touched.password && errors.password ? "error" : null}
+										className={touched.password && errors.password ? classes["error"] : null}
 										onChange={handleChange}
 										onBlur={handleBlur}
 										value={values.password}
