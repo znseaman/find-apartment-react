@@ -17,7 +17,7 @@ const signup = async (req, res, next) => {
 
     const user = await User.create({
       email,
-      password: hash(password)
+      password
     });
 
     // setup initial search settings for new user
