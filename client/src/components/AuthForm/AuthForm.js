@@ -21,11 +21,19 @@ class AuthForm extends Component {
 						.required('Required')
 						.max(99, 'Password must not be over 99 chararacters long')
 				})}
-				onSubmit={(values, { setSubmitting }) => {
-					setSubmitting(true);
+				onSubmit={(values, actions) => {
+					actions.setSubmitting(true);
 					const authentication = onLogin ? this.props.auth.login.bind(this) : this.props.auth.signup.bind(this);
 					const { email, password } = values;
-					authentication(email, password);
+					authentication(email, password).then(res => {
+						actions.setSubmitting(false);
+						actions.resetForm();
+					}).catch(err => {
+						if (err.status == 400 || err.status == 409) {
+							actions.setFieldError(err.data.field, err.data.message)
+						}
+						actions.setSubmitting(false);
+					})
 				}}
 			>
 				{({ values,
@@ -81,7 +89,7 @@ class AuthForm extends Component {
 									backgroundColor: '#207ea2',
 									borderColor: '#187fa7'
 								}}>
-									{onLogin ? 'Log In' : 'Sign Up'}
+									{isSubmitting ? 'Loading...' : onLogin ? 'Log In' : 'Sign Up'}
 								</Button>
 							</Form>
 						</div>

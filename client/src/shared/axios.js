@@ -12,6 +12,8 @@ instance.interceptors.response.use(res => res.data, error => {
     auth.logout();
     return false;
   }
+
+  return Promise.reject(error.response);
 });
 
 export default instance;

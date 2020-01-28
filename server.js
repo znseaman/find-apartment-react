@@ -37,7 +37,7 @@ app.use("/search_setting", protect, search_setting);
 app.use((err, req, res, next) => {
 	if (!err.statusCode) err.statusCode = 500;
 
-	res.status(err.statusCode).json({ type: "error", msg: err.message });
+	res.status(err.statusCode).json(err);
 });
 
 /* Cron Jobs */

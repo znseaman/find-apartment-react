@@ -11,7 +11,11 @@ const signup = async (req, res, next) => {
       }
     });
     if (existingUser) {
-      throw Error('Email taken');
+      return next({
+        statusCode: 409,
+        field: "email",
+        message: "This email has been taken"
+      });
     }
 
     const user = await User.create({
@@ -59,10 +63,7 @@ const signup = async (req, res, next) => {
       });
 
   } catch (error) {
-    res.status(401).json({
-      type: "error",
-      msg: "This email has been taken"
-    });
+    next(error);
   }
 };
 
@@ -76,26 +77,31 @@ const login = async (req, res, next) => {
       }
     });
     if (!user) {
-      throw Error('no auth');
+      return next({
+        statusCode: 400,
+        field: "email",
+        message: "Incorrect email/password"
+      });
     }
 
     if (!user.verifyPassword(password)) {
-      throw Error('no auth');
+      return next({
+        statusCode: 400,
+        field: "password",
+        message: "Incorrect email/password"
+      });
     }
 
     Session.set_session(email, res, user.session_id)
       .then(() => {
-        res.json({ msg: "Successful login!" });
+        res.json({ message: "Successful login!" });
       })
       .catch(error => {
         next(error);
       });
 
   } catch (error) {
-    res.status(400).json({
-      type: "error",
-      msg: "Incorrect email/password"
-    });
+    next(error);
   }
 };
 
