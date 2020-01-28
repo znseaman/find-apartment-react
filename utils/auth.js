@@ -1,5 +1,6 @@
 const Session = require("../utils/session");
 const User = require("../models/user");
+const scrapeListings = require("../crons/craigslist/scrape");
 
 const signup = async (req, res, next) => {
   const { email, password } = req.body;
@@ -54,6 +55,9 @@ const signup = async (req, res, next) => {
       userPreferences
     );
 
+    // get listings for a newly created user
+    scrapeListings(true, user.id);
+
     Session.set_session(email, res)
       .then(() => {
         res.json({ msg: "Successfully created user!" });
@@ -75,7 +79,7 @@ const login = async (req, res, next) => {
       where: {
         email
       }
-    });
+    })
     if (!user) {
       return next({
         statusCode: 400,
