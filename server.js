@@ -9,7 +9,7 @@ const sequelize = require("./utils/database");
 const listing = require("./routes/api/listing");
 const user = require("./routes/api/user");
 const search_setting = require("./routes/api/search_setting");
-const { login, signup, protect } = require("./utils/auth");
+const { login, signup, logout, protect } = require("./utils/auth");
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -29,6 +29,7 @@ app.use(
 app.get("/authenticated", protect, (req, res, next) => res.json({ authenticated: true }))
 app.post("/login", login);
 app.post("/signup", signup);
+app.get("/logout", logout);
 app.use("/listing", protect, listing);
 app.use("/user", user);
 app.use("/search_setting", protect, search_setting);

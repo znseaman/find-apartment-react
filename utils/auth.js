@@ -105,6 +105,26 @@ const login = async (req, res, next) => {
   }
 };
 
+const logout = async (req, res, next) => {
+  const { email, id: session_id } = Session.parse(req.cookies.session_str);
+
+  try {
+    await User.update({
+      session_id: null
+    },
+      {
+        where: {
+          email, session_id
+        }
+      });
+
+    res.clearCookie("session_str");
+    res.json({ msg: "Successful logout" })
+  } catch (error) {
+    next(error);
+  }
+}
+
 const protect = async (req, res, next) => {
   try {
     const { session_str } = req.cookies;
@@ -135,5 +155,6 @@ const protect = async (req, res, next) => {
 module.exports = {
   signup,
   login,
+  logout,
   protect,
 };

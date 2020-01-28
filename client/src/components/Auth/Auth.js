@@ -14,7 +14,7 @@ class Auth {
 
 	logout = () => (
 		axiosConfig
-			.get(`/user/logout`)
+			.get(`/logout`)
 			.then(() => {
 				this.loggedIn = false;
 				history.replace("/login");
