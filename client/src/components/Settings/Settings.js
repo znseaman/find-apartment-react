@@ -54,7 +54,7 @@ const Settings = () => {
 				return (
 					<Form.Group key={key} controlId={`setting-control-${key}`}>
 						<Form.Label>{label}</Form.Label>
-						<Form.Control as="select" onChange={event => inputChangedHandler(event, key)}>
+						<Form.Control as="select" onChange={event => inputChangedHandler(event, key)} required>
 							{elementConfig.options.map(({ value, text }) => {
 								return <option key={value} value={value}>{text}</option>
 							})}
@@ -66,7 +66,7 @@ const Settings = () => {
 			return (
 				<Form.Group key={key} controlId={`setting-control-${key}`}>
 					<Form.Label>{label}</Form.Label>
-					<Form.Control type="number" value={value} onChange={event => inputChangedHandler(event, key)}></Form.Control>
+					<Form.Control type="number" value={value} onChange={event => inputChangedHandler(event, key)} required></Form.Control>
 				</ Form.Group >
 			)
 		});
