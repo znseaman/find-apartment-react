@@ -28,8 +28,8 @@ const User = sequelize.define("user", {
 	session_id: STRING(36)
 }, {
 	hooks: {
-		beforeCreate(user) {
-			user.password = hash(user.password)
+		beforeCreate(model) {
+			model.password = hash(model.password)
 		}
 	}
 });
