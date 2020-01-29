@@ -19,6 +19,7 @@ export default function Listing(props) {
 		beds,
 		baths,
 		size,
+		amenities,
 		favorite,
 		isPopup
 	} = props;
@@ -73,12 +74,45 @@ export default function Listing(props) {
 				<p className={classes["Listing-description"]}>
 					{title}
 				</p>
-				<p
-					className={classes["Listing-description"]}
+				<div
+					className={classes["Listing-amenities"]}
 					style={{ WebkitBoxOrient: "vertical" }}
 				>
-					{description}
-				</p>
+					{amenities.split(', ').map((amenity, i) => {
+						if (amenity.match('dogs')) {
+							return <Emoji key={i} label="dog" symbol="🐶" />
+						} else if (amenity.match('cats')) {
+							return <Emoji key={i} label="cat" symbol="🐱" />
+						} else if (amenity.match('apartment')) {
+							return <Emoji key={i} label="apartment" symbol="🏢" />
+						} else if (amenity.match('townhouse')) {
+							return <Emoji key={i} label="townhouse" symbol="🏢" />
+						} else if (amenity.match('condo')) {
+							return <Emoji key={i} label="condo" symbol="🏢" />
+						} else if (amenity.match('furnished')) {
+							return <Emoji key={i} label="furnished" symbol="🛋" />
+						} else if (amenity.match(/^house$/)) {
+							return <Emoji key={i} label="house" symbol="🏠" />
+						} else if (amenity.match(/garage$/)) {
+							return <Emoji key={i} label="parking" symbol="🚙" />
+						}
+						else if (amenity.match(/parking$/)) {
+							return <Emoji key={i} label="parking" symbol="🚙" />
+						} else if (amenity.match(/carport$/)) {
+							return <Emoji key={i} label="carport" symbol="🚙" />
+						}
+						else if (amenity.match(/no smoking/)) {
+							return <Emoji key={i} label="no smoking" symbol="🚭" />
+						} else if (amenity.match(/wheelchair accessible/)) {
+							return <Emoji key={i} label="wheelchair accessible" symbol="♿️" />
+						} else if (amenity.match('w/d in unit')) {
+							return <Emoji key={i} label="washer and dryer in unit" symbol="👖" />
+						} else if (amenity.match('EV charging')) {
+							return <Emoji key={i} label="electric vehicle charging" symbol="🔋" />
+						}
+						return <p key={i}>{amenity}</p>
+					})}
+				</div>
 			</div>
 			<div style={{ padding: "1rem 1rem", textAlign: "center" }}>
 				<Button className="btn btn-secondary" size={isPopup ? `sm` : null} style={{ marginRight: '1rem' }} onClick={() => openLink(url)}>

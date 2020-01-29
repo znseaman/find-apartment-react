@@ -38,6 +38,19 @@
 	text-overflow: ellipsis;
 }
 
+.Listing-amenities {
+	display: block; /* Fallback for non-webkit */
+	display: -webkit-box;
+	max-width: 400px;
+	margin: 0 auto;
+	font-size: 40px;
+	line-height: var(--line-height);
+	-webkit-line-clamp: var(--lines-to-show);
+	-webkit-box-orient: vertical; /* This part in Chrome seems to always get ignored... requires adding it to the `style` tag itself at the moment */
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .card__image {
 	width: 100%;
 }
