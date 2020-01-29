@@ -60,8 +60,10 @@ const SimpleMap = ({ listings, getListings, deleteListing, favoriteListing }) =>
 
 				return (
 					<Marker key={id} position={[lat, lng]} icon={icon}>
-						<Popup className={'warning'}>
-							{renderPopup(listing)}
+						<Popup className={favorite ? 'favorite-popup' : ''}>
+							<div style={{ backgroundColor: favorite ? '#ffc107' : 'white' }}>
+								{renderPopup(listing)}
+							</div>
 						</Popup>
 					</Marker>
 				);

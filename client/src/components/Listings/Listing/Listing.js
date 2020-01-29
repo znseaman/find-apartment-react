@@ -54,7 +54,7 @@ export default function Listing(props) {
 	};
 
 	return (
-		<article className={classes.Listing} style={{ boxShadow: isPopup ? 'none' : '0 2px 8px rgba(0, 0, 0, 0.26)', backgroundColor: favorite && !isPopup ? '#ffc107' : 'white' }}>
+		<article className={classes.Listing} style={{ boxShadow: isPopup ? 'none' : '0 2px 8px rgba(0, 0, 0, 0.26)', backgroundColor: favorite ? '#ffc107' : 'white' }}>
 			<header
 				style={{
 					padding: "1rem 1rem",
