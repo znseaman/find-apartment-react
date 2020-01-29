@@ -12,8 +12,19 @@ const User = sequelize.define("user", {
 		allowNull: false,
 		primaryKey: true
 	},
-	email: STRING,
-	password: STRING(64),
+	email: {
+		type: STRING,
+		validate: {
+			isEmail: true,
+			max: 254
+		}
+	},
+	password: {
+		type: STRING(64),
+		validate: {
+			max: 99
+		}
+	},
 	session_id: STRING(36)
 }, {
 	hooks: {
