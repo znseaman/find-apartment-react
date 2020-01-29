@@ -26,10 +26,7 @@ class AuthForm extends Component {
 				onSubmit={(values, actions) => {
 					actions.setSubmitting(true);
 					const { email, password } = values;
-					authentication(email, password).then(res => {
-						actions.setSubmitting(false);
-						actions.resetForm();
-					}).catch(err => {
+					authentication(email, password).catch(err => {
 						if (err.status == 400 || err.status == 409) {
 							actions.setFieldError(err.data.field, err.data.message);
 						}
