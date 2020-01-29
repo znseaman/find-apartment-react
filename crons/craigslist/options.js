@@ -22,7 +22,7 @@ const scrape = [
 			},
 			attributes: ["id"]
 		});
-		for await (const user of users) {
+		for (const user of users) {
 			const { id } = user;
 			scrapeListings(true, id);
 		}
@@ -42,7 +42,7 @@ const heartbeat = [
 	"0 7 * * *",
 	async function () {
 		const listings = await Listing.findAll();
-		await heartbeatListings(listings);
+		heartbeatListings(listings);
 	},
 	null,
 	true,

@@ -26,7 +26,7 @@ const heartbeatCraigslist = async listings => {
 		// 			more efficient to be cleaning these up at that level, than in node
 		const { differenceInDays } = require("date-fns");
 		const days = differenceInDays(Date.now(), new Date(postedAt));
-		if (days > 5) {
+		if (days > 30) {
 			// delete listing from the DB
 			const res = await Listing.destroy({
 				where: {
