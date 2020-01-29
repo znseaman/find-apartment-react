@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Settings.module.css";
 
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Alert } from "react-bootstrap";
 import useSettings from "../../hooks/useSettings";
 import { updateObject } from "../../shared/updateObject";
 import { CONNECTION } from "../../config";
@@ -10,6 +10,11 @@ import axiosConfig from "../../shared/axios";
 const Settings = () => {
 	// TODO: add city, base_host, category as options to modify
 	const [searchSettings, setSearchSettings] = useSettings();
+	const [alertState, setAlertState] = React.useState({
+		show: false,
+		message: 'Save Successful!',
+		variant: 'success'
+	});
 
 	const inputChangedHandler = (event, inputIdentifier) => {
 		const { value } = event.target;
@@ -34,7 +39,10 @@ const Settings = () => {
 
 		axiosConfig.post(`${CONNECTION}/search_setting/edit`, settings, { withCredentials: true })
 			.then(data => {
-				alert("Save Successful!");
+				setAlertState({ ...alertState, show: true });
+				setTimeout(() => {
+					setAlertState({ ...alertState, show: false });
+				}, 5000);
 			});
 	};
 
@@ -63,8 +71,17 @@ const Settings = () => {
 			)
 		});
 
+		const renderAlert = () => {
+			const { variant, message, show } = alertState;
+			const visibility = show ? 'visible' : 'hidden';
+			return <Alert variant={variant} dismissable="true" style={{ visibility }}>
+				{message}
+			</Alert>
+		}
+
 		return (
 			<Form onSubmit={onSaveHandler}>
+				{renderAlert()}
 				{inputs}
 				<Button style={{
 					backgroundColor: '#207ea2',
