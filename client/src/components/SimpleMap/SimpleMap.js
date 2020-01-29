@@ -8,6 +8,9 @@ import Listing from "../Listings/Listing/Listing"
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
+import "leaflet-extra-markers/dist/css/leaflet.extra-markers.min.css";
+import "leaflet-extra-markers/dist/js/leaflet.extra-markers";
+
 import { getListings, deleteListing, favoriteListing } from "../../redux/actions";
 
 const mapStateToProps = state => ({ listings: state.listings });
@@ -45,9 +48,18 @@ const SimpleMap = ({ listings, getListings, deleteListing, favoriteListing }) =>
 					id,
 					latitude: lat,
 					longitude: lng,
+					favorite
 				} = listing;
+
+				const icon = L.ExtraMarkers.icon({
+					icon: 'fa-building',
+					markerColor: favorite ? 'yellow' : 'blue',
+					shape: favorite ? 'star' : 'circle',
+					prefix: 'fa'
+				});
+
 				return (
-					<Marker key={id} position={[lat, lng]}>
+					<Marker key={id} position={[lat, lng]} icon={icon}>
 						<Popup className={'warning'}>
 							{renderPopup(listing)}
 						</Popup>
