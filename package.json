@@ -6,6 +6,7 @@
 	"scripts": {
 		"start": "nodemon --inspect server.js",
 		"server": "nodemon server.js",
+		"test": "jest --watch",
 		"client": "npm start --prefix client",
 		"client_install": "npm install --prefix client",
 		"dev": "concurrently npm:server npm:client",
@@ -30,6 +31,7 @@
 	},
 	"devDependencies": {
 		"concurrently": "^5.0.0",
+		"jest": "^25.1.0",
 		"nodemon": "^1.19.1"
 	}
 }
