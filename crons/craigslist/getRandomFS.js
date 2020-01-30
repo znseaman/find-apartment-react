@@ -49,11 +49,10 @@ const getRandomFSA_Vancouver = first => second => {
     "T",
     "Z"
   ];
-  console.log(six.length)
   const seven = ["X", "Y"];
 
   // const secondChar = firstNumber[getRandomInt(0, firstNumber.length - 1)];
-  const secondChar = firstNumber[first];
+  const secondChar = firstNumber[first ? first : getRandomInt(0, firstNumber.length - 1)];
 
   // find the correct letter array
   let letterArray;
@@ -65,7 +64,7 @@ const getRandomFSA_Vancouver = first => second => {
     letterArray = seven;
   }
   // const thirdChar = letterArray[getRandomInt(0, letterArray.length - 1)];
-  const thirdChar = letterArray[second];
+  const thirdChar = letterArray[second ? second : getRandomInt(0, letterArray.length - 1)];
 
   const fsa = `V${secondChar}${thirdChar}`;
   return fsa;

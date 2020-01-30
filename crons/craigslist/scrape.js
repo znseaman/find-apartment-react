@@ -1,7 +1,7 @@
 const Listing = require("../../models/listing");
 const getUserPreferences = require("./getUserPreferences");
 const setupClient = require("./setupClient");
-const { getRandomFSA_Vancouver, getRandomInt } = require("./ getRandomFS");
+const { getRandomFSA_Vancouver, getRandomInt } = require("./getRandomFS");
 
 const scrapeCraigslist = async (logging = false, userId) => {
 	if (logging) console.log(`\n-------------------------------------\n`);
@@ -9,14 +9,14 @@ const scrapeCraigslist = async (logging = false, userId) => {
 		console.log(`Getting data from craigslist for userId #${userId} ...`);
 	// TODO: instead of getting these from data, have them come from the DB
 	const PolygonLookup = require("polygon-lookup");
-	const featureCollection = require("../../data/polygons.json");
+	const featureCollection = require("../../data/local_area_boundary.json");
 	const lookup = new PolygonLookup(featureCollection);
 
 	// get listings
 	const userPreferences = await getUserPreferences(userId);
 	const superPreferences = {
 		...userPreferences,
-		postal: getRandomFSA_Vancouver(),
+		postal: getRandomFSA_Vancouver()(),
 		searchDistance: getRandomInt(1, 40),
 		nocache: 1
 	};
@@ -121,7 +121,7 @@ const scrapeCraigslist = async (logging = false, userId) => {
 			continue;
 		}
 
-		const { name: polygon_name } = poly.properties;
+		const { NAME: polygon_name } = poly.properties;
 		const point = {
 			type: "Point",
 			coordinates,
