@@ -4,15 +4,16 @@ import {
 	DELETE_LISTING,
 	FAVORITE_LISTING
 } from "../constants/action-types";
-import { CONNECTION } from "../../config";
 import axiosConfig from '../../shared/axios';
+import config from "../../config/index";
+const { SERVER_URL, FULL_SERVER_URL } = config;
 
 export const getListings = ({ limit, offset }) => async dispatch => {
 	var interval = null;
 	var times = 0;
 	var maxTimes = 5;
 	async function fetchData() {
-		const url = new URL(`${CONNECTION}/listing/all`);
+		const url = new URL(`${FULL_SERVER_URL}/listing/all`);
 		const params = { limit, offset, orderBy: 'postedAt', order: 'DESC' };
 		Object.keys(params).forEach(key =>
 			url.searchParams.append(key, params[key])
@@ -69,7 +70,7 @@ export const getListings = ({ limit, offset }) => async dispatch => {
 
 export const deleteListing = id => async dispatch => {
 	try {
-		await axiosConfig.delete(`${CONNECTION}/listing/${id}`, { withCredentials: true });
+		await axiosConfig.delete(`${SERVER_URL}/listing/${id}`, { withCredentials: true });
 		dispatch({ type: DELETE_LISTING, payload: id });
 	} catch (e) {
 		console.error(e);

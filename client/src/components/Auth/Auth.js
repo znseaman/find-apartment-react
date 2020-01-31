@@ -1,5 +1,7 @@
 import history from "../../utils/history";
 import axiosConfig from "../../shared/axios";
+import config from "../../config/index";
+const { CLIENT_URL: baseURL, SERVER_URL } = config;
 
 class Auth {
 	loggedIn = false;
@@ -8,7 +10,7 @@ class Auth {
 		axiosConfig.post(`/${type}`, { email, password })
 			.then(data => {
 				this.loggedIn = true;
-				history.replace("/");
+				history.replace(`${baseURL}/`);
 			})
 	);
 
@@ -17,7 +19,7 @@ class Auth {
 			.get(`/logout`)
 			.then(() => {
 				this.loggedIn = false;
-				history.replace("/login");
+				history.replace(`${baseURL}/login`);
 			})
 	)
 

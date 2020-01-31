@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { updateObject } from "../shared/updateObject";
-import { CONNECTION } from "../config";
 import axiosConfig from "../shared/axios";
+import config from "../config/index";
+const { FULL_SERVER_URL } = config;
 
 export default () => {
 	const [searchSettings, setSearchSettings] = useState({
@@ -41,7 +42,7 @@ export default () => {
 
 	useEffect(() => {
 		async function fetchData() {
-			const url = new URL(`${CONNECTION}/search_setting`);
+			const url = new URL(`${FULL_SERVER_URL}/search_setting`);
 			try {
 				const data = await axiosConfig.get(url.toString(), {
 					withCredentials: true

@@ -4,8 +4,9 @@ import styles from "./Settings.module.css";
 import { Button, Form, Alert } from "react-bootstrap";
 import useSettings from "../../hooks/useSettings";
 import { updateObject } from "../../shared/updateObject";
-import { CONNECTION } from "../../config";
 import axiosConfig from "../../shared/axios";
+import config from "../../config/index";
+const { SERVER_URL } = config;
 
 const Settings = () => {
 	// TODO: add city, base_host, category as options to modify
@@ -37,7 +38,7 @@ const Settings = () => {
 			{}
 		);
 
-		axiosConfig.post(`${CONNECTION}/search_setting/edit`, settings, { withCredentials: true })
+		axiosConfig.post(`${SERVER_URL}/search_setting/edit`, settings, { withCredentials: true })
 			.then(data => {
 				setAlertState({ ...alertState, show: true });
 				setTimeout(() => {

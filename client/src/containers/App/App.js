@@ -11,6 +11,8 @@ import SimpleMap from "../../components/SimpleMap/SimpleMap";
 import Settings from "../../components/Settings/Settings";
 import Logout from "../../components/Auth/Logout/Logout";
 import Favorites from "../../components/Listings/Favorites";
+import config from "../../config/index";
+const { CLIENT_URL: baseURL } = config;
 
 function containsMap(pathname) {
 	const regex = new RegExp("map");
@@ -25,7 +27,7 @@ const AuthRoute = ({ component: Component, auth, ...rest }) => (
 			return auth.loggedIn ? (
 				<Component {...props}></Component>
 			) : (
-					<Redirect to="/login"></Redirect>
+					<Redirect to={`${baseURL}/login`}></Redirect>
 				);
 		}}
 	></Route>
@@ -47,22 +49,22 @@ const App = props => {
 	let routes = (
 		<Switch>
 			<Route
-				path="/login"
+				path={`${baseURL}/login`}
 				render={props => {
 					props.auth = auth;
 					return auth.loggedIn ? (
-						<Redirect to="/"></Redirect>
+						<Redirect to={`${baseURL}/`}></Redirect>
 					) : (
 							<AuthForm {...props}></AuthForm>
 						);
 				}}
 			></Route>
 			<Route
-				path="/signup"
+				path={`${baseURL}/signup`}
 				render={props => {
 					props.auth = auth;
 					return auth.loggedIn ? (
-						<Redirect to="/"></Redirect>
+						<Redirect to={`${baseURL}/`}></Redirect>
 					) : (
 							<AuthForm {...props}></AuthForm>
 						);
@@ -71,29 +73,29 @@ const App = props => {
 			<AuthRoute
 				exact
 				auth={auth}
-				path="/"
+				path={`${baseURL}/`}
 				component={Listings}
 			></AuthRoute>
 			<AuthRoute
 				auth={auth}
-				path="/favorites"
+				path={`${baseURL}/favorites`}
 				component={Favorites}
 			></AuthRoute>
 			<AuthRoute
 				auth={auth}
-				path="/map"
+				path={`${baseURL}/map`}
 				component={SimpleMap}
 			></AuthRoute>
 			<AuthRoute
 				auth={auth}
-				path="/settings"
+				path={`${baseURL}/settings`}
 				component={Settings}
 			></AuthRoute>
 			<Route
-				path="/logout"
+				path={`${baseURL}/logout`}
 				render={props => <Logout auth={auth} {...props}></Logout>}
 			></Route>
-			<Redirect to="/"></Redirect>
+			<Redirect to={`${baseURL}/`}></Redirect>
 		</Switch>
 	);
 
