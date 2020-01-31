@@ -6,7 +6,7 @@ import {
 } from "../constants/action-types";
 import axiosConfig from '../../shared/axios';
 import config from "../../config/index";
-const { SERVER_URL, FULL_SERVER_URL } = config;
+const { FULL_SERVER_URL } = config;
 
 export const getListings = ({ limit, offset }) => async dispatch => {
 	var interval = null;
@@ -70,7 +70,7 @@ export const getListings = ({ limit, offset }) => async dispatch => {
 
 export const deleteListing = id => async dispatch => {
 	try {
-		await axiosConfig.delete(`${SERVER_URL}/listing/${id}`, { withCredentials: true });
+		await axiosConfig.delete(`/listing/${id}`, { withCredentials: true });
 		dispatch({ type: DELETE_LISTING, payload: id });
 	} catch (e) {
 		console.error(e);
