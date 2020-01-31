@@ -3,10 +3,12 @@ import { Button, Form, FormGroup, FormLabel, FormControl } from "react-bootstrap
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import classes from "./AuthForm.module.css";
+import config from "../../config/index";
+const { CLIENT_URL: baseURL } = config;
 
 class AuthForm extends Component {
 	render() {
-		const onLogin = this.props.location.pathname == "/login";
+		const onLogin = this.props.location.pathname == `${baseURL}/login`;
 		const route = onLogin ? "login" : "signup";
 		const authentication = this.props.auth.authenticate(route);
 		return (
