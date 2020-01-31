@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
 const port = 9000;
+const path = require("path");
 require('dotenv').config();
 const sequelize = require("./utils/database");
 const listing = require("./routes/api/listing");
@@ -33,6 +34,15 @@ app.get("/logout", logout);
 app.use("/listing", protect, listing);
 app.use("/user", user);
 app.use("/search_setting", protect, search_setting);
+
+if (process.env.NODE_ENV == 'production') {
+	const clientBuild = path.join(__dirname, './client/build');
+	app.use(express.static(clientBuild));
+
+	app.get(`*`, (req, res) =>
+		res.sendFile(path.join(__dirname, './client/build/index.html'))
+	);
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {
