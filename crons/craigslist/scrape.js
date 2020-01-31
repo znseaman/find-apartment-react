@@ -180,7 +180,8 @@ const scrapeCraigslist = async (logging = false, userId) => {
 			imageUrls,
 			latitude,
 			longitude,
-			point,
+			// ElephantSQL doesn't support PostGIS
+			// point,
 			zoom,
 			postedAt,
 			polygon_name,

@@ -1,7 +1,9 @@
+const { DB_USER: user, DB_HOST: host, DB_NAME: database, DB_PASSWORD: password, DB_PORT: port } = process.env;
+
 module.exports = {
-	user: "node_user",
-	host: "localhost",
-	database: "find_apartment_react",
-	password: "node_password",
-	port: 5432
+	user,
+	host,
+	database,
+	password,
+	port,
 };

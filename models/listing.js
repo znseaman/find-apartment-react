@@ -23,7 +23,8 @@ const Listing = sequelize.define("listing", {
 	},
 	latitude: STRING,
 	longitude: STRING,
-	point: GEOMETRY("POINT", 4326),
+	// ElephantSQL doesn't support PostGIS
+	// point: GEOMETRY("POINT", 4326),
 	zoom: INTEGER,
 	postedAt: DATE,
 	polygon_name: STRING,
