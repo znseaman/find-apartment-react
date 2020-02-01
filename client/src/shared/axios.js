@@ -1,7 +1,7 @@
 import axios from "axios";
 import { auth } from "../components/Auth/Auth";
 import config from "../config/index";
-const { CLIENT_URL: baseURL } = config;
+const { SERVER_URL: baseURL } = config;
 
 const instance = axios.create({
   baseURL,
