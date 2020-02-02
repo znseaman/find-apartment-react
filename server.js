@@ -53,9 +53,10 @@ app.use((err, req, res, next) => {
 
 /* Cron Jobs */
 const { CronJob } = require("cron");
-const { scrape, heartbeat } = require("./crons/craigslist/options");
+// const { scrape, heartbeat } = require("./crons/craigslist/options");
+const { scrape } = require("./crons/craigslist/options2");
 new CronJob(...scrape);
-new CronJob(...heartbeat);
+// new CronJob(...heartbeat);
 
 (async () => {
 	try {
