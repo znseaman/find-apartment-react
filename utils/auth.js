@@ -56,7 +56,7 @@ const signup = async (req, res, next) => {
     );
 
     // get listings for a newly created user
-    scrapeListings(true, user.id);
+    scrapeListings(user.id);
 
     Session.set_session(email, res)
       .then(() => {

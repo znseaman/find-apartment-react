@@ -17,6 +17,10 @@ const heartbeatCraigslist = async listings => {
 		`Starting check for deleted / flagged listings for ${listings.length} listings on craigslist...`
 	);
 
+	// wrap axios.get in bottleneck
+	const bottleneckWrap = require('../../utils/bottleneck');
+	const throttledGet = bottleneckWrap(axios.get);
+
 	let totalDeleted = 0;
 	// Loop through listings for urls
 	for await (const listing of listings) {
@@ -43,7 +47,10 @@ const heartbeatCraigslist = async listings => {
 
 		const { url } = listing;
 		// TODO: fix what occurs when this throws an error due to destructuring
-		const { data } = (await axios.get(url).catch(async error => {
+		const { data } = (await throttledGet(url).then(res => {
+			console.log(`Axios Get Request Complete At:`, new Date(Date.now()));
+			return res;
+		}).catch(async error => {
 			if (error.response) {
 				console.log(`ERROR THROWN IN: heartbeat.js`);
 				console.log(error.response.status);
