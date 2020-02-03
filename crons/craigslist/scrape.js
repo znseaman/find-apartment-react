@@ -37,7 +37,8 @@ const scrapeCraigslist = async id => {
 		try {
 			await listingFilter(listing);
 		} catch (error) {
-			throw error;
+			console.error(error);
+			continue;
 		}
 
 		// clean the price from listing
@@ -47,7 +48,8 @@ const scrapeCraigslist = async id => {
 		try {
 			details = await throttledSearchDetails(client, listing);
 		} catch (error) {
-			throw error;
+			console.error(error);
+			continue;
 		}
 
 		/* After Details Checks */
@@ -55,7 +57,8 @@ const scrapeCraigslist = async id => {
 		try {
 			detailsExtracted = await detailsFilter(details);
 		} catch (error) {
-			throw error;
+			console.error(error);
+			continue;
 		}
 
 		detailsExtracted.price = price;
@@ -71,7 +74,8 @@ const scrapeCraigslist = async id => {
 			const { url } = details;
 			originalPostData = await throttledFetchData(url);
 		} catch (error) {
-			throw error;
+			console.error(error);
+			continue;
 		}
 
 		/* After Original Post Data Checks */
@@ -79,7 +83,8 @@ const scrapeCraigslist = async id => {
 		try {
 			originalDataExtracted = await postFilter(originalPostData, detailsExtracted);
 		} catch (error) {
-			throw error;
+			console.error(error);
+			continue;
 		}
 
 		Listing.create(originalDataExtracted);
