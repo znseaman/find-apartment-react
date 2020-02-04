@@ -6,6 +6,7 @@
 	"scripts": {
 		"start": "nodemon --inspect server.js",
 		"server_start": "NODE_ENV=production node server.js",
+		"start_scrape_server": "nodemon scrapeServer.js",
 		"test": "jest --watch",
 		"client_start": "npm start --prefix client",
 		"client_install": "npm install --prefix client",
