@@ -12,10 +12,11 @@ import { getListings, deleteListing, favoriteListing } from "../../redux/actions
 
 const mapStateToProps = state => ({
 	listings: state.listings,
-	pageCount: state.pageCount
+	pageCount: state.pageCount,
+	isLoading: state.isLoading,
 });
 
-const Listings = ({ listings, pageCount, getListings, deleteListing, favoriteListing }) => {
+const Listings = ({ listings, pageCount, getListings, deleteListing, favoriteListing, isLoading }) => {
 	const [limit, setLimit] = useState(50);
 	const [offset, setOffset] = useState(0);
 
@@ -36,7 +37,6 @@ const Listings = ({ listings, pageCount, getListings, deleteListing, favoriteLis
 		return <Listing key={listing.id} {...listing} clicked={deleteListing} onFavorite={favoriteListing} />;
 	});
 
-	const isLoading = all.length === 0;
 	let showListings = (
 		<>
 			{all}
@@ -59,6 +59,10 @@ const Listings = ({ listings, pageCount, getListings, deleteListing, favoriteLis
 		showListings = <Spinner></Spinner>;
 	}
 
+	if (!isLoading && listings.length == 0) {
+		showListings = <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>No listings found yet. For new accounts, refresh in a few minutes. For existing users, check back at 7am Pacific.</div>
+	}
+
 	return showListings;
 };
 
@@ -68,6 +72,7 @@ Listings.propTypes = {
 	getListings: PropTypes.func.isRequired,
 	deleteListing: PropTypes.func.isRequired,
 	favoriteListing: PropTypes.func.isRequired,
+	isLoading: PropTypes.bool.isRequired,
 };
 
 export default connect(

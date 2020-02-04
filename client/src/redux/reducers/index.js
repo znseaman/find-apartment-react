@@ -9,7 +9,8 @@ const initialState = {
 	listings: [],
 	offset: 0,
 	pageCount: 1,
-	error: null
+	error: null,
+	isLoading: true
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -20,7 +21,8 @@ export default (state = initialState, { type, payload }) => {
 				...state,
 				listings: [...listings],
 				limit,
-				pageCount
+				pageCount,
+				isLoading: false
 			};
 		case DELETE_LISTING:
 			return {
