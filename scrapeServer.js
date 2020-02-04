@@ -24,7 +24,7 @@ app.use(
 
 /* Cron Jobs */
 const { CronJob } = require("cron");
-const { scrape, heartbeat } = require("./crons/craigslist/options2");
+const { scrape, heartbeat } = require("./crons/craigslist/options");
 new CronJob(...scrape);
 new CronJob(...heartbeat);
 

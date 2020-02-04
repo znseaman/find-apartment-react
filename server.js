@@ -51,12 +51,6 @@ app.use((err, req, res, next) => {
 	res.status(err.statusCode).json(err);
 });
 
-/* Cron Jobs */
-const { CronJob } = require("cron");
-const { scrape, heartbeat } = require("./crons/craigslist/options2");
-// new CronJob(...scrape);
-// new CronJob(...heartbeat);
-
 (async () => {
 	try {
 		// sync sequelize db .sync({force: true}) - reset the entire db
