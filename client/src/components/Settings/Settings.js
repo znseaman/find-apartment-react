@@ -5,7 +5,6 @@ import { Button, Form, Alert } from "react-bootstrap";
 import useSettings from "../../hooks/useSettings";
 import { updateObject } from "../../shared/updateObject";
 import axiosConfig from "../../shared/axios";
-import config from "../../config/index";
 
 const Settings = () => {
 	// TODO: add city, base_host, category as options to modify
