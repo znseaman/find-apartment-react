@@ -3,9 +3,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
-const port = 7000;
+const port = 5050;
 require('dotenv').config();
-const sequelize = require("./utils/database");
 require("./database/pg_notify");
 
 app.use(cookieParser());
@@ -31,17 +30,6 @@ new CronJob(...heartbeat);
 
 (async () => {
   try {
-    // sync sequelize db .sync({force: true}) - reset the entire db
-    await sequelize.sync();
-
-    await sequelize.authenticate()
-      .then(function (err) {
-        console.log('Connection has been established successfully.');
-      })
-      .catch(function (err) {
-        console.log('Unable to connect to the database:', err);
-      });
-
     app.listen(port, () => {
       console.log(`App running on port ${port}.`);
     });
