@@ -10,6 +10,10 @@ const instance = axios.create({
 
 instance.interceptors.response.use(res => res.data, error => {
   if (error.response && error.response.status == 401) {
+    if (window.location.pathname.match('signup$|login$')) {
+      return false;
+    }
+
     auth.logout();
     return false;
   }
