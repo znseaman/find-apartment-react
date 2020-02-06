@@ -7,7 +7,7 @@ context('Log In', () => {
 
   it('should login an existing user', () => {
     cy.createUser().then(user => {
-      const { email, password } = user;
+      const { email, password } = user
 
       cy.get('form')
         .find('[type="email"]')
@@ -33,7 +33,7 @@ context('Log In', () => {
   it('should log out an existing user', () => {
     cy.get('header')
       .find('a[data-testid="nav-item-logout"]')
-      .click();
+      .click()
     cy.url().should('eq', 'http://localhost:3000/login')
   })
 })
