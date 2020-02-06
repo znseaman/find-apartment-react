@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react'
 
-import classes from "./Menu.module.css";
+import classes from './Menu.module.css'
 
-const Menu = ({ toggle }) => {
-	return (
-		<div className={classes.Menu} onClick={toggle}>
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
-	);
-};
+const Menu = ({toggle}) => {
+  return (
+    <div className={classes.Menu} onClick={toggle}>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  )
+}
 
-export default Menu;
+export default Menu

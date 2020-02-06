@@ -1,6 +1,6 @@
-import dev from './dev';
-import prod from './prod';
-const env = process.env.NODE_ENV || 'development';
+import dev from './dev'
+import prod from './prod'
+const env = process.env.NODE_ENV || 'development'
 
 const baseConfig = {
   env,
@@ -15,14 +15,14 @@ let envConfig = {}
 switch (env) {
   case 'dev':
   case 'development':
-    envConfig = dev.config;
+    envConfig = dev.config
     break
   case 'prod':
   case 'production':
-    envConfig = prod.config;
+    envConfig = prod.config
     break
   default:
-    envConfig = dev.config;
+    envConfig = dev.config
 }
 
-export default { ...baseConfig, ...envConfig }
+export default {...baseConfig, ...envConfig}

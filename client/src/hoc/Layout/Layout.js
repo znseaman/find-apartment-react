@@ -1,35 +1,35 @@
-import React, { useState } from "react";
+import React, {useState} from 'react'
 
-import classes from "./Layout.module.css";
-import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
-import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
+import classes from './Layout.module.css'
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer'
 
-const Layout = ({ hasMap, children, auth }) => {
-	const [showSideDrawer, setShowSideDrawer] = useState(false);
+const Layout = ({hasMap, children, auth}) => {
+  const [showSideDrawer, setShowSideDrawer] = useState(false)
 
-	const sideDrawerClosedHandler = () => {
-		setShowSideDrawer(false);
-	};
+  const sideDrawerClosedHandler = () => {
+    setShowSideDrawer(false)
+  }
 
-	const sideDrawerToggleHandler = () => {
-		setShowSideDrawer(prevShowSideDrawer => !prevShowSideDrawer);
-	};
+  const sideDrawerToggleHandler = () => {
+    setShowSideDrawer(prevShowSideDrawer => !prevShowSideDrawer)
+  }
 
-	let allClasses = [classes.Layout];
-	if (hasMap) {
-		allClasses.push(classes.fixed);
-	}
+  let allClasses = [classes.Layout]
+  if (hasMap) {
+    allClasses.push(classes.fixed)
+  }
 
-	return (
-		<>
-			<Toolbar {...auth} toggle={sideDrawerToggleHandler}></Toolbar>
-			<SideDrawer
-				open={showSideDrawer}
-				closed={sideDrawerClosedHandler}
-			></SideDrawer>
-			<main className={allClasses.join(" ")}>{children}</main>
-		</>
-	);
-};
+  return (
+    <>
+      <Toolbar {...auth} toggle={sideDrawerToggleHandler}></Toolbar>
+      <SideDrawer
+        open={showSideDrawer}
+        closed={sideDrawerClosedHandler}
+      ></SideDrawer>
+      <main className={allClasses.join(' ')}>{children}</main>
+    </>
+  )
+}
 
-export default Layout;
+export default Layout

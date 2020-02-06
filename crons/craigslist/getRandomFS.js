@@ -1,5 +1,5 @@
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (max - min)) + min
 }
 
 /**
@@ -15,59 +15,47 @@ function getRandomInt(min, max) {
  * return {string}
  */
 const getRandomFSA_Vancouver = first => second => {
-  const firstNumber = [5, 6, 7];
-  const five = [
-    "K",
-    "L",
-    "M",
-    "N",
-    "P",
-    "R",
-    "S",
-    "T",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z"
-  ];
+  const firstNumber = [5, 6, 7]
+  const five = ['K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z']
   const six = [
-    "A",
-    "B",
-    "C",
-    "E",
-    "G",
-    "H",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "P",
-    "R",
-    "S",
-    "T",
-    "Z"
-  ];
-  const seven = ["X", "Y"];
+    'A',
+    'B',
+    'C',
+    'E',
+    'G',
+    'H',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'P',
+    'R',
+    'S',
+    'T',
+    'Z',
+  ]
+  const seven = ['X', 'Y']
 
   // const secondChar = firstNumber[getRandomInt(0, firstNumber.length - 1)];
-  const secondChar = firstNumber[first ? first : getRandomInt(0, firstNumber.length - 1)];
+  const secondChar =
+    firstNumber[first ? first : getRandomInt(0, firstNumber.length - 1)]
 
   // find the correct letter array
-  let letterArray;
+  let letterArray
   if (secondChar === 5) {
-    letterArray = five;
+    letterArray = five
   } else if (secondChar === 6) {
-    letterArray = six;
+    letterArray = six
   } else if (secondChar === 7) {
-    letterArray = seven;
+    letterArray = seven
   }
   // const thirdChar = letterArray[getRandomInt(0, letterArray.length - 1)];
-  const thirdChar = letterArray[second ? second : getRandomInt(0, letterArray.length - 1)];
+  const thirdChar =
+    letterArray[second ? second : getRandomInt(0, letterArray.length - 1)]
 
-  const fsa = `V${secondChar}${thirdChar}`;
-  return fsa;
-};
+  const fsa = `V${secondChar}${thirdChar}`
+  return fsa
+}
 
-module.exports = { getRandomFSA_Vancouver, getRandomInt };
+module.exports = {getRandomFSA_Vancouver, getRandomInt}

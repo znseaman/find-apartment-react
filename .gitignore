@@ -7,3 +7,6 @@ node_modules
 
 # Ignore environment variables
 .env
+
+# client/build
+client/build

@@ -1,5 +1,5 @@
 function cleanPrice(dirtyPrice) {
-  return dirtyPrice.replace("$", "");
+  return dirtyPrice.replace('$', '')
 }
 
-module.exports = cleanPrice;
+module.exports = cleanPrice

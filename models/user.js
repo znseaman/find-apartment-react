@@ -1,42 +1,46 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize')
 
-const sequelize = require("../utils/database");
-const { INTEGER, STRING } = Sequelize;
+const sequelize = require('../utils/database')
+const {INTEGER, STRING} = Sequelize
 
-const hash = require("../utils/hash");
+const hash = require('../utils/hash')
 
-const User = sequelize.define("user", {
-	id: {
-		type: INTEGER,
-		autoIncrement: true,
-		allowNull: false,
-		primaryKey: true
-	},
-	email: {
-		type: STRING,
-		validate: {
-			isEmail: true,
-			max: 254
-		}
-	},
-	password: {
-		type: STRING(64),
-		validate: {
-			max: 99
-		}
-	},
-	session_id: STRING(36)
-}, {
-	hooks: {
-		beforeCreate(model) {
-			model.password = hash(model.password)
-		}
-	}
-});
+const User = sequelize.define(
+  'user',
+  {
+    id: {
+      type: INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
+    email: {
+      type: STRING,
+      validate: {
+        isEmail: true,
+        max: 254,
+      },
+    },
+    password: {
+      type: STRING(64),
+      validate: {
+        max: 99,
+      },
+    },
+    session_id: STRING(36),
+  },
+  {
+    hooks: {
+      beforeCreate(model) {
+        model.password = hash(model.password)
+      },
+    },
+  },
+)
 
 /* Instance Methods */
-User.prototype.verifyPassword = function (password) {
-	return this.password == hash(password);
+User.prototype.verifyPassword = function(password) {
+  return this.password == hash(password)
 }
 
-module.exports = User;
+module.exports = User

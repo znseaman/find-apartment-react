@@ -1,4 +1,4 @@
-const { userBuilder } = require('./generate')
+const {userBuilder} = require('./generate')
 
 Cypress.Commands.add('createUser', overrides => {
   const user = userBuilder(overrides)

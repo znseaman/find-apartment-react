@@ -1,21 +1,21 @@
-const { getRandomFSA_Vancouver } = require("./getRandomFS");
+const {getRandomFSA_Vancouver} = require('./getRandomFS')
 
 describe('getRandomFS', () => {
   it('function returns V5Z', () => {
-    const postalCode = getRandomFSA_Vancouver(0)(12);
+    const postalCode = getRandomFSA_Vancouver(0)(12)
 
-    expect(postalCode).toBe('V5Z');
+    expect(postalCode).toBe('V5Z')
   })
 
   it('function returns V6E', () => {
-    const postalCode = getRandomFSA_Vancouver(1)(3);
+    const postalCode = getRandomFSA_Vancouver(1)(3)
 
-    expect(postalCode).toBe('V6E');
+    expect(postalCode).toBe('V6E')
   })
 
   it('function returns V7Y', () => {
-    const postalCode = getRandomFSA_Vancouver(2)(1);
+    const postalCode = getRandomFSA_Vancouver(2)(1)
 
-    expect(postalCode).toBe('V7Y');
+    expect(postalCode).toBe('V7Y')
   })
 })

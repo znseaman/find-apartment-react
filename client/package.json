@@ -1,55 +1,55 @@
 {
-	"name": "client",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@fortawesome/fontawesome-svg-core": "^1.2.25",
-		"@fortawesome/free-solid-svg-icons": "^5.11.2",
-		"@fortawesome/react-fontawesome": "^0.1.6",
-		"@sentry/browser": "^5.6.3",
-		"axios": "^0.19.0",
-		"bootstrap": "^4.3.1",
-		"date-fns": "^2.0.0-beta.2",
-		"formik": "^2.1.2",
-		"history": "^4.9.0",
-		"leaflet": "^1.5.1",
-		"leaflet-defaulticon-compatibility": "^0.1.1",
-		"leaflet-extra-markers": "^1.2.0",
-		"leaflet.pm": "^2.1.0",
-		"react": "^16.8.6",
-		"react-bootstrap": "^1.0.0-beta.10",
-		"react-dom": "^16.8.6",
-		"react-leaflet": "^2.4.0",
-		"react-paginate": "^6.3.0",
-		"react-redux": "^7.1.1",
-		"react-responsive-carousel": "^3.1.49",
-		"react-router-dom": "^5.0.1",
-		"react-scripts": "3.0.1",
-		"redux": "^4.0.4",
-		"redux-devtools-extension": "^2.13.8",
-		"redux-thunk": "^2.3.0",
-		"uuid": "^3.3.2",
-		"yup": "^0.28.0"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	}
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.6",
+    "@sentry/browser": "^5.6.3",
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "date-fns": "^2.0.0-beta.2",
+    "formik": "^2.1.2",
+    "history": "^4.9.0",
+    "leaflet": "^1.5.1",
+    "leaflet-defaulticon-compatibility": "^0.1.1",
+    "leaflet-extra-markers": "^1.2.0",
+    "leaflet.pm": "^2.1.0",
+    "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.10",
+    "react-dom": "^16.8.6",
+    "react-leaflet": "^2.4.0",
+    "react-paginate": "^6.3.0",
+    "react-redux": "^7.1.1",
+    "react-responsive-carousel": "^3.1.49",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "uuid": "^3.3.2",
+    "yup": "^0.28.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

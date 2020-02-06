@@ -1,5 +1,5 @@
 function randomFail() {
-  return Math.floor(Math.random() * 2) == 1;
+  return Math.floor(Math.random() * 2) == 1
 }
 
-module.exports = randomFail;
+module.exports = randomFail

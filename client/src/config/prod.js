@@ -1,4 +1,4 @@
-const { PUBLIC_URL } = process.env;
+const {PUBLIC_URL} = process.env
 
 const config = {
   FULL_CLIENT_URL: window.location.origin + PUBLIC_URL,
@@ -8,5 +8,5 @@ const config = {
 }
 
 export default {
-  config
-};
+  config,
+}
