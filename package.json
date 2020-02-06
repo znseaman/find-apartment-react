@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "Full stack react and express app",
   "main": "server.js",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "cypress",
+      "client"
+    ]
+  },
   "scripts": {
     "start": "nodemon --inspect server.js",
     "server_start": "NODE_ENV=production node server.js",
@@ -14,6 +20,7 @@
     "dev": "concurrently npm:server_start npm:client_start",
     "cypress:open": "cypress open",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
+    "test": "jest --watch",
     "configure": ".bin/configuredb.sh"
   },
   "author": "Zach Seaman",
