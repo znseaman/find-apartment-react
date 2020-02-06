@@ -16,27 +16,15 @@ const postFilter = require('./checks/postFilter')
 const cleanPrice = require('./clean/price')
 
 const scrapeCraigslist = async (id, logging = true) => {
-  var userPreferences = { baseHost: '', city: '' }
   try {
-    userPreferences = await getUserPreferences(id)
-  } catch (error) {
-    throw error
-  }
+    var userPreferences = await getUserPreferences(id)
+    var options = await prepareClient(userPreferences)
 
-  var options = { client: '', superPreferences: {} }
-  try {
-    options = await prepareClient(userPreferences)
-  } catch (error) {
-    throw error
-  }
+    if (logging)
+      console.log(`Getting data from craigslist for userId #${id} ...`)
 
-  if (logging)
-    console.log(`Getting data from craigslist for userId #${id} ...`)
-
-  var listings = []
-  try {
     // 1st request for data and needs to be throttled
-    listings = await throttledSearchListings(options)
+    var listings = await throttledSearchListings(options)
   } catch (error) {
     throw error
   }
