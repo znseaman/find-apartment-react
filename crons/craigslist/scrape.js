@@ -45,7 +45,7 @@ const scrapeCraigslist = async (id, logging = true) => {
       detailsExtracted.pid = listing.pid
       detailsExtracted.userId = id
 
-      // detailsExtracted is combined with details & data coming from detailFilter
+      // NOTE: detailsExtracted is combined with details & data coming from detailFilter
 
       // Next request to get additional data from original posting url
       const { url } = details
