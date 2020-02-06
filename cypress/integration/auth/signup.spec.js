@@ -6,7 +6,7 @@ context('Sign Up', () => {
     cy.visit('http://localhost:3000/signup')
   })
 
-  it('incorrect email', () => {
+  it('should remain on /signup after incorrect email', () => {
     const int = getRandomInt(0, 1000000)
     const email = `temp-user-${int}@`
     const password = `!#JFdklkjf${int}kfds!`
@@ -26,7 +26,7 @@ context('Sign Up', () => {
     cy.url().should('eq', 'http://localhost:3000/signup')
   });
 
-  it('incorrect password', () => {
+  it('should remain on /signup after incorrect password', () => {
     const int = getRandomInt(0, 1000000)
     const email = `temp-user-${int}@email.com`
     const password = `123`
@@ -46,7 +46,7 @@ context('Sign Up', () => {
     cy.url().should('eq', 'http://localhost:3000/signup')
   });
 
-  it('signs up a new user', () => {
+  it('should sign up a new user', () => {
     const int = getRandomInt(0, 1000000)
     const email = `temp-user-${int}@test.com`
     const password = `!#JFdklkjf${int}kfds!`
@@ -66,12 +66,12 @@ context('Sign Up', () => {
     cy.url().should('eq', 'http://localhost:3000/')
   })
 
-  it('redirects from /signup to / if authenticated', () => {
+  it('should redirect from /signup to / if authenticated', () => {
     cy.url().should('eq', 'http://localhost:3000/')
     cy.contains('No listings found')
   })
 
-  it('logs out a new user', () => {
+  it('should log out a new user', () => {
     cy.get('header')
       .find('a[data-testid="nav-item-logout"]')
       .click();
