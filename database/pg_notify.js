@@ -2,6 +2,7 @@ var pg = require('./db');
 var EventEmitter = require('events');
 var util = require('util');
 const scrapeListings = require('../crons/craigslist/scrape');
+const User = require('../models/user');
 
 // Build and instantiate our custom event emitter
 function DbEventEmitter() {
@@ -15,6 +16,18 @@ var dbEventEmitter = new DbEventEmitter;
 dbEventEmitter.on('new_user', (msg) => {
   // Custom logic for reacting to the event e.g. firing a webhook, writing a log entry etc
   console.log('New user added: ' + msg.id);
+
+  // remove temporary test generated users
+  if (msg.email.match('temp-user-')) {
+    setTimeout(() => {
+      User.destroy({
+        where: {
+          id: msg.id,
+          email: msg.email,
+        }
+      })
+    }, 1000 * 60 * 60); // an hour after running the test
+  }
 
   try {
     // get listings for a newly created user
