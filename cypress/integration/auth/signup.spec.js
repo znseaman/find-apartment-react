@@ -1,55 +1,13 @@
 /// <reference types="Cypress" />
-const { getRandomInt } = require("../../../crons/craigslist/getRandomFS")
+const { userBuilder } = require('../../support/generate');
 
 context('Sign Up', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/signup')
   })
 
-  it('should remain on /signup after incorrect email', () => {
-    const int = getRandomInt(0, 1000000)
-    const email = `temp-user-${int}@`
-    const password = `!#JFdklkjf${int}kfds!`
-
-    cy.get('form')
-      .find('[type="email"]')
-      .type(email)
-
-    cy.get('form')
-      .find('[type="password"]')
-      .type(password)
-
-    cy.get('form')
-      .find('button[type="submit"]')
-      .click()
-
-    cy.url().should('eq', 'http://localhost:3000/signup')
-  });
-
-  it('should remain on /signup after incorrect password', () => {
-    const int = getRandomInt(0, 1000000)
-    const email = `temp-user-${int}@email.com`
-    const password = `123`
-
-    cy.get('form')
-      .find('[type="email"]')
-      .type(email)
-
-    cy.get('form')
-      .find('[type="password"]')
-      .type(password)
-
-    cy.get('form')
-      .find('button[type="submit"]')
-      .click()
-
-    cy.url().should('eq', 'http://localhost:3000/signup')
-  });
-
   it('should sign up a new user', () => {
-    const int = getRandomInt(0, 1000000)
-    const email = `temp-user-${int}@test.com`
-    const password = `!#JFdklkjf${int}kfds!`
+    const { email, password } = userBuilder();
 
     cy.get('form')
       .find('[type="email"]')
