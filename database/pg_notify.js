@@ -13,7 +13,7 @@ util.inherits(DbEventEmitter, EventEmitter)
 var dbEventEmitter = new DbEventEmitter()
 
 // Define the event handlers for each channel name
-dbEventEmitter.on('new_user', ({id, email}) => {
+dbEventEmitter.on('new_user', ({ id, email }) => {
   // remove temporary test generated users
   if (email.match('temp-user-')) {
     setTimeout(() => {

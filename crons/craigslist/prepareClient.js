@@ -7,7 +7,7 @@ function prepareClient(userPreferences) {
     searchDistance: getRandomInt(1, 40),
     nocache: 1,
   }
-  return superPreferences;
+  return superPreferences
 }
 
 module.exports = prepareClient

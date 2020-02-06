@@ -1,10 +1,16 @@
-import React, {Component} from 'react'
-import {Button, Form, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
-import {Formik} from 'formik'
+import React, { Component } from 'react'
+import {
+  Button,
+  Form,
+  FormGroup,
+  FormLabel,
+  FormControl,
+} from 'react-bootstrap'
+import { Formik } from 'formik'
 import * as Yup from 'yup'
 import classes from './AuthForm.module.css'
 import config from '../../config/index'
-const {CLIENT_URL: baseURL} = config
+const { CLIENT_URL: baseURL } = config
 
 class AuthForm extends Component {
   render() {
@@ -13,7 +19,7 @@ class AuthForm extends Component {
     const authentication = this.props.auth.authenticate(route)
     return (
       <Formik
-        initialValues={{email: '', password: ''}}
+        initialValues={{ email: '', password: '' }}
         validationSchema={Yup.object({
           email: Yup.string()
             .trim()
@@ -27,7 +33,7 @@ class AuthForm extends Component {
         })}
         onSubmit={(values, actions) => {
           actions.setSubmitting(true)
-          const {email, password} = values
+          const { email, password } = values
           authentication(email, password).catch(err => {
             if (err.status == 400 || err.status == 409) {
               actions.setFieldError(err.data.field, err.data.message)

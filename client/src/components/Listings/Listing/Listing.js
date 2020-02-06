@@ -1,6 +1,6 @@
 import React from 'react'
-import {Button} from 'react-bootstrap'
-import {formatDistanceStrict} from 'date-fns'
+import { Button } from 'react-bootstrap'
+import { formatDistanceStrict } from 'date-fns'
 import classes from './Listing.module.css'
 import Carousel from '../../Carousel/Carousel'
 import Emoji from '../../UI/Emoji/Emoji'
@@ -77,11 +77,11 @@ export default function Listing(props) {
         </p>
       </header>
       {carousel}
-      <div style={{padding: '.5rem 1rem'}}>
+      <div style={{ padding: '.5rem 1rem' }}>
         <p className={classes['Listing-description']}>{title}</p>
         <div
           className={classes['Listing-amenities']}
-          style={{WebkitBoxOrient: 'vertical'}}
+          style={{ WebkitBoxOrient: 'vertical' }}
         >
           {amenities.split(', ').map((amenity, i) => {
             if (amenity.match('dogs')) {
@@ -123,11 +123,11 @@ export default function Listing(props) {
           })}
         </div>
       </div>
-      <div style={{padding: '1rem 1rem', textAlign: 'center'}}>
+      <div style={{ padding: '1rem 1rem', textAlign: 'center' }}>
         <Button
           className="btn btn-secondary"
           size={isPopup ? `sm` : null}
-          style={{marginRight: '1rem'}}
+          style={{ marginRight: '1rem' }}
           onClick={() => openLink(url)}
         >
           Details
@@ -135,7 +135,7 @@ export default function Listing(props) {
         <Button
           variant="warning"
           size={isPopup ? `sm` : null}
-          style={{marginRight: '1rem'}}
+          style={{ marginRight: '1rem' }}
           onClick={event => {
             event.preventDefault()
             onFavorite(id, !favorite)

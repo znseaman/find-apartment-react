@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './Settings.module.css'
 
-import {Button, Form, Alert} from 'react-bootstrap'
+import { Button, Form, Alert } from 'react-bootstrap'
 import useSettings from '../../hooks/useSettings'
-import {updateObject} from '../../shared/updateObject'
+import { updateObject } from '../../shared/updateObject'
 import axiosConfig from '../../shared/axios'
 
 const Settings = () => {
@@ -16,7 +16,7 @@ const Settings = () => {
   })
 
   const inputChangedHandler = (event, inputIdentifier) => {
-    const {value} = event.target
+    const { value } = event.target
 
     const el = searchSettings[inputIdentifier]
     const updatedSearchSettings = updateObject(searchSettings, {
@@ -37,18 +37,18 @@ const Settings = () => {
     )
 
     axiosConfig
-      .post(`/search_setting/edit`, settings, {withCredentials: true})
+      .post(`/search_setting/edit`, settings, { withCredentials: true })
       .then(data => {
-        setAlertState({...alertState, show: true})
+        setAlertState({ ...alertState, show: true })
         setTimeout(() => {
-          setAlertState({...alertState, show: false})
+          setAlertState({ ...alertState, show: false })
         }, 5000)
       })
   }
 
   const renderForm = () => {
     const inputs = Object.keys(searchSettings).map(key => {
-      const {elementType, elementConfig, value, label} = searchSettings[key]
+      const { elementType, elementConfig, value, label } = searchSettings[key]
 
       if (elementType == 'select') {
         return (
@@ -59,7 +59,7 @@ const Settings = () => {
               onChange={event => inputChangedHandler(event, key)}
               required
             >
-              {elementConfig.options.map(({value, text}) => {
+              {elementConfig.options.map(({ value, text }) => {
                 return (
                   <option key={value} value={value}>
                     {text}
@@ -85,10 +85,10 @@ const Settings = () => {
     })
 
     const renderAlert = () => {
-      const {variant, message, show} = alertState
+      const { variant, message, show } = alertState
       const visibility = show ? 'visible' : 'hidden'
       return (
-        <Alert variant={variant} dismissable="true" style={{visibility}}>
+        <Alert variant={variant} dismissable="true" style={{ visibility }}>
           {message}
         </Alert>
       )

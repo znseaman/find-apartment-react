@@ -23,11 +23,11 @@ class Session {
 
   static parse(session_str = '||') {
     const [email, id, session_hash] = session_str.split(`|`)
-    return {email, id, session_hash}
+    return { email, id, session_hash }
   }
 
   static verify(session_str) {
-    const {email, id, session_hash} = Session.parse(session_str)
+    const { email, id, session_hash } = Session.parse(session_str)
     const user_data = Session.userData(email, id)
 
     return hash(user_data) === session_hash

@@ -5,7 +5,7 @@ import NavigationItems from '../NavigationItems/NavigationItems'
 import Menu from '../Menu/Menu'
 import Logo from '../../Logo/Logo'
 
-const Toolbar = ({toggle}) => {
+const Toolbar = ({ toggle }) => {
   return (
     <header className={classes.Toolbar}>
       <Menu toggle={toggle}></Menu>

@@ -6,7 +6,7 @@ const cleanCoordinates = require('../clean/coordinates')
 function detailsFilter(details) {
   return new Promise(async (resolve, reject) => {
     // skip details without a mapUrl
-    const {mapUrl} = details
+    const { mapUrl } = details
     if (!mapUrl) {
       return reject('detailsFilter - Ignored details without mapUrl')
     }
@@ -23,7 +23,7 @@ function detailsFilter(details) {
     const [latitude, longitude, zoom] = cleanCoordinates(hasCoords[0])
 
     // skip if there's a mention of no pets, dogs, or cats
-    const {description} = details
+    const { description } = details
     if (noPets.test(description)) {
       return reject(
         'detailsFilter - Ignored details as they are not pet-friendly',
@@ -39,13 +39,13 @@ function detailsFilter(details) {
       )
     }
 
-    const {NAME: polygon_name} = poly.properties
+    const { NAME: polygon_name } = poly.properties
     const point = {
       type: 'Point',
       coordinates,
       crs: {
         type: 'name',
-        properties: {name: 'EPSG:4326'},
+        properties: { name: 'EPSG:4326' },
       },
     }
 

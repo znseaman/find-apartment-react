@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {connect} from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import ReactPaginate from 'react-paginate'
 
@@ -8,7 +8,11 @@ import Listing from './Listing/Listing'
 import '../Listings/ReactPaginate.css'
 
 import Spinner from '../UI/Spinner/Spinner'
-import {getListings, deleteListing, favoriteListing} from '../../redux/actions'
+import {
+  getListings,
+  deleteListing,
+  favoriteListing,
+} from '../../redux/actions'
 
 const mapStateToProps = state => ({
   listings: state.listings,
@@ -28,12 +32,12 @@ const Listings = ({
   const [offset, setOffset] = useState(0)
 
   useEffect(() => {
-    getListings({limit, offset})
+    getListings({ limit, offset })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, offset])
 
   const handlePageClick = data => {
-    const {selected} = data
+    const { selected } = data
     const offset = Math.ceil(selected * limit)
 
     setOffset(offset)

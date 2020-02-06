@@ -2,13 +2,13 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 
 const fetchData = async url => {
-  const {data} = (await axios.get(url).catch(error => {
+  const { data } = (await axios.get(url).catch(error => {
     if (error.response) {
       console.log(error.response.data)
       console.log(error.response.status)
       console.log(error.response.headers)
     }
-  })) || {data: ''}
+  })) || { data: '' }
 
   if (!data) {
     throw Error('No data found')

@@ -3,8 +3,8 @@ const cleanDescription = require('../clean/description')
 
 function postFilter(post, details) {
   return new Promise(async (resolve, reject) => {
-    const {size} = post
-    const {price, latitude, longitude} = details
+    const { size } = post
+    const { price, latitude, longitude } = details
 
     // check for duplicate post (the listing price, size, and coordinates are the same as a previously saved entry)
     // this protects against the multiple posts issue, when users post to get their listing to appear fresh when it's been on the market for a while
@@ -26,8 +26,8 @@ function postFilter(post, details) {
     // Fixes listings with only 1 picture
     // 		if `listing` object registers as `hasPic: true`,
     //		`details` object will not have `images` property
-    const {images = []} = details
-    const {image} = post
+    const { images = [] } = details
+    const { image } = post
     if (images.length === 0) images.push(image)
 
     // join urls together
@@ -36,8 +36,8 @@ function postFilter(post, details) {
     // clean description before entering into the DB
     const description = cleanDescription(details.description)
 
-    const {pid, title, url, zoom, postedAt, polygon_name, userId} = details
-    const {beds, baths, amenities} = post
+    const { pid, title, url, zoom, postedAt, polygon_name, userId } = details
+    const { beds, baths, amenities } = post
     return resolve({
       description,
       pid,

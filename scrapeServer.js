@@ -23,8 +23,8 @@ app.use(
 )
 
 /* Cron Jobs */
-const {CronJob} = require('cron')
-const {scrape, heartbeat} = require('./crons/craigslist/options')
+const { CronJob } = require('cron')
+const { scrape, heartbeat } = require('./crons/craigslist/options')
 new CronJob(...scrape)
 new CronJob(...heartbeat)
 ;(async () => {

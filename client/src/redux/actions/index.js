@@ -6,15 +6,15 @@ import {
 } from '../constants/action-types'
 import axiosConfig from '../../shared/axios'
 import config from '../../config/index'
-const {FULL_SERVER_URL} = config
+const { FULL_SERVER_URL } = config
 
-export const getListings = ({limit, offset}) => async dispatch => {
+export const getListings = ({ limit, offset }) => async dispatch => {
   var interval = null
   var times = 0
   var maxTimes = 5
   async function fetchData() {
     const url = new URL(`${FULL_SERVER_URL}/listing/all`)
-    const params = {limit, offset, orderBy: 'postedAt', order: 'DESC'}
+    const params = { limit, offset, orderBy: 'postedAt', order: 'DESC' }
     Object.keys(params).forEach(key =>
       url.searchParams.append(key, params[key]),
     )
@@ -24,7 +24,7 @@ export const getListings = ({limit, offset}) => async dispatch => {
         withCredentials: true,
       })) || {
         listings: [],
-        meta: {total_count: 1, limit: 1},
+        meta: { total_count: 1, limit: 1 },
       }
 
       // @ts-ignore
@@ -59,16 +59,16 @@ export const getListings = ({limit, offset}) => async dispatch => {
         // @ts-ignore
         listings,
         // @ts-ignore
-        meta: {total_count, limit},
+        meta: { total_count, limit },
       } = data
       const pageCount = Math.ceil(total_count / limit)
       dispatch({
         type: GET_LISTINGS,
-        payload: {listings, pageCount},
+        payload: { listings, pageCount },
       })
     } catch (e) {
       console.error(e)
-      dispatch({type: LISTINGS_ERROR, payload: e})
+      dispatch({ type: LISTINGS_ERROR, payload: e })
     }
   }
 
@@ -77,11 +77,11 @@ export const getListings = ({limit, offset}) => async dispatch => {
 
 export const deleteListing = id => async dispatch => {
   try {
-    await axiosConfig.delete(`/listing/${id}`, {withCredentials: true})
-    dispatch({type: DELETE_LISTING, payload: id})
+    await axiosConfig.delete(`/listing/${id}`, { withCredentials: true })
+    dispatch({ type: DELETE_LISTING, payload: id })
   } catch (e) {
     console.error(e)
-    dispatch({type: LISTINGS_ERROR, payload: e})
+    dispatch({ type: LISTINGS_ERROR, payload: e })
   }
 }
 
@@ -91,9 +91,9 @@ export const favoriteListing = (id, favorite) => async dispatch => {
       id,
       favorite,
     })
-    dispatch({type: FAVORITE_LISTING, payload: {id, favorite}})
+    dispatch({ type: FAVORITE_LISTING, payload: { id, favorite } })
   } catch (e) {
     console.error(e)
-    dispatch({type: LISTINGS_ERROR, payload: e})
+    dispatch({ type: LISTINGS_ERROR, payload: e })
   }
 }

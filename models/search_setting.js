@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const User = require('./user')
 
 const sequelize = require('../utils/database')
-const {INTEGER, STRING} = Sequelize
+const { INTEGER, STRING } = Sequelize
 const SearchSetting = sequelize.define('search_setting', {
   id: {
     type: INTEGER,
@@ -21,7 +21,7 @@ const SearchSetting = sequelize.define('search_setting', {
 })
 
 // Relations
-SearchSetting.belongsTo(User, {constraints: true, onDelete: 'CASCADE'})
+SearchSetting.belongsTo(User, { constraints: true, onDelete: 'CASCADE' })
 User.hasMany(SearchSetting)
 
 module.exports = SearchSetting

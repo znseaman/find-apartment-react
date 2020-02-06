@@ -3,7 +3,7 @@ const User = require('../models/user')
 const scrapeListings = require('../crons/craigslist/scrape')
 
 const signup = async (req, res, next) => {
-  const {email, password} = req.body
+  const { email, password } = req.body
 
   try {
     const existingUser = await User.findOne({
@@ -58,7 +58,7 @@ const signup = async (req, res, next) => {
 
     Session.set_session(email, res)
       .then(() => {
-        res.json({msg: 'Successfully created user!'})
+        res.json({ msg: 'Successfully created user!' })
       })
       .catch(error => {
         next(error)
@@ -69,7 +69,7 @@ const signup = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
-  const {email, password} = req.body
+  const { email, password } = req.body
 
   try {
     const user = await User.findOne({
@@ -95,7 +95,7 @@ const login = async (req, res, next) => {
 
     Session.set_session(email, res, user.session_id)
       .then(() => {
-        res.json({message: 'Successful login!'})
+        res.json({ message: 'Successful login!' })
       })
       .catch(error => {
         next(error)
@@ -106,7 +106,7 @@ const login = async (req, res, next) => {
 }
 
 const logout = async (req, res, next) => {
-  const {email, id: session_id} = Session.parse(req.cookies.session_str)
+  const { email, id: session_id } = Session.parse(req.cookies.session_str)
 
   try {
     await User.update(
@@ -122,7 +122,7 @@ const logout = async (req, res, next) => {
     )
 
     res.clearCookie('session_str')
-    res.json({msg: 'Successful logout'})
+    res.json({ msg: 'Successful logout' })
   } catch (error) {
     next(error)
   }
@@ -130,7 +130,7 @@ const logout = async (req, res, next) => {
 
 const protect = async (req, res, next) => {
   try {
-    const {session_str} = req.cookies
+    const { session_str } = req.cookies
     if (!Session.verify(session_str)) {
       res.clearCookie('session_str')
       return next({
@@ -139,7 +139,7 @@ const protect = async (req, res, next) => {
       })
     }
 
-    const {email, id: session_id} = Session.parse(session_str)
+    const { email, id: session_id } = Session.parse(session_str)
 
     const user = await User.findOne({
       where: {

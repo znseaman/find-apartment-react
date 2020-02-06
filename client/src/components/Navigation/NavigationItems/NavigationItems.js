@@ -1,12 +1,12 @@
 import React from 'react'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import classes from './NavigationItems.module.css'
 import NavigationItem from './NavigationItem/NavigationItem'
-import {auth} from '../../Auth/Auth'
+import { auth } from '../../Auth/Auth'
 import config from '../../../config/index'
-let {CLIENT_URL: baseURL} = config
+let { CLIENT_URL: baseURL } = config
 
-const NavigationItems = ({loggedIn}) => {
+const NavigationItems = ({ loggedIn }) => {
   const items = auth.loggedIn ? (
     <>
       <NavigationItem exact link={`${baseURL}/`}>

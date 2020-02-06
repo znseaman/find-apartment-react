@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react'
-import {connect} from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {Map, TileLayer, Marker, Popup, GeoJSON} from 'react-leaflet'
+import { Map, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet'
 import Listing from '../Listings/Listing/Listing'
 import places from '../../data/local_area_boundary'
 
@@ -12,9 +12,13 @@ import L from 'leaflet'
 import 'leaflet-extra-markers/dist/css/leaflet.extra-markers.min.css'
 import 'leaflet-extra-markers/dist/js/leaflet.extra-markers'
 
-import {getListings, deleteListing, favoriteListing} from '../../redux/actions'
+import {
+  getListings,
+  deleteListing,
+  favoriteListing,
+} from '../../redux/actions'
 
-const mapStateToProps = state => ({listings: state.listings})
+const mapStateToProps = state => ({ listings: state.listings })
 
 delete L.Icon.Default.prototype._getIconUrl
 
@@ -24,7 +28,12 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 })
 
-const SimpleMap = ({listings, getListings, deleteListing, favoriteListing}) => {
+const SimpleMap = ({
+  listings,
+  getListings,
+  deleteListing,
+  favoriteListing,
+}) => {
   const [center] = useState([49.2671543446071, -123.14777031540872])
   const [zoom] = useState(13)
 
@@ -34,7 +43,7 @@ const SimpleMap = ({listings, getListings, deleteListing, favoriteListing}) => {
 
   useEffect(() => {
     // @TODO: use a BBOX filter here instead of getListings
-    getListings({limit, offset})
+    getListings({ limit, offset })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, offset])
 
@@ -51,7 +60,7 @@ const SimpleMap = ({listings, getListings, deleteListing, favoriteListing}) => {
     listings.length === 0
       ? null
       : listings.map(listing => {
-          const {id, latitude: lat, longitude: lng, favorite} = listing
+          const { id, latitude: lat, longitude: lng, favorite } = listing
 
           const icon = L.ExtraMarkers.icon({
             icon: 'fa-building',
@@ -63,7 +72,9 @@ const SimpleMap = ({listings, getListings, deleteListing, favoriteListing}) => {
           return (
             <Marker key={id} position={[lat, lng]} icon={icon}>
               <Popup className={favorite ? 'favorite-popup' : ''}>
-                <div style={{backgroundColor: favorite ? '#ffc107' : 'white'}}>
+                <div
+                  style={{ backgroundColor: favorite ? '#ffc107' : 'white' }}
+                >
                   {renderPopup(listing)}
                 </div>
               </Popup>
@@ -82,7 +93,7 @@ const SimpleMap = ({listings, getListings, deleteListing, favoriteListing}) => {
       whenReady={assignRef}
       center={center}
       zoom={zoom}
-      style={{width: '100%'}}
+      style={{ width: '100%' }}
     >
       <GeoJSON data={places} />
       <TileLayer

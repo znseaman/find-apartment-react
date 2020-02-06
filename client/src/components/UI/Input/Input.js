@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Input = props => {
-  const {elementType, elementConfig, label, value, changed} = props
+  const { elementType, elementConfig, label, value, changed } = props
   let inputElement = null
 
   switch (elementType) {
@@ -13,7 +13,7 @@ const Input = props => {
     case 'select':
       inputElement = (
         <select value={value} onChange={changed}>
-          {elementConfig.options.map(({value, text}) => {
+          {elementConfig.options.map(({ value, text }) => {
             return (
               <option key={value} value={value}>
                 {text}
@@ -31,7 +31,7 @@ const Input = props => {
   }
   return (
     <div>
-      <label style={{fontWeight: 'bold'}}>{label}</label>
+      <label style={{ fontWeight: 'bold' }}>{label}</label>
       {inputElement}
     </div>
   )

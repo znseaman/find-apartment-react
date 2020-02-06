@@ -46,7 +46,7 @@ const Listing = sequelize.define('listing', {
 })
 
 // Relations
-Listing.belongsTo(User, {constraints: true, onDelete: 'CASCADE'})
+Listing.belongsTo(User, { constraints: true, onDelete: 'CASCADE' })
 User.hasMany(Listing)
 
 module.exports = Listing

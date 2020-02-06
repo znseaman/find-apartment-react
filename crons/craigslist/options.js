@@ -10,8 +10,8 @@ const scrapeCraigslist = require('./scrape')
  */
 const User = require('../../models/user')
 const Sequelize = require('sequelize')
-const {Op} = Sequelize
-const {ne: $ne} = Op
+const { Op } = Sequelize
+const { ne: $ne } = Op
 const scrape = [
   '12 14 * * *',
   async function() {
@@ -26,7 +26,7 @@ const scrape = [
     })
 
     for await (const user of users) {
-      const {id} = user
+      const { id } = user
 
       try {
         await scrapeCraigslist(id)

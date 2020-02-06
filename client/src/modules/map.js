@@ -25,6 +25,6 @@ export function addGeoJSONProps(layer) {
   layer.feature.properties.name = 'Kitsilano'
 }
 
-export function createMarker({latitude: lat, longitude: lng}) {
+export function createMarker({ latitude: lat, longitude: lng }) {
   return L.marker([lat, lng])
 }

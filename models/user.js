@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 const sequelize = require('../utils/database')
-const {INTEGER, STRING} = Sequelize
+const { INTEGER, STRING } = Sequelize
 
 const hash = require('../utils/hash')
 

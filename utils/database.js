@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const {Op} = Sequelize
+const { Op } = Sequelize
 const {
   and: $and,
   or: $or,
@@ -10,7 +10,7 @@ const {
   like: $like,
 } = Op
 
-const {DB_NAME, DB_USER, DB_PASSWORD, DB_HOST} = process.env
+const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env
 // Sets up a connection pool
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   dialect: 'postgres',

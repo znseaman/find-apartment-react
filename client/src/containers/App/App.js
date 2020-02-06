@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {Route, Switch, Redirect} from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import classes from './App.module.css'
 
 import Layout from '../../hoc/Layout/Layout'
@@ -12,14 +12,14 @@ import Settings from '../../components/Settings/Settings'
 import Logout from '../../components/Auth/Logout/Logout'
 import Favorites from '../../components/Listings/Favorites'
 import config from '../../config/index'
-const {CLIENT_URL: baseURL} = config
+const { CLIENT_URL: baseURL } = config
 
 function containsMap(pathname) {
   const regex = new RegExp('map')
   return regex.test(pathname)
 }
 
-const AuthRoute = ({component: Component, auth, ...rest}) => (
+const AuthRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
     render={props => {
@@ -44,7 +44,7 @@ const App = props => {
     setHasMap(containsMap(location.pathname))
   })
 
-  const {auth} = props
+  const { auth } = props
 
   let routes = (
     <Switch>

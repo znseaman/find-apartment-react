@@ -1,8 +1,8 @@
-import {useState, useEffect} from 'react'
-import {updateObject} from '../shared/updateObject'
+import { useState, useEffect } from 'react'
+import { updateObject } from '../shared/updateObject'
 import axiosConfig from '../shared/axios'
 import config from '../config/index'
-const {FULL_SERVER_URL} = config
+const { FULL_SERVER_URL } = config
 
 export default () => {
   const [searchSettings, setSearchSettings] = useState({
@@ -10,8 +10,8 @@ export default () => {
       elementType: 'select',
       elementConfig: {
         options: [
-          {value: 1, text: 'Yes'},
-          {value: 0, text: 'No'},
+          { value: 1, text: 'Yes' },
+          { value: 0, text: 'No' },
         ],
       },
       value: 1,
@@ -37,8 +37,8 @@ export default () => {
       elementType: 'select',
       elementConfig: {
         options: [
-          {value: 1, text: 'Yes'},
-          {value: 0, text: 'No'},
+          { value: 1, text: 'Yes' },
+          { value: 0, text: 'No' },
         ],
       },
       value: 1,
@@ -55,7 +55,7 @@ export default () => {
         })
 
         if (data) {
-          const {has_pic, min_price, max_price, posted_today} = data
+          const { has_pic, min_price, max_price, posted_today } = data
           const updatedSearchSettings = updateObject(searchSettings, {
             has_pic: updateObject(searchSettings['has_pic'], {
               value: has_pic,

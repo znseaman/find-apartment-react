@@ -1,6 +1,6 @@
 const Listing = require('../../models/listing')
 
-const getUserPreferences = require('./getUserPreferences');
+const getUserPreferences = require('./getUserPreferences')
 const prepareClient = require('./prepareClient')
 const setupClient = require('./setupClient')
 const searchListings = require('./searchListings')

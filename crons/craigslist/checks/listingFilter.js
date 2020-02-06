@@ -4,13 +4,13 @@ const Listing = require('../../../models/listing')
 function listingFilter(listing) {
   return new Promise(async (resolve, reject) => {
     // skip ignored locations
-    const {location} = listing
+    const { location } = listing
     if (ignoredLocations.test(location)) {
       return reject('listingFilter - Ignored location found')
     }
 
     // check whether the pid already exists in the listings table
-    const {pid} = listing
+    const { pid } = listing
     const exists = await Listing.findOne({
       where: {
         pid,

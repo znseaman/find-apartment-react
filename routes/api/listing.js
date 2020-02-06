@@ -1,4 +1,4 @@
-const {Router} = require('express')
+const { Router } = require('express')
 const util = require('util')
 const Listing = require('../../models/listing')
 const PER_PAGE = 50
@@ -10,7 +10,7 @@ function getPaginatedItems(items, offset) {
 }
 
 router.get('/all', async (req, res, next) => {
-  const {user} = req
+  const { user } = req
   let order
   if (req.query.orderBy && req.query.order) {
     order = [[req.query.orderBy, req.query.order]]
@@ -42,7 +42,7 @@ router.get('/all', async (req, res, next) => {
 })
 
 router.delete('/:id', async (req, res, next) => {
-  const {id: userId} = req.user
+  const { id: userId } = req.user
   const id = Number(req.params.id)
 
   try {
@@ -52,15 +52,15 @@ router.delete('/:id', async (req, res, next) => {
         userId,
       },
     })
-    res.status(200).json({id})
+    res.status(200).json({ id })
   } catch (error) {
     next(error)
   }
 })
 
 router.post('/favorite', async (req, res, next) => {
-  const {id: userId} = req.user
-  const {id, favorite} = req.body
+  const { id: userId } = req.user
+  const { id, favorite } = req.body
 
   try {
     await Listing.update(
@@ -74,14 +74,14 @@ router.post('/favorite', async (req, res, next) => {
         },
       },
     )
-    res.status(200).json({id, favorite})
+    res.status(200).json({ id, favorite })
   } catch (error) {
     next(error)
   }
 })
 
 router.get('/favorites', async (req, res, next) => {
-  const {user} = req
+  const { user } = req
   let order
   if (req.query.orderBy && req.query.order) {
     order = [[req.query.orderBy, req.query.order]]

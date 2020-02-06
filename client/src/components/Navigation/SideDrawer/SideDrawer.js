@@ -6,7 +6,7 @@ import NavigationItems from '../../Navigation/NavigationItems/NavigationItems'
 import Backdrop from '../../UI/Backdrop/Backdrop'
 import Logo from '../../Logo/Logo'
 
-const SideDrawer = ({open, closed}) => {
+const SideDrawer = ({ open, closed }) => {
   let attachedClasses = [classes.SideDrawer, classes.Close]
   if (open) {
     attachedClasses = [classes.SideDrawer, classes.Open]

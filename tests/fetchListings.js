@@ -1,7 +1,7 @@
 const fetchListings = async () => {
   const craigslist = require('node-craigslist')
   const userPreferences = require('../utils/userPreferences')
-  const {baseHost, city} = userPreferences
+  const { baseHost, city } = userPreferences
   let client = new craigslist.Client({
     baseHost,
     city,

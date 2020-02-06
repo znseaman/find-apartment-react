@@ -25,4 +25,4 @@ switch (env) {
     envConfig = dev.config
 }
 
-export default {...baseConfig, ...envConfig}
+export default { ...baseConfig, ...envConfig }

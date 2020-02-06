@@ -1,10 +1,10 @@
-const {Router} = require('express')
+const { Router } = require('express')
 const SearchSetting = require('../../models/search_setting')
 
 const router = Router()
 
 router.get('/', async (req, res, next) => {
-  const {id: userId} = req.user
+  const { id: userId } = req.user
   try {
     const search_settings = await SearchSetting.findOne({
       where: {
@@ -19,8 +19,8 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/edit', async (req, res, next) => {
-  const {id: userId} = req.user
-  const {has_pic, min_price, max_price, posted_today} = req.body
+  const { id: userId } = req.user
+  const { has_pic, min_price, max_price, posted_today } = req.body
 
   try {
     const result = await SearchSetting.update(
@@ -30,7 +30,7 @@ router.post('/edit', async (req, res, next) => {
         max_price,
         posted_today,
       },
-      {where: {userId}},
+      { where: { userId } },
     )
 
     res.status(200).json(result)

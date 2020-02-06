@@ -13,10 +13,10 @@ const initialState = {
   isLoading: true,
 }
 
-export default (state = initialState, {type, payload}) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_LISTINGS:
-      const {listings, limit, pageCount} = payload
+      const { listings, limit, pageCount } = payload
       return {
         ...state,
         listings: [...listings],

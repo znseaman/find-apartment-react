@@ -24,11 +24,11 @@ const heartbeatCraigslist = async listings => {
   let totalDeleted = 0
   // Loop through listings for urls
   for await (const listing of listings) {
-    const {id, postedAt} = listing
+    const { id, postedAt } = listing
 
     // TODO: move this to the DB level in a cron job there, instead of via node
     // 			more efficient to be cleaning these up at that level, than in node
-    const {differenceInDays} = require('date-fns')
+    const { differenceInDays } = require('date-fns')
     const days = differenceInDays(Date.now(), new Date(postedAt))
     if (days > 30) {
       // delete listing from the DB
@@ -45,9 +45,9 @@ const heartbeatCraigslist = async listings => {
       continue
     }
 
-    const {url} = listing
+    const { url } = listing
     // TODO: fix what occurs when this throws an error due to destructuring
-    const {data} = (await throttledGet(url)
+    const { data } = (await throttledGet(url)
       .then(res => {
         console.log(`Axios Get Request Complete At:`, new Date(Date.now()))
         return res
@@ -71,7 +71,7 @@ const heartbeatCraigslist = async listings => {
             }
           }
         }
-      })) || {data: ''}
+      })) || { data: '' }
 
     if (!data) {
       continue

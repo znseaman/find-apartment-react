@@ -1,4 +1,4 @@
-const setupClient = require('../setupClient');
+const setupClient = require('../setupClient')
 
 describe('setupClient', () => {
   it('returns craigslist client class instance', async () => {
@@ -11,10 +11,10 @@ describe('setupClient', () => {
       maxPrice: 2000,
       minPrice: 1000,
       postedToday: 1,
-    };
+    }
 
-    const client = await setupClient(userPreferences);
+    const client = await setupClient(userPreferences)
 
-    expect(client).toBeDefined();
+    expect(client).toBeDefined()
   })
 })

@@ -1,7 +1,7 @@
 import 'leaflet.pm'
 import 'leaflet.pm/dist/leaflet.pm.css'
 
-import {addGeoJSONProps} from './map'
+import { addGeoJSONProps } from './map'
 
 export function addEditorControls(map) {
   map.pm.addControls({
@@ -22,7 +22,7 @@ var template = `
 
 export function onCreate(map) {
   map.on('pm:create', e => {
-    const {shape, layer} = e
+    const { shape, layer } = e
     addGeoJSONProps(layer)
 
     layer.pm.enable()

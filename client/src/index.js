@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import history from './utils/history'
-import {Router} from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
-import {auth} from './components/Auth/Auth'
+import { auth } from './components/Auth/Auth'
 import App from './containers/App/App'
 
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 import store from './redux/store'
 
 import * as Sentry from '@sentry/browser'
