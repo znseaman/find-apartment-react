@@ -1,7 +1,8 @@
-const { build, fake, sequence } = require('test-data-bot')
+const { build, fake } = require('test-data-bot')
+const { getRandomInt } = require('../../crons/craigslist/getRandomFS');
 
 const userBuilder = build('User').fields({
-  email: sequence(x => `temp-user-${x}@test.com`),
+  email: `temp-user-${getRandomInt(0, 100000000)}@test.com`,
   password: fake(f => f.internet.password())
 })
 
