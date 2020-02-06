@@ -1,4 +1,4 @@
-const { getRandomFSA_Vancouver } = require('./getRandomFS')
+const { getRandomFSA_Vancouver } = require('../getRandomFS')
 
 describe('getRandomFS', () => {
   it('function returns V5Z', () => {
