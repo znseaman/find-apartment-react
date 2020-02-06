@@ -2,6 +2,7 @@ var pg = require('./db')
 var EventEmitter = require('events')
 var util = require('util')
 const scrapeListings = require('../crons/craigslist/scrape')
+const { Op } = require("sequelize");
 const User = require('../models/user')
 
 // Build and instantiate our custom event emitter
@@ -14,15 +15,18 @@ var dbEventEmitter = new DbEventEmitter()
 
 // Define the event handlers for each channel name
 dbEventEmitter.on('new_user', ({ id, email }) => {
+  const test_user_prefix = 'temp-user-';
   // remove temporary test generated users
-  if (email.match('temp-user-')) {
+  if (email.match(test_user_prefix)) {
     setTimeout(() => {
       User.destroy({
         where: {
-          id,
+          email: {
+            [Op.like]: `${test_user_prefix}%`
+          },
         },
       })
-    }, 1000 * 60 * 5) // 5 minutes after running the test
+    }, 1000 * 60 * 1) // 1 minute after running the test
 
     // prevent getting listings
     return false
