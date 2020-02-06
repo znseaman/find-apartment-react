@@ -39,7 +39,7 @@ const getRandomFSA_Vancouver = first => second => {
 
   // const secondChar = firstNumber[getRandomInt(0, firstNumber.length - 1)];
   const secondChar =
-    firstNumber[first ? first : getRandomInt(0, firstNumber.length - 1)]
+    firstNumber[typeof first != 'undefined' ? first : getRandomInt(0, firstNumber.length - 1)]
 
   // find the correct letter array
   let letterArray
@@ -52,10 +52,10 @@ const getRandomFSA_Vancouver = first => second => {
   }
   // const thirdChar = letterArray[getRandomInt(0, letterArray.length - 1)];
   const thirdChar =
-    letterArray[second ? second : getRandomInt(0, letterArray.length - 1)]
+    letterArray[typeof second != 'undefined' ? second : getRandomInt(0, letterArray.length - 1)]
 
   const fsa = `V${secondChar}${thirdChar}`
   return fsa
 }
 
-module.exports = {getRandomFSA_Vancouver, getRandomInt}
+module.exports = { getRandomFSA_Vancouver, getRandomInt }
