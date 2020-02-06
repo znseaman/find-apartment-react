@@ -37,9 +37,12 @@ const getRandomFSA_Vancouver = first => second => {
   ]
   const seven = ['X', 'Y']
 
-  // const secondChar = firstNumber[getRandomInt(0, firstNumber.length - 1)];
-  const secondChar =
-    firstNumber[typeof first != 'undefined' ? first : getRandomInt(0, firstNumber.length - 1)]
+  let secondChar
+  if (typeof first != 'undefined') {
+    secondChar = firstNumber.find(n => n == first)
+  } else {
+    secondChar = firstNumber[getRandomInt(0, firstNumber.length - 1)]
+  }
 
   // find the correct letter array
   let letterArray
@@ -50,9 +53,13 @@ const getRandomFSA_Vancouver = first => second => {
   } else if (secondChar === 7) {
     letterArray = seven
   }
-  // const thirdChar = letterArray[getRandomInt(0, letterArray.length - 1)];
-  const thirdChar =
-    letterArray[typeof second != 'undefined' ? second : getRandomInt(0, letterArray.length - 1)]
+
+  let thirdChar
+  if (typeof second != 'undefined') {
+    thirdChar = letterArray.find(n => n == second)
+  } else {
+    thirdChar = letterArray[getRandomInt(0, letterArray.length - 1)]
+  }
 
   const fsa = `V${secondChar}${thirdChar}`
   return fsa
