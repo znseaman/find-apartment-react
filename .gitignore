@@ -13,3 +13,19 @@ client/build
 
 # cypress/integration/examples
 cypress/integration/examples
+cypress/fixtures
+cypress/plugins
+
+# old sql
+users.sql
+bin
+
+# client-side data
+client/src/data/local_area_boundary.js
+client/src/data/local_area_boundary.json
+client/src/data/vancouver_fsas.js
+client/src/data/vancouver_fsas.json
+
+# server-side data
+data/local_area_boundary.json
+data/vancouver_fsas.json
