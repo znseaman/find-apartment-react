@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom/extend-expect'
+import { getQueriesForElement } from '@testing-library/dom'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router } from 'react-router-dom'
@@ -22,13 +23,14 @@ describe('AuthForm', () => {
     expect(history.location.pathname).toBe(pathname)
 
     // Inputs
-    expect(div.querySelector('input#form-email')).toHaveAttribute('type', 'email')
-    expect(div.querySelector('input#form-email')).toHaveAttribute('required')
-    expect(div.querySelector('label[for="form-email"]')).toHaveTextContent('Email')
+    const { getByLabelText } = getQueriesForElement(div);
+    const inputEmail = getByLabelText(/email address/i);
+    expect(inputEmail).toHaveAttribute('type', 'email')
+    expect(inputEmail).toHaveAttribute('required')
 
-    expect(div.querySelector('input#form-password')).toHaveAttribute('type', 'password')
-    expect(div.querySelector('input#form-password')).toHaveAttribute('required')
-    expect(div.querySelector('label[for="form-password"]')).toHaveTextContent('Password')
+    const inputPassword = getByLabelText(/password/i);
+    expect(inputPassword).toHaveAttribute('type', 'password')
+    expect(inputPassword).toHaveAttribute('required')
 
     // Submit Button
     expect(div.querySelector('button')).toHaveAttribute('type', 'submit')
@@ -44,13 +46,14 @@ describe('AuthForm', () => {
     expect(history.location.pathname).toBe(pathname)
 
     // Inputs
-    expect(div.querySelector('input#form-email')).toHaveAttribute('type', 'email')
-    expect(div.querySelector('input#form-email')).toHaveAttribute('required')
-    expect(div.querySelector('label[for="form-email"]')).toHaveTextContent('Email')
+    const { getByLabelText } = getQueriesForElement(div);
+    const inputEmail = getByLabelText(/email address/i);
+    expect(inputEmail).toHaveAttribute('type', 'email')
+    expect(inputEmail).toHaveAttribute('required')
 
-    expect(div.querySelector('input#form-password')).toHaveAttribute('type', 'password')
-    expect(div.querySelector('input#form-password')).toHaveAttribute('required')
-    expect(div.querySelector('label[for="form-password"]')).toHaveTextContent('Password')
+    const inputPassword = getByLabelText(/password/i);
+    expect(inputPassword).toHaveAttribute('type', 'password')
+    expect(inputPassword).toHaveAttribute('required')
 
     // Submit Button
     expect(div.querySelector('button')).toHaveAttribute('type', 'submit')
