@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-const { userBuilder } = require('../../support/generate');
+const { userBuilder } = require('../../support/generate')
 
 context('Sign Up', () => {
   beforeEach(() => {
@@ -7,7 +7,7 @@ context('Sign Up', () => {
   })
 
   it('should sign up a new user', () => {
-    const { email, password } = userBuilder();
+    const { email, password } = userBuilder()
 
     cy.get('form')
       .find('[type="email"]')
