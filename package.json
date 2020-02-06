@@ -16,6 +16,7 @@
     "test": "jest --watch",
     "client_start": "npm start --prefix client",
     "client_install": "npm install --prefix client",
+    "client_test": "npm test --prefix client",
     "client_build": "npm run build --prefix client",
     "dev": "concurrently npm:server_start npm:client_start",
     "cypress:open": "cypress open",
