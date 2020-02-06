@@ -13,20 +13,16 @@ util.inherits(DbEventEmitter, EventEmitter);
 var dbEventEmitter = new DbEventEmitter;
 
 // Define the event handlers for each channel name
-dbEventEmitter.on('new_user', (msg) => {
-  // Custom logic for reacting to the event e.g. firing a webhook, writing a log entry etc
-  console.log('New user added: ' + msg.id);
-
+dbEventEmitter.on('new_user', ({ id, email }) => {
   // remove temporary test generated users
-  if (msg.email.match('temp-user-')) {
+  if (email.match('temp-user-')) {
     setTimeout(() => {
       User.destroy({
         where: {
-          id: msg.id,
-          email: msg.email,
+          id,
         }
       })
-    }, 1000 * 30); // 30 seconds after running the test
+    }, 1000 * 60 * 5); // 5 minutes after running the test
 
     // prevent getting listings
     return false;
@@ -34,7 +30,7 @@ dbEventEmitter.on('new_user', (msg) => {
 
   try {
     // get listings for a newly created user
-    scrapeListings(msg.id);
+    scrapeListings(id);
   } catch (error) {
     console.error(error);
   }
