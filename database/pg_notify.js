@@ -26,7 +26,10 @@ dbEventEmitter.on('new_user', (msg) => {
           email: msg.email,
         }
       })
-    }, 1000 * 60 * 60); // an hour after running the test
+    }, 1000 * 30); // 30 seconds after running the test
+
+    // prevent getting listings
+    return false;
   }
 
   try {
