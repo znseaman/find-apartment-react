@@ -2,6 +2,7 @@ const Listing = require('../../models/listing')
 
 const getUserPreferences = require('./getUserPreferences');
 const prepareClient = require('./prepareClient')
+const setupClient = require('./setupClient')
 const searchListings = require('./searchListings')
 const searchDetails = require('./searchDetails')
 const fetchData = require('../../utils/fetchData')
@@ -19,6 +20,7 @@ const scrapeCraigslist = async (id, logging = true) => {
   try {
     var userPreferences = await getUserPreferences(id)
     var options = await prepareClient(userPreferences)
+    var client = setupClient(userPreferences)
 
     if (logging)
       console.log(`Getting data from craigslist for userId #${id} ...`)
@@ -30,7 +32,6 @@ const scrapeCraigslist = async (id, logging = true) => {
   }
 
   // Series of requests based on the listings above
-  const { client } = options
   for await (const listing of listings) {
     try {
       /* After Search Checks */
