@@ -36,14 +36,11 @@ const scrapeCraigslist = async (id, logging = true) => {
       /* After Search Checks */
       await listingFilter(listing)
 
-      // clean the price from listing
-      const price = cleanPrice(listing.price)
-
       const details = await throttledSearchDetails(client, listing)
 
       /* After Details Checks */
       const detailsExtracted = await detailsFilter(details)
-      detailsExtracted.price = price
+      detailsExtracted.price = cleanPrice(listing.price)
       detailsExtracted.images = listing.images
       detailsExtracted.pid = listing.pid
       detailsExtracted.userId = id
