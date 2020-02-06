@@ -1,5 +1,6 @@
 const Listing = require('../../models/listing')
 
+const getUserPreferences = require('./getUserPreferences');
 const prepareClient = require('./prepareClient')
 const searchListings = require('./searchListings')
 const searchDetails = require('./searchDetails')
@@ -14,13 +15,23 @@ const detailsFilter = require('./checks/detailsFilter')
 const postFilter = require('./checks/postFilter')
 const cleanPrice = require('./clean/price')
 
-const scrapeCraigslist = async id => {
-  var options = {client: '', superPreferences: {}}
+const scrapeCraigslist = async (id, logging = true) => {
+  var userPreferences = { baseHost: '', city: '' }
   try {
-    options = await prepareClient(id)
+    userPreferences = await getUserPreferences(id)
   } catch (error) {
     throw error
   }
+
+  var options = { client: '', superPreferences: {} }
+  try {
+    options = await prepareClient(userPreferences)
+  } catch (error) {
+    throw error
+  }
+
+  if (logging)
+    console.log(`Getting data from craigslist for userId #${id} ...`)
 
   var listings = []
   try {
@@ -31,7 +42,7 @@ const scrapeCraigslist = async id => {
   }
 
   // Series of requests based on the listings above
-  const {client} = options
+  const { client } = options
   for await (const listing of listings) {
     /* After Search Checks */
     try {
@@ -71,7 +82,7 @@ const scrapeCraigslist = async id => {
     var originalPostData
     try {
       // Next request to get additional data from original posting url
-      const {url} = details
+      const { url } = details
       originalPostData = await throttledFetchData(url)
     } catch (error) {
       console.error(error)
