@@ -32,64 +32,39 @@ const scrapeCraigslist = async (id, logging = true) => {
   // Series of requests based on the listings above
   const { client } = options
   for await (const listing of listings) {
-    /* After Search Checks */
     try {
+      /* After Search Checks */
       await listingFilter(listing)
-    } catch (error) {
-      console.error(error)
-      continue
-    }
 
-    // clean the price from listing
-    const price = cleanPrice(listing.price)
+      // clean the price from listing
+      const price = cleanPrice(listing.price)
 
-    var details
-    try {
-      details = await throttledSearchDetails(client, listing)
-    } catch (error) {
-      console.error(error)
-      continue
-    }
+      const details = await throttledSearchDetails(client, listing)
 
-    /* After Details Checks */
-    var detailsExtracted = {}
-    try {
-      detailsExtracted = await detailsFilter(details)
-    } catch (error) {
-      console.error(error)
-      continue
-    }
+      /* After Details Checks */
+      const detailsExtracted = await detailsFilter(details)
+      detailsExtracted.price = price
+      detailsExtracted.images = listing.images
+      detailsExtracted.pid = listing.pid
+      detailsExtracted.userId = id
 
-    detailsExtracted.price = price
-    detailsExtracted.images = listing.images
-    detailsExtracted.pid = listing.pid
-    detailsExtracted.userId = id
+      // detailsExtracted is combined with details & data coming from detailFilter
 
-    // detailsExtracted is combined with details & data coming from detailFilter
-
-    var originalPostData
-    try {
       // Next request to get additional data from original posting url
       const { url } = details
-      originalPostData = await throttledFetchData(url)
-    } catch (error) {
-      console.error(error)
-      continue
-    }
+      const originalPostData = await throttledFetchData(url)
 
-    /* After Original Post Data Checks */
-    var originalDataExtracted = {}
-    try {
-      originalDataExtracted = await postFilter(
+      /* After Original Post Data Checks */
+      const originalDataExtracted = await postFilter(
         originalPostData,
         detailsExtracted,
       )
+
+      Listing.create(originalDataExtracted)
     } catch (error) {
       console.error(error)
       continue
     }
-
-    Listing.create(originalDataExtracted)
   }
 }
 
