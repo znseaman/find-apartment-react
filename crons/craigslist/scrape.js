@@ -19,6 +19,10 @@ const cleanPrice = require('./clean/price')
 const scrapeCraigslist = async (id, logging = true) => {
   try {
     var userPreferences = await getUserPreferences(id)
+
+    // fix broken query with domain name changes for Canada
+    userPreferences.baseHost = userPreferences.baseHost == 'craiglist.ca' ? 'craigslist.org' : userPreferences.baseHost;
+    userPreferences.city = userPreferences.city.toLowerCase();
     if (logging) console.log(`User preferences found for userId # ${id}`, userPreferences);
     var superPreferences = await prepareClient(userPreferences)
     var client = setupClient(userPreferences)
@@ -61,6 +65,9 @@ const scrapeCraigslist = async (id, logging = true) => {
         originalPostData,
         detailsExtracted,
       )
+
+      originalDataExtracted.latitude = Number(originalDataExtracted.latitude)
+      originalDataExtracted.longitude = Number(originalDataExtracted.longitude)
 
       Listing.create(originalDataExtracted)
     } catch (error) {
