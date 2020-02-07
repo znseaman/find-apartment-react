@@ -1,6 +1,6 @@
-async function searchDetails(client, listing) {
+async function searchDetails(client, listing, logging = true) {
   return client.details(listing).then(async res => {
-    console.log(`Search Details Date:`, new Date(Date.now()))
+    if (logging) console.log(`Search Details Date:`, new Date(Date.now()))
     return res
   })
 }

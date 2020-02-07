@@ -1,7 +1,7 @@
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-const fetchData = async url => {
+const fetchData = async (url, logging = true) => {
   const { data } = (await axios.get(url).catch(error => {
     if (error.response) {
       console.log(error.response.data)
@@ -13,6 +13,9 @@ const fetchData = async url => {
   if (!data) {
     throw Error('No data found')
   }
+
+  if (logging) console.log(`Search Original Post Data - Date:`, new Date(Date.now()))
+
   const $ = cheerio.load(data)
 
   let [beds, baths] = $(

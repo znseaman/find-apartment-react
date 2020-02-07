@@ -19,17 +19,21 @@ const cleanPrice = require('./clean/price')
 const scrapeCraigslist = async (id, logging = true) => {
   try {
     var userPreferences = await getUserPreferences(id)
-    var options = await prepareClient(userPreferences)
+    if (logging) console.log(`User preferences found for userId # ${id}`, userPreferences);
+    var superPreferences = await prepareClient(userPreferences)
     var client = setupClient(userPreferences)
 
     if (logging)
       console.log(`Getting data from craigslist for userId #${id} ...`)
 
     // 1st request for data and needs to be throttled
-    var listings = await throttledSearchListings(options)
+    var listings = await throttledSearchListings({ client, superPreferences })
   } catch (error) {
     throw error
   }
+
+  // limit number of listings to only 3
+  listings = listings.slice(0, 3)
 
   // Series of requests based on the listings above
   for await (const listing of listings) {
