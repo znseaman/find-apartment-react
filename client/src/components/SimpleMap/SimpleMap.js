@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Map, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet'
 import Listing from '../Listings/Listing/Listing'
-import places from '../../data/local_area_boundary'
+// import places from '../../data/local_area_boundary'
 
 /* Boilerplate for Leaflet to work in React */
 import 'leaflet/dist/leaflet.css'
@@ -60,27 +60,27 @@ const SimpleMap = ({
     listings.length === 0
       ? null
       : listings.map(listing => {
-          const { id, latitude: lat, longitude: lng, favorite } = listing
+        const { id, latitude: lat, longitude: lng, favorite } = listing
 
-          const icon = L.ExtraMarkers.icon({
-            icon: 'fa-building',
-            markerColor: favorite ? 'yellow' : 'blue',
-            shape: favorite ? 'star' : 'circle',
-            prefix: 'fa',
-          })
-
-          return (
-            <Marker key={id} position={[lat, lng]} icon={icon}>
-              <Popup className={favorite ? 'favorite-popup' : ''}>
-                <div
-                  style={{ backgroundColor: favorite ? '#ffc107' : 'white' }}
-                >
-                  {renderPopup(listing)}
-                </div>
-              </Popup>
-            </Marker>
-          )
+        const icon = L.ExtraMarkers.icon({
+          icon: 'fa-building',
+          markerColor: favorite ? 'yellow' : 'blue',
+          shape: favorite ? 'star' : 'circle',
+          prefix: 'fa',
         })
+
+        return (
+          <Marker key={id} position={[lat, lng]} icon={icon}>
+            <Popup className={favorite ? 'favorite-popup' : ''}>
+              <div
+                style={{ backgroundColor: favorite ? '#ffc107' : 'white' }}
+              >
+                {renderPopup(listing)}
+              </div>
+            </Popup>
+          </Marker>
+        )
+      })
 
   const assignRef = event => {
     map.current = event.target
@@ -95,7 +95,7 @@ const SimpleMap = ({
       zoom={zoom}
       style={{ width: '100%' }}
     >
-      <GeoJSON data={places} />
+      {/* <GeoJSON data={places} /> */}
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
