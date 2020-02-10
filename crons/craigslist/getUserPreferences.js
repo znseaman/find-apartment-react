@@ -19,8 +19,8 @@ const getUserPreferences = async userId => {
       base_host: baseHost,
       has_pic: hasPic,
       category,
-      max_price: maxPrice,
-      min_price: minPrice,
+      max_price,
+      min_price,
       posted_today: postedToday,
     } = search_setting
 
@@ -30,8 +30,8 @@ const getUserPreferences = async userId => {
       baseHost,
       hasPic,
       category,
-      maxPrice,
-      minPrice,
+      max_price,
+      min_price,
       postedToday,
     }
   } catch (error) {

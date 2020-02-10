@@ -32,6 +32,8 @@ dbEventEmitter.on('new_user', ({ id, email }) => {
     return false
   }
 
+  console.log(`Attempting to get new data for new user with id of ${id} & email of ${email}...`);
+
   try {
     // get listings for a newly created user
     scrapeListings(id)
@@ -47,7 +49,7 @@ pg.connect((err, client, release) => {
   }
 
   // Listen for all pg_notify channel messages
-  client.on('notification', function(msg) {
+  client.on('notification', function (msg) {
     let payload = JSON.parse(msg.payload)
     dbEventEmitter.emit(msg.channel, payload)
   })

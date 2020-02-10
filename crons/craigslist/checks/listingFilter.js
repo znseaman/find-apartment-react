@@ -1,7 +1,7 @@
 const ignoredLocations = require('./ignoredLocations')
 const Listing = require('../../../models/listing')
 
-function listingFilter(listing) {
+function listingFilter(listing, userId) {
   return new Promise(async (resolve, reject) => {
     // skip ignored locations
     const { location } = listing
@@ -14,6 +14,7 @@ function listingFilter(listing) {
     const exists = await Listing.findOne({
       where: {
         pid,
+        userId
       },
       attributes: ['pid'],
     })

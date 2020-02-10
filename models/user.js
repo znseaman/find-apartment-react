@@ -39,7 +39,7 @@ const User = sequelize.define(
 )
 
 /* Instance Methods */
-User.prototype.verifyPassword = function(password) {
+User.prototype.verifyPassword = function (password) {
   return this.password == hash(password)
 }
 

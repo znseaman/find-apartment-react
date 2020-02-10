@@ -6,6 +6,7 @@ function postFilter(post, details) {
     const { size } = post
     const { price, latitude, longitude } = details
 
+    /* DISABLE DUPLICATE POST CHECK
     // check for duplicate post (the listing price, size, and coordinates are the same as a previously saved entry)
     // this protects against the multiple posts issue, when users post to get their listing to appear fresh when it's been on the market for a while
     const duplicate_post = await Listing.findOne({
@@ -22,6 +23,7 @@ function postFilter(post, details) {
       // FEATURE IDEA: add a desperation level to the post depending on the posts that match title & coordinates criteria
       return reject('postFilter - Ignored duplicate post')
     }
+    */
 
     // Fixes listings with only 1 picture
     // 		if `listing` object registers as `hasPic: true`,

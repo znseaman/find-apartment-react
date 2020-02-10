@@ -31,14 +31,14 @@ const Listing = sequelize.define('listing', {
     allowNull: false,
   },
   latitude: {
-    type: INTEGER,
+    type: DOUBLE,
     validate: {
       min: -90,
       max: 90
     }
   },
   longitude: {
-    type: INTEGER,
+    type: DOUBLE,
     validate: {
       min: -180,
       max: 180

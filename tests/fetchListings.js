@@ -7,10 +7,14 @@ const fetchListings = async () => {
     city,
   })
 
+  userPreferences.category = 'foa'
+
   const listings =
     (await client.search(userPreferences, '').catch(error => {
       console.error(error)
     })) || []
+
+  console.log(listings);
 
   return listings
 }

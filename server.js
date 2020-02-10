@@ -51,8 +51,8 @@ app.use((err, req, res, next) => {
   if (!err.statusCode) err.statusCode = 500
 
   res.status(err.statusCode).json(err)
-})
-;(async () => {
+});
+(async () => {
   try {
     // sync sequelize db .sync({force: true}) - reset the entire db
     await sequelize.sync()
