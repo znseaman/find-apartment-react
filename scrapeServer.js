@@ -24,10 +24,10 @@ app.use(
 
 /* Cron Jobs */
 const { CronJob } = require('cron')
-const { scrape, heartbeat } = require('./crons/craigslist/options')
-new CronJob(...scrape)
-new CronJob(...heartbeat)
-;(async () => {
+const { scrape, heartbeat } = require('./crons/craigslist/options');
+// new CronJob(...scrape)
+// new CronJob(...heartbeat)
+(async () => {
   try {
     app.listen(port, () => {
       console.log(`App running on port ${port}.`)
