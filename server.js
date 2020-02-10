@@ -11,6 +11,7 @@ const listing = require('./routes/api/listing')
 const user = require('./routes/api/user')
 const search_setting = require('./routes/api/search_setting')
 const { login, signup, logout, protect } = require('./utils/auth')
+require('./database/pg_notify')
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -59,10 +60,10 @@ app.use((err, req, res, next) => {
 
     await sequelize
       .authenticate()
-      .then(function(err) {
+      .then(function (err) {
         console.log('Connection has been established successfully.')
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log('Unable to connect to the database:', err)
       })
 

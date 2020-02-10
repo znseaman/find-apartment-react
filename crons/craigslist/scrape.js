@@ -22,7 +22,7 @@ const cleanPrice = require('./clean/price')
 
 const asyncReadFile = require('./asyncReadFile');
 const path = require('path');
-const whereToSaveJSON = path.resolve(__dirname, '../../data/scrapedListings.json');
+const whereToSaveJSON = path.resolve(__dirname, '../../data/testData.json');
 
 
 const scrapeCraigslist = async (id, logging = true) => {
@@ -30,6 +30,7 @@ const scrapeCraigslist = async (id, logging = true) => {
   // eslint-disable-next-line no-useless-catch
   try {
 
+    /* When scraping normally use this data to get the user preferences
     var userPreferences = await getUserPreferences(id)
 
     // fix broken query with domain name changes for Canada
@@ -43,6 +44,7 @@ const scrapeCraigslist = async (id, logging = true) => {
 
     if (logging)
       console.log(`Getting data from craigslist for userId #${id} ...`)
+    */
 
     // 1st request for data and needs to be throttled
     // var listings = await throttledSearchListings({ client, superPreferences })
@@ -50,7 +52,8 @@ const scrapeCraigslist = async (id, logging = true) => {
     // read from json as if it was coming from throttledSearchListings
     // console.log(`whereToSaveJSON`, whereToSaveJSON)
     var data = await asyncReadFile(whereToSaveJSON, "utf-8")
-    var { listings } = JSON.parse(data)
+    var listings = JSON.parse(data)
+    // var { listings } = JSON.parse(data)
 
     // use throttledSearchRawListings since throttledSearchListings doesn't appear to be working...
     // superPreferences.type = undefined;
@@ -66,12 +69,13 @@ const scrapeCraigslist = async (id, logging = true) => {
   // Series of requests based on the listings above
   for await (const listing of listings) {
     try {
-      /* After Search Checks */
+      /* When scraping normally use this data to clean the incoming data
+      // After Search Checks
       await listingFilter(listing, id)
 
       const details = await throttledSearchDetails(client, listing)
 
-      /* After Details Checks */
+      // After Details Checks
       const detailsExtracted = await detailsFilter(details)
       detailsExtracted.price = cleanPrice(listing.price)
       detailsExtracted.images = listing.images
@@ -84,7 +88,7 @@ const scrapeCraigslist = async (id, logging = true) => {
       const { url } = details
       const originalPostData = await throttledFetchData(url)
 
-      /* After Original Post Data Checks */
+      // After Original Post Data Checks
       const originalDataExtracted = await postFilter(
         originalPostData,
         detailsExtracted,
@@ -92,8 +96,12 @@ const scrapeCraigslist = async (id, logging = true) => {
 
       originalDataExtracted.latitude = Number(originalDataExtracted.latitude)
       originalDataExtracted.longitude = Number(originalDataExtracted.longitude)
+      */
 
-      Listing.create(originalDataExtracted)
+      // Format testData.json correctly
+      listing.userId = id
+
+      Listing.create(listing)
     } catch (error) {
       console.error(error)
       continue
